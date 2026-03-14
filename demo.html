@@ -731,12 +731,13 @@ function submitPanel(){
 function pushQBO(btn){btn.textContent='✓ Pushed to QBO';btn.style.background='var(--green-l)';btn.style.color='var(--green-d)';btn.style.border='1px solid var(--green-m)';btn.disabled=true;}
 // Auto-launch tour when coming from website (no splash)
 window.addEventListener('DOMContentLoaded', function() {
-  // If app is already visible (no splash), launch tour immediately
-  const app = document.getElementById('app');
-  if(app && app.style.display !== 'none') {
+  // Auto-launch tour — splash is hidden via CSS so always launch on page load
+  const intro = document.getElementById('intro');
+  const introVisible = intro && (intro.style.display === 'flex' || getComputedStyle(intro).display === 'flex');
+  if (!introVisible) {
     setTimeout(function() {
-      document.getElementById('twrap').style.display = 'block';
-      renderTour();
+      const tw = document.getElementById('twrap');
+      if (tw) { tw.style.display = 'block'; renderTour(); }
     }, 400);
   }
 });
