@@ -508,37 +508,34 @@ footer{background:#070f1a;padding:48px 5% 32px;color:rgba(255,255,255,.6);}
 </nav>
 
 <script>
-// Override browser scrollTo for dot nav
-window.scrollTo = (function(orig) {
-  return function(id, behavior) {
-    if (typeof id === 'string') {
-      const el = document.getElementById(id);
-      if (el) { el.scrollIntoView({ behavior: behavior || 'smooth' }); return; }
-    }
-    orig.apply(window, arguments);
-  };
-})(window.scrollTo);
+// Pill nav click handler
+document.querySelectorAll('.sdot[data-target]').forEach(function(dot) {
+  dot.addEventListener('click', function() {
+    const id = this.getAttribute('data-target');
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  });
+});
 
-// Dot highlight on scroll
-const sections = ['problem','how-it-works','features','demo-cta','proof'];
-const dots = document.querySelectorAll('.sdot');
-
-// Hide dots on hero (above first section), show when scrolled in
-const dotsNav = document.getElementById('section-dots');
+// Pill nav — highlight on scroll + show/hide
+const _sections = ['problem','how-it-works','features','demo-cta','proof'];
+const _dotsNav = document.getElementById('section-dots');
 
 function updateDots() {
   const scrollY = window.scrollY + window.innerHeight * 0.4;
   let active = -1;
-  sections.forEach((id, i) => {
+  _sections.forEach(function(id, i) {
     const el = document.getElementById(id);
     if (el && el.offsetTop <= scrollY) active = i;
   });
-  dots.forEach((d, i) => d.classList.toggle('active', i === active));
-  // Show dots only after hero
+  document.querySelectorAll('.sdot').forEach(function(d, i) {
+    d.classList.toggle('active', i === active);
+  });
   const hero = document.querySelector('.hero');
   const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 400;
-  dotsNav.style.opacity = window.scrollY > heroBottom - 200 ? '1' : '0';
-  dotsNav.style.transition = 'opacity .3s';
+  if (_dotsNav) {
+    _dotsNav.style.opacity = window.scrollY > heroBottom - 200 ? '1' : '0';
+  }
 }
 
 window.addEventListener('scroll', updateDots, { passive: true });
