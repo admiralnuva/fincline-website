@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fincline — Smart Reconciliation for Small Business</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#2AAE60;--green-d:#1e8a4a;--green-l:#e8f7ee;--green-m:#c2ebd4;
+  --white:#ffffff;--bg:#f4f6f8;--bg2:#edf0f3;
+  --sb:#0f2440;--sb-h:#1a3560;
+  --border:#e2e8f0;--border-d:#cbd5e1;
+  --text:#1a2332;--t2:#4a5568;--t3:#94a3b8;
+  --red:#e53e3e;--red-l:#fff5f5;
+  --amber:#d97706;--amber-l:#fffbeb;
+  --blue:#3b82f6;--blue-l:#eff6ff;
+  --sh0:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh1:0 4px 12px rgba(0,0,0,.07),0 1px 3px rgba(0,0,0,.05);
+  --sh2:0 10px 30px rgba(0,0,0,.10),0 4px 10px rgba(0,0,0,.06);
+  --r:10px;--rs:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;}
+
+/* INTRO */
+.intro{position:fixed;inset:0;background:linear-gradient(160deg,#0f2440 0%,#0d1f38 100%);display:none;align-items:center;justify-content:center;z-index:999;flex-direction:column;text-align:center;padding:32px;}
+.i-logo{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:white;padding:9px 18px;border-radius:8px;font-size:20px;font-weight:700;margin-bottom:28px;box-shadow:0 4px 16px rgba(42,174,96,.3);}
+.i-h{font-size:28px;font-weight:700;letter-spacing:-.4px;margin-bottom:10px;color:white;}
+.i-sub{font-size:15px;color:rgba(255,255,255,.72);margin-bottom:28px;max-width:460px;line-height:1.6;}
+.i-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+.chip{padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;background:rgba(42,174,96,.15);color:#4ade80;border:1px solid rgba(42,174,96,.3);display:inline-flex;align-items:center;gap:6px;}
+.i-stats{display:flex;gap:28px;justify-content:center;margin-bottom:36px;padding:18px 24px;background:rgba(255,255,255,.06);border-radius:var(--r);border:1px solid rgba(255,255,255,.1);}
+.is-v{font-size:24px;font-weight:700;color:#4ade80;}
+.is-l{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.btn-go{background:var(--green);color:white;border:none;border-radius:var(--r);padding:13px 32px;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(42,174,96,.3);transition:all .2s;}
+.btn-go:hover{background:var(--green-d);transform:translateY(-1px);}
+.i-note{font-size:12px;color:rgba(255,255,255,.4);margin-top:10px;}
+
+/* LAYOUT */
+.app{display:flex;height:100vh;}
+
+/* SIDEBAR */
+.sb-wrap{width:216px;min-width:216px;background:var(--sb);display:flex;flex-direction:column;}
+.sb-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:8px;}
+.sb-logo-pill{background:var(--green);color:white;padding:5px 10px;border-radius:6px;font-size:15px;font-weight:700;}
+.sb-org{margin:10px;padding:10px 12px;background:rgba(255,255,255,.06);border-radius:var(--rs);border:1px solid rgba(255,255,255,.08);}
+.sb-org-n{font-size:13px;font-weight:600;color:white;}
+.sb-org-s{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;}
+.nav{padding:4px 8px;flex:1;overflow-y:auto;}
+.nav-g{font-size:10px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;padding:12px 8px 4px;font-family:'DM Mono',monospace;}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--rs);color:rgba(255,255,255,.65);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:1px;position:relative;}
+.ni:hover{background:var(--sb-h);color:white;}
+.ni.on{background:var(--green);color:white;font-weight:600;}
+.ni-ic{font-size:14px;width:18px;text-align:center;opacity:.75;flex-shrink:0;}
+.nb{margin-left:auto;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;font-family:'DM Mono',monospace;}
+.nb-r{background:var(--red);color:white;}
+.nb-a{background:var(--amber);color:white;}
+.nb-g{background:rgba(255,255,255,.2);color:white;}
+.sb-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.35);}
+.odot{display:inline-block;width:6px;height:6px;background:#48bb78;border-radius:50%;margin-right:5px;}
+
+/* MAIN */
+.main-wrap{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-width:0;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 26px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:var(--sh0);}
+.tb-l{display:flex;align-items:center;gap:7px;}
+.tb-title{font-size:16px;font-weight:700;}
+.tb-div{color:var(--border-d);}
+.tb-sub{font-size:13px;color:var(--t3);}
+.tb-r{display:flex;align-items:center;gap:8px;}
+.btn{padding:7px 13px;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
+.bp{background:var(--green);color:white;}.bp:hover{background:var(--green-d);}
+.bo{background:white;color:var(--t2);border:1px solid var(--border-d);}.bo:hover{border-color:var(--green);color:var(--green);}
+.bd{background:var(--red-l);color:var(--red);border:1px solid #fed7d7;}
+.bsm{padding:5px 10px;font-size:12px;}
+.content{padding:22px 26px;flex:1;}
+.scr{display:none;animation:fu .25s ease;}
+.scr.on{display:block;}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAGE HEAD */
+.ph{margin-bottom:18px;}
+.ph h2{font-size:19px;font-weight:700;letter-spacing:-.3px;}
+.ph p{font-size:13px;color:var(--t2);margin-top:3px;}
+
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px;}
+.kpi{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:17px 18px;box-shadow:var(--sh0);}
+.kpi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px;}
+.kpi-lbl{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;}
+.kpi-ic{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.ki-g{background:var(--green-l);} .ki-a{background:var(--amber-l);} .ki-r{background:var(--red-l);} .ki-b{background:var(--blue-l);}
+.kpi-v{font-size:24px;font-weight:700;letter-spacing:-.4px;margin-bottom:4px;}
+.kpi-ch{font-size:12px;color:var(--t3);}
+.pos{color:var(--green);font-weight:600;} .neg{color:var(--red);font-weight:600;}
+.kpi.kg{border-top:3px solid var(--green);} .kpi.ka{border-top:3px solid var(--amber);} .kpi.kr{border-top:3px solid var(--red);} .kpi.kb{border-top:3px solid var(--blue);}
+
+/* CARD */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--sh0);margin-bottom:14px;}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.ct{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:7px;}
+.ct-ic{width:24px;height:24px;background:var(--green-l);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;}
+.cm{font-size:12px;color:var(--t3);}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-bottom:14px;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;padding:8px 13px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);}
+.tbl td{padding:11px 13px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:#fafbfc;}
+.tn{font-weight:600;color:var(--text);}
+.ts{font-size:11px;color:var(--t3);margin-top:1px;font-family:'DM Mono',monospace;}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
+.bg{background:var(--green-l);color:var(--green-d);}
+.ba{background:var(--amber-l);color:var(--amber);}
+.br{background:var(--red-l);color:var(--red);}
+.bb{background:var(--blue-l);color:var(--blue);}
+.bx{background:var(--bg);color:var(--t2);border:1px solid var(--border);}
+.bp2{background:#f5f3ff;color:#6d28d9;}
+
+/* CONF BAR */
+.conf{display:flex;align-items:center;gap:7px;}
+.ct2{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;min-width:50px;}
+.cf{height:100%;border-radius:3px;}
+.cn{font-size:12px;font-weight:600;min-width:32px;font-family:'DM Mono',monospace;}
+.ch2 .cf{background:var(--green);}.ch2 .cn{color:var(--green);}
+.cm2 .cf{background:var(--amber);}.cm2 .cn{color:var(--amber);}
+.cl .cf{background:var(--red);}.cl .cn{color:var(--red);}
+
+/* CHART */
+.bchart{display:flex;align-items:flex-end;gap:7px;height:105px;}
+.bc{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0;}
+.bf{width:100%;border-radius:4px 4px 0 0;}
+.bl{font-size:10px;color:var(--t3);margin-top:5px;font-family:'DM Mono',monospace;}
+.cleg{display:flex;gap:14px;margin-top:11px;padding-top:11px;border-top:1px solid var(--border);font-size:12px;color:var(--t2);}
+.ldot{width:8px;height:8px;border-radius:2px;flex-shrink:0;margin-top:3px;}
+
+/* DONUT */
+.dw{display:flex;align-items:center;gap:18px;}
+.dl{display:flex;flex-direction:column;gap:9px;}
+.di{display:flex;align-items:center;gap:7px;font-size:13px;}
+.dd{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+.dlab{color:var(--t2);flex:1;}
+.dval{font-weight:700;font-family:'DM Mono',monospace;}
+
+/* AGING */
+.ag-r{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.ag-l{font-size:12px;color:var(--t2);font-weight:500;min-width:75px;}
+.ag-t{flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+.ag-f{height:100%;border-radius:4px;}
+.ag-v{font-size:12px;font-weight:600;min-width:62px;text-align:right;font-family:'DM Mono',monospace;}
+
+/* PARSE */
+.pbox{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:13px;font-family:'DM Mono',monospace;font-size:12px;color:var(--t2);line-height:1.9;}
+.pk{color:var(--t3);}
+.pv{color:var(--green-d);font-weight:500;}
+.pva{color:var(--amber);font-weight:500;}
+
+/* ONBOARD STEPS */
+.obs{display:flex;align-items:center;max-width:520px;margin-bottom:24px;}
+.os{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;}
+.os:not(:last-child)::after{content:'';position:absolute;top:17px;left:50%;width:100%;height:2px;background:var(--border);z-index:0;}
+.os.done:not(:last-child)::after{background:var(--green);}
+.oc{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid var(--border);background:var(--white);position:relative;z-index:1;font-family:'DM Mono',monospace;transition:all .3s;}
+.os.done .oc{border-color:var(--green);background:var(--green);color:white;}
+.os.cur .oc{border-color:var(--green);color:var(--green);box-shadow:0 0 0 4px var(--green-l);}
+.ol{font-size:11px;color:var(--t3);margin-top:6px;font-weight:500;}
+.os.done .ol,.os.cur .ol{color:var(--t2);}
+.cc{display:flex;align-items:center;gap:13px;padding:13px 15px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);margin-bottom:9px;cursor:pointer;transition:all .15s;max-width:520px;}
+.cc:hover{border-color:var(--green);box-shadow:0 0 0 3px var(--green-l);}
+.cc.con{border-color:var(--green);background:linear-gradient(135deg,var(--white),var(--green-l));}
+.cc-ic{width:36px;height:36px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.cc-n{font-size:13px;font-weight:600;}
+.cc-s{font-size:12px;color:var(--t3);}
+
+/* ALERTS */
+.ac{padding:13px 15px;border-radius:var(--r);border:1px solid;margin-bottom:9px;display:flex;align-items:flex-start;gap:11px;}
+.ac-r{background:var(--red-l);border-color:#fed7d7;}
+.ac-a{background:var(--amber-l);border-color:#fde68a;}
+.ac-g{background:var(--green-l);border-color:var(--green-m);}
+.ac-b{background:var(--blue-l);border-color:#bfdbfe;}
+.a-ic{font-size:17px;flex-shrink:0;margin-top:1px;}
+.a-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.a-d{font-size:12px;color:var(--t2);line-height:1.5;}
+.a-tm{font-size:11px;color:var(--t3);margin-top:5px;font-family:'DM Mono',monospace;}
+
+/* SETTINGS */
+.sr{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
+.sr:last-child{border-bottom:none;}
+.sl{font-size:14px;font-weight:500;}
+.ss{font-size:12px;color:var(--t3);margin-top:2px;}
+.tog{width:40px;height:22px;background:var(--border-d);border-radius:11px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;border:none;}
+.tog.on{background:var(--green);}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.tog.on::after{transform:translateX(18px);}
+
+/* PRICING */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:600px;margin:0 auto 22px;}
+.pc{background:var(--white);border:2px solid var(--border);border-radius:12px;padding:26px;position:relative;}
+.pc.feat{border-color:var(--green);box-shadow:0 0 0 4px var(--green-l);}
+.pb{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--green);color:white;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;white-space:nowrap;}
+.pn{font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:11px;}
+.pam{font-size:38px;font-weight:800;letter-spacing:-1px;margin-bottom:4px;}
+.pam span{font-size:15px;color:var(--t3);font-weight:400;}
+.ps{font-size:13px;color:var(--t3);margin-bottom:18px;}
+.ps.sav{color:var(--green);font-weight:600;}
+.pf{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.pf li{font-size:13px;color:var(--t2);display:flex;align-items:center;gap:7px;}
+.pf li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.roi{background:var(--green-l);border:1px solid var(--green-m);border-radius:var(--r);padding:15px 20px;text-align:center;max-width:600px;margin:0 auto;}
+.roi p{font-size:13px;color:var(--t2);line-height:1.7;}
+.roi strong{color:var(--text);}
+.roi-hi{color:var(--green);font-weight:700;}
+
+/* SUMMARY BAR */
+.sbar{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;align-items:center;}
+.slbl{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:9px;font-family:'DM Mono',monospace;}
+
+/* UTILS */
+.mono{font-family:'DM Mono',monospace;}
+.fw6{font-weight:600;}.fw7{font-weight:700;}
+.tg{color:var(--green);}.ta{color:var(--amber);}.tr2{color:var(--red);}.tb2{color:var(--blue);}
+.t2c{color:var(--t2);}.t3c{color:var(--t3);}
+.fs12{font-size:12px;}.fs11{font-size:11px;}
+.mb14{margin-bottom:14px;}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.pulse{animation:pulse 1.8s infinite;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border-d);border-radius:3px;}
+
+/* TOUR */
+.tour-wrap{position:fixed;inset:0;z-index:500;pointer-events:none;}
+.tour-box{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);width:490px;max-width:calc(100vw - 28px);background:var(--white);border:1.5px solid var(--green);border-top:4px solid var(--green);border-radius:12px;padding:18px 20px;box-shadow:var(--sh2);pointer-events:all;}
+.tm{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.tsl{font-size:11px;font-weight:600;color:var(--t3);font-family:'DM Mono',monospace;}
+.tcl{font-size:12px;color:var(--t3);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;}
+.tcl:hover{color:var(--text);}
+.tt{font-size:15px;font-weight:700;margin-bottom:5px;}
+.td{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:14px;}
+.tf{display:flex;align-items:center;justify-content:space-between;}
+.tdots{display:flex;gap:5px;}
+.tdot{width:6px;height:6px;border-radius:3px;background:var(--border-d);transition:all .2s;}
+.tdot.act{background:var(--green);width:16px;}
+.tdot.dn{background:var(--green-m);}
+.tbtns{display:flex;gap:7px;}
+
+/* PERSISTENT TOP BAR */
+.site-bar{position:fixed;top:0;left:0;right:0;height:48px;background:#0a1a2e;border-bottom:2px solid #2AAE60;display:flex;align-items:center;padding:0 20px;gap:12px;z-index:1000;}
+.site-bar-logo{background:#2AAE60;color:white;padding:4px 11px;border-radius:6px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;}
+.site-bar-sep{flex:1;}
+.site-bar-btn{padding:5px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:"DM Sans",sans-serif;transition:all .15s;}
+.sbb-ghost{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.15);}
+.sbb-ghost:hover{background:rgba(255,255,255,.14);color:white;}
+.sbb-green{background:#2AAE60;color:white;box-shadow:0 2px 8px rgba(42,174,96,.3);}
+.sbb-green:hover{background:#1e8a4a;}
+
+/* offset everything for top bar */
+.intro{padding-top:68px;}
+.app{height:100vh;padding-top:48px;}
+
+/* SLIDE-IN PANEL */
+.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:2000;opacity:0;pointer-events:none;transition:opacity .25s;}
+.panel-overlay.open{opacity:1;pointer-events:all;}
+.panel{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100vw;background:white;z-index:2001;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.15);display:flex;flex-direction:column;}
+.panel.open{transform:translateX(0);}
+.panel-head{background:#0f2440;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;}
+.panel-head h3{font-size:16px;font-weight:700;color:white;}
+.panel-close{background:rgba(255,255,255,.1);border:none;color:white;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.panel-body{flex:1;overflow-y:auto;padding:24px 22px;}
+.panel-body h4{font-size:15px;font-weight:700;color:#1a2332;margin-bottom:6px;}
+.panel-body p{font-size:13px;color:#4a5568;margin-bottom:20px;line-height:1.6;}
+.pf-group{margin-bottom:14px;}
+.pf-group label{display:block;font-size:12px;font-weight:600;color:#1a2332;margin-bottom:5px;}
+.pf-group input,.pf-group select{width:100%;padding:9px 12px;border:1.5px solid #e2e8f0;border-radius:7px;font-size:13px;font-family:"DM Sans",sans-serif;color:#1a2332;outline:none;transition:border-color .15s;}
+.pf-group input:focus,.pf-group select:focus{border-color:#2AAE60;box-shadow:0 0 0 3px #e8f7ee;}
+.pf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.panel-submit{width:100%;padding:12px;background:#2AAE60;color:white;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif;box-shadow:0 4px 12px rgba(42,174,96,.3);transition:all .2s;margin-top:6px;}
+.panel-submit:hover{background:#1e8a4a;transform:translateY(-1px);}
+.panel-note{font-size:11px;color:#94a3b8;text-align:center;margin-top:8px;}
+.panel-success{display:none;text-align:center;padding:40px 20px;}
+.panel-success .ps-ic{font-size:44px;margin-bottom:16px;}
+.panel-success h3{font-size:18px;font-weight:700;color:#1a2332;margin-bottom:8px;}
+.panel-success p{font-size:14px;color:#4a5568;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<!-- PERSISTENT TOP BAR -->
+<div class="site-bar">
+  <span class="site-bar-logo" onclick="goHome()">Fincline</span>
+  <span class="site-bar-sep"></span>
+  <button class="site-bar-btn sbb-ghost" onclick="restartDemo()">↺ Restart Demo</button>
+  <button class="site-bar-btn sbb-green" onclick="openPanel()">Get Early Access →</button>
+</div>
+
+<!-- SLIDE-IN PANEL OVERLAY -->
+<div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
+<div class="panel" id="panel">
+  <div class="panel-head">
+    <h3>Get Early Access</h3>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body">
+    <div id="panel-form">
+      <h4>Join the waitlist</h4>
+      <p>First 50 customers get 60 days free and a direct line to the founding team. Takes 60 seconds.</p>
+      <div class="pf-row">
+        <div class="pf-group"><label>First name</label><input type="text" placeholder="Sarah" id="p-first"></div>
+        <div class="pf-group"><label>Last name</label><input type="text" placeholder="Johnson" id="p-last"></div>
+      </div>
+      <div class="pf-group"><label>Work email</label><input type="email" placeholder="sarah@company.com" id="p-email"></div>
+      <div class="pf-group"><label>Company name</label><input type="text" placeholder="Acme Inc." id="p-company"></div>
+      <div class="pf-group"><label>Company size</label>
+        <select id="p-size">
+          <option value="">Select team size</option>
+          <option>1–5 employees</option>
+          <option>6–20 employees</option>
+          <option>21–50 employees</option>
+          <option>51–200 employees</option>
+        </select>
+      </div>
+      <div class="pf-group"><label>Accounting software</label>
+        <select id="p-acct">
+          <option value="">What do you use today?</option>
+          <option>QuickBooks Online</option>
+          <option>Xero</option>
+          <option>Other</option>
+          <option>Nothing yet</option>
+        </select>
+      </div>
+      <button class="panel-submit" onclick="submitPanel()">Request My Early Access Spot →</button>
+      <p class="panel-note">No credit card required · We'll never spam you</p>
+    </div>
+    <div class="panel-success" id="panel-success">
+      <div class="ps-ic">🎉</div>
+      <h3>You're on the list!</h3>
+      <p>We'll be in touch within 24 hours to schedule your onboarding call and get you set up with your free 60-day trial.</p>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <div style="max-width:500px;">
+    <div class="i-logo">Fincline</div>
+    <h1 class="i-h">Reconciliation that runs itself</h1>
+    <p class="i-sub">Fincline connects your bank, QuickBooks and inbox — and matches payments to invoices automatically. See how it works.</p>
+    <div class="i-chips">
+      <span class="chip">🏦 Bank Account</span>
+      <span class="chip">📊 QuickBooks &amp; Xero</span>
+      <span class="chip">✉️ Gmail &amp; Outlook</span>
+      <span class="chip">⚡ AI Matching</span>
+    </div>
+    <div class="i-stats">
+      <div class="istat"><div class="is-v">12 hrs</div><div class="is-l">Saved per week</div></div>
+      <div class="istat"><div class="is-v">94%</div><div class="is-l">Auto-match rate</div></div>
+      <div class="istat"><div class="is-v">60 days</div><div class="is-l">Free trial</div></div>
+    </div>
+    <button class="btn-go" onclick="startDemo()">▶ &nbsp;Start Guided Demo</button>
+    <div class="i-note">Interactive walkthrough · 8 screens · no sign-up needed</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <!-- SIDEBAR -->
+  <aside class="sb-wrap">
+    <div class="sb-logo"><div class="sb-logo-pill">Fincline</div></div>
+    <div class="sb-org"><div class="sb-org-n">Fincline Corp</div><div class="sb-org-s">Demo · March 2026</div></div>
+    <nav class="nav">
+      <div class="nav-g">Overview</div>
+      <div class="ni on" onclick="nav('dashboard',this)"><span class="ni-ic">⊞</span>Dashboard</div>
+      <div class="nav-g">Payments</div>
+      <div class="ni" onclick="nav('matching',this)"><span class="ni-ic">⇄</span>Payment Matching<span class="nb nb-a">4</span></div>
+      <div class="ni" onclick="nav('apinbox',this)"><span class="ni-ic">↓</span>AP Bills Inbox<span class="nb nb-r">3</span></div>
+      <div class="ni" onclick="nav('arinvoices',this)"><span class="ni-ic">↑</span>AR Invoices<span class="nb nb-a">2</span></div>
+      <div class="nav-g">Intelligence</div>
+      <div class="ni" onclick="nav('alerts',this)"><span class="ni-ic">⚑</span>Anomaly Alerts<span class="nb nb-r">2</span></div>
+      <div class="nav-g">Account</div>
+      <div class="ni" onclick="nav('connections',this)"><span class="ni-ic">⊕</span>Connections<span class="nb nb-g">3</span></div>
+      <div class="ni" onclick="nav('settings',this)"><span class="ni-ic">⚙</span>Settings</div>
+    </nav>
+    <div class="sb-foot"><span class="odot"></span>All systems live<br><span style="margin-left:11px;">Last sync: <span class="mono">2 min ago</span></span><div style="margin-top:10px;"><button onclick="restartDemo()" style="width:100%;padding:7px 10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:rgba(255,255,255,0.6);font-size:12px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">↩ Restart Demo</button></div></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-wrap">
+    <div class="topbar">
+      <div class="tb-l">
+        <span class="tb-title" id="tb-t">Dashboard</span>
+        <span class="tb-div">/</span>
+        <span class="tb-sub" id="tb-s">Good morning, Sarah · March 13, 2026</span>
+      </div>
+      <div class="tb-r">
+        <button class="btn bo bsm">⬇ Export CSV</button>
+        <button class="btn bp bsm">+ New Invoice</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+            <!-- DASHBOARD -->
+      <div class="scr on" id="s-dashboard">
+        <div class="ph"><h2>Good morning, Sarah 👋</h2><p>Here's what Fincline processed overnight. Everything is on track.</p></div>
+
+        <!-- KPI ROW 1 -->
+        <div class="kpi-row">
+          <div class="kpi kg"><div class="kpi-top"><span class="kpi-lbl">Auto-Matched Today</span><div class="kpi-ic ki-g">✓</div></div><div class="kpi-v tg">$84,320</div><div class="kpi-ch"><span class="pos">94%</span> match rate · 138 transactions</div></div>
+          <div class="kpi ka"><div class="kpi-top"><span class="kpi-lbl">Needs Review</span><div class="kpi-ic ki-a">⏳</div></div><div class="kpi-v ta">$12,450</div><div class="kpi-ch">4 transactions flagged</div></div>
+          <div class="kpi kb"><div class="kpi-top"><span class="kpi-lbl">AP Bills Captured</span><div class="kpi-ic ki-b">📧</div></div><div class="kpi-v tb2">$31,880</div><div class="kpi-ch">8 invoices from inbox today</div></div>
+          <div class="kpi kr"><div class="kpi-top"><span class="kpi-lbl">Overdue AR</span><div class="kpi-ic ki-r">!</div></div><div class="kpi-v tr2">$28,750</div><div class="kpi-ch"><span class="neg">2 invoices</span> past 30 days</div></div>
+        </div>
+
+        <!-- KPI ROW 2 -->
+        <div class="g3" style="margin-bottom:14px;">
+          <div class="kpi" style="margin-bottom:0;border-top:3px solid #8b5cf6;"><div class="kpi-top"><span class="kpi-lbl">Matched This Month</span><div class="kpi-ic" style="background:#f5f3ff;">📊</div></div><div class="kpi-v" style="color:#6d28d9;">$412,800</div><div class="kpi-ch"><span style="color:#6d28d9;font-weight:600;">↑ 18%</span> vs last month</div></div>
+          <div class="kpi" style="margin-bottom:0;border-top:3px solid #0ea5e9;"><div class="kpi-top"><span class="kpi-lbl">AP Bills Due This Week</span><div class="kpi-ic" style="background:#e0f2fe;">📅</div></div><div class="kpi-v" style="color:#0369a1;">$47,240</div><div class="kpi-ch">6 bills · Next due Mar 15</div></div>
+          <div class="kpi" style="margin-bottom:0;border-top:3px solid var(--green);"><div class="kpi-top"><span class="kpi-lbl">Labour Saved This Month</span><div class="kpi-ic ki-g">⏱</div></div><div class="kpi-v tg">48 hrs</div><div class="kpi-ch">≈ <span class="pos">$1,200</span> in bookkeeper time</div></div>
+        </div>
+
+        <div class="g2">
+          <div class="card">
+            <div class="ch"><div class="ct"><div class="ct-ic">📊</div>Monthly Cash Received</div><span class="cm">Last 6 months</span></div>
+            <div style="padding-bottom:4px;">
+              <div class="bchart">
+                <div class="bc"><div style="font-size:9px;color:var(--t3);margin-bottom:3px;font-family:'DM Mono',monospace;">$312k</div><div class="bf" style="height:55%;background:#c2ebd4;"></div><div class="bl">Oct</div></div>
+                <div class="bc"><div style="font-size:9px;color:var(--t3);margin-bottom:3px;font-family:'DM Mono',monospace;">$368k</div><div class="bf" style="height:68%;background:#c2ebd4;"></div><div class="bl">Nov</div></div>
+                <div class="bc"><div style="font-size:9px;color:var(--t3);margin-bottom:3px;font-family:'DM Mono',monospace;">$324k</div><div class="bf" style="height:58%;background:#c2ebd4;"></div><div class="bl">Dec</div></div>
+                <div class="bc"><div style="font-size:9px;color:var(--t3);margin-bottom:3px;font-family:'DM Mono',monospace;">$398k</div><div class="bf" style="height:72%;background:#c2ebd4;"></div><div class="bl">Jan</div></div>
+                <div class="bc"><div style="font-size:9px;color:var(--t3);margin-bottom:3px;font-family:'DM Mono',monospace;">$384k</div><div class="bf" style="height:69%;background:#c2ebd4;"></div><div class="bl">Feb</div></div>
+                <div class="bc"><div style="font-size:9px;color:var(--green);margin-bottom:3px;font-weight:700;font-family:'DM Mono',monospace;">$413k</div><div class="bf" style="height:92%;background:var(--green);box-shadow:0 2px 8px rgba(42,174,96,.25);"></div><div class="bl" style="color:var(--green);font-weight:600;">Mar ▲</div></div>
+              </div>
+            </div>
+            <div class="cleg">
+              <div style="display:flex;align-items:center;gap:5px;"><div class="ldot" style="background:var(--green);"></div>Received: <strong>$412,800</strong></div>
+              <div style="display:flex;align-items:center;gap:5px;"><div class="ldot" style="background:#fed7d7;"></div>Paid out: <strong>$298,400</strong></div>
+              <div style="display:flex;align-items:center;gap:5px;"><div class="ldot" style="background:#bfdbfe;"></div>Net: <strong style="color:var(--green);">+$114,400</strong></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="ch"><div class="ct"><div class="ct-ic">🎯</div>Match Distribution</div><span class="cm">147 transactions · March</span></div>
+            <div class="dw" style="margin-top:4px;">
+              <svg width="92" height="92" viewBox="0 0 92 92">
+                <circle cx="46" cy="46" r="34" fill="none" stroke="#e2e8f0" stroke-width="13"/>
+                <circle cx="46" cy="46" r="34" fill="none" stroke="#2AAE60" stroke-width="13" stroke-dasharray="201 214" stroke-dashoffset="54" transform="rotate(-90 46 46)"/>
+                <circle cx="46" cy="46" r="34" fill="none" stroke="#d97706" stroke-width="13" stroke-dasharray="39 214" stroke-dashoffset="-147" transform="rotate(-90 46 46)"/>
+                <circle cx="46" cy="46" r="34" fill="none" stroke="#e53e3e" stroke-width="13" stroke-dasharray="20 214" stroke-dashoffset="-186" transform="rotate(-90 46 46)"/>
+                <text x="46" y="42" text-anchor="middle" fill="#1a2332" font-size="13" font-weight="700" font-family="DM Sans">94%</text>
+                <text x="46" y="54" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans">matched</text>
+              </svg>
+              <div class="dl">
+                <div class="di"><div class="dd" style="background:var(--green);"></div><span class="dlab">Auto-matched</span><span class="dval tg">138</span></div>
+                <div class="di"><div class="dd" style="background:var(--amber);"></div><span class="dlab">Needs review</span><span class="dval ta">6</span></div>
+                <div class="di"><div class="dd" style="background:var(--red);"></div><span class="dlab">Unmatched</span><span class="dval tr2">3</span></div>
+              </div>
+            </div>
+            <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
+              <div class="slbl" style="margin-bottom:8px;">Recent Activity</div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;display:inline-block;"></span><span class="mono t3c fs11">08:14</span><span class="t2c" style="flex:1;">INV-0891 matched · Vertex Solutions</span><span class="mono tg fw6">$12,500</span></div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;display:inline-block;"></span><span class="mono t3c fs11">07:52</span><span class="t2c" style="flex:1;">INV-0887 matched · Meridian Group</span><span class="mono tg fw6">$8,750</span></div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="width:6px;height:6px;background:var(--amber);border-radius:50%;flex-shrink:0;display:inline-block;"></span><span class="mono t3c fs11">07:31</span><span class="ta" style="flex:1;">Unknown ACH · review needed</span><span class="mono ta fw6">$4,200</span></div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;display:inline-block;"></span><span class="mono t3c fs11">06:58</span><span class="t2c" style="flex:1;">INV-0882 matched · Pinnacle Tech</span><span class="mono tg fw6">$22,400</span></div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="width:6px;height:6px;background:var(--blue);border-radius:50%;flex-shrink:0;display:inline-block;"></span><span class="mono t3c fs11">06:30</span><span class="tb2" style="flex:1;">Adobe invoice captured from email</span><span class="mono tb2 fw6">$1,188</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ct"><div class="ct-ic">⚡</div>Today's Transactions</div><span class="cm"><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 1.8s infinite;"></span>Live · last updated 2 min ago</span></span></div>
+          <table class="tbl">
+            <thead><tr><th>Time</th><th>Sender</th><th>Amount</th><th>Matched to</th><th>Confidence</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="mono t3c fs12">08:14</td><td><div class="tn">Vertex Solutions LLC</div><div class="ts">ACH · Chase Bank · Ref: VS-2024-0891</div></td><td class="mono fw7 tg">$12,500.00</td><td class="mono t2c">INV-2024-0891</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:97%"></div></div><span class="cn">97%</span></div></td><td><span class="badge bg">✓ Auto-matched</span></td><td><button class="btn bo bsm">View</button></td></tr>
+              <tr><td class="mono t3c fs12">07:52</td><td><div class="tn">Meridian Group</div><div class="ts">Wire · Wells Fargo · Ref: MG-887</div></td><td class="mono fw7 tg">$8,750.00</td><td class="mono t2c">INV-2024-0887</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:91%"></div></div><span class="cn">91%</span></div></td><td><span class="badge bg">✓ Auto-matched</span></td><td><button class="btn bo bsm">View</button></td></tr>
+              <tr style="background:#fffbeb;"><td class="mono t3c fs12">07:31</td><td><div class="tn">Unknown sender</div><div class="ts">ACH · No memo · No reference</div></td><td class="mono fw7 ta">$4,200.00</td><td class="mono t3c">3 possible matches</td><td><div class="conf cm2"><div class="ct2"><div class="cf" style="width:62%"></div></div><span class="cn">62%</span></div></td><td><span class="badge ba">⚠ Review needed</span></td><td><button class="btn bp bsm" onclick="nav('matching',null)">Resolve →</button></td></tr>
+              <tr><td class="mono t3c fs12">06:58</td><td><div class="tn">Pinnacle Tech Inc</div><div class="ts">Wire · Citibank · Ref: PT-INV-882</div></td><td class="mono fw7 tg">$22,400.00</td><td class="mono t2c">INV-2024-0882</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:99%"></div></div><span class="cn">99%</span></div></td><td><span class="badge bg">✓ Auto-matched</span></td><td><button class="btn bo bsm">View</button></td></tr>
+              <tr><td class="mono t3c fs12">06:30</td><td><div class="tn">Cascade Systems</div><div class="ts">ACH · Bank of America · Ref: CS-2024</div></td><td class="mono fw7 tg">$4,200.00</td><td class="mono t2c">INV-2024-0879</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:88%"></div></div><span class="cn">88%</span></div></td><td><span class="badge bg">✓ Auto-matched</span></td><td><button class="btn bo bsm">View</button></td></tr>
+              <tr><td class="mono t3c fs12">05:44</td><td><div class="tn">Horizon Digital</div><div class="ts">Wire · Chase · Ref: HD-Q1-2026</div></td><td class="mono fw7 tg">$15,000.00</td><td class="mono t2c">INV-2024-0889</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:95%"></div></div><span class="cn">95%</span></div></td><td><span class="badge bg">✓ Auto-matched</span></td><td><button class="btn bo bsm">View</button></td></tr>
+              <tr style="background:#fff5f5;"><td class="mono t3c fs12">04:22</td><td><div class="tn">THL Consulting</div><div class="ts">Wire · Unknown bank · No ref</div></td><td class="mono fw7 tr2">$6,800.00</td><td class="mono t3c">No match found</td><td><div class="conf cl"><div class="ct2"><div class="cf" style="width:18%"></div></div><span class="cn">18%</span></div></td><td><span class="badge br">✗ Unmatched</span></td><td><button class="btn bo bsm">Investigate</button></td></tr>
+              <tr><td class="mono t3c fs12">03:15</td><td><div class="tn">Nordstrom Partners</div><div class="ts">ACH · Wells Fargo · Ref: NP-0861</div></td><td class="mono fw7 tg">$9,600.00</td><td class="mono t2c">INV-2024-0861</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:93%"></div></div><span class="cn">93%</span></div></td><td><span class="badge bg">✓ Auto-matched</span></td><td><button class="btn bo bsm">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAYMENT MATCHING -->
+      <div class="scr" id="s-matching">
+        <div class="ph"><h2>Payment Matching</h2><p>Fincline has processed 147 transactions this month. 4 need your review.</p></div>
+        <div class="sbar">
+          <span class="badge ba" style="padding:5px 12px;font-size:12px;">⏳ 4 pending review</span>
+          <span class="badge bg" style="padding:5px 12px;font-size:12px;">✓ 138 auto-matched</span>
+          <span class="badge br" style="padding:5px 12px;font-size:12px;">✗ 3 unmatched</span>
+          <button class="btn bp bsm" style="margin-left:auto;">Bulk confirm selected</button>
+        </div>
+        <div class="card mb14">
+          <div class="ch"><div class="ct"><div class="ct-ic">⚠</div>Needs Your Review</div><span class="cm">Low confidence — confirm or reassign</span></div>
+          <table class="tbl">
+            <thead><tr><th>Payment received</th><th>Amount</th><th>Best match found</th><th>Confidence</th><th>Why flagged</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr style="background:#fffbeb;"><td><div class="tn">Unknown ACH</div><div class="ts">Mar 13 · 07:31 · No reference</div></td><td class="mono fw7">$4,200.00</td><td><span class="mono tg">INV-2024-0879</span><div class="ts">Cascade Systems · $4,200</div></td><td><div class="conf cm2"><div class="ct2"><div class="cf" style="width:62%"></div></div><span class="cn">62%</span></div></td><td><span class="badge ba">Amount only</span></td><td style="display:flex;gap:6px;"><button class="btn bp bsm" onclick="confirmRow(this)">✓ Confirm</button><button class="btn bo bsm">Reassign</button></td></tr>
+              <tr><td><div class="tn">Hawthorne Ltd</div><div class="ts">Mar 13 · 06:15 · Partial ref</div></td><td class="mono fw7">$7,500.00</td><td><span class="mono tg">INV-2024-0875</span><div class="ts">Hawthorne Ltd · $7,500</div></td><td><div class="conf cm2"><div class="ct2"><div class="cf" style="width:78%"></div></div><span class="cn">78%</span></div></td><td><span class="badge bb">Name + amount</span></td><td style="display:flex;gap:6px;"><button class="btn bp bsm" onclick="confirmRow(this)">✓ Confirm</button><button class="btn bo bsm">Reassign</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct"><div class="ct-ic">✓</div>Recently Auto-Matched</div><span class="cm">Confidence &gt;90% · Pushed to QuickBooks</span></div>
+          <table class="tbl">
+            <thead><tr><th>Payment</th><th>Amount</th><th>Invoice matched</th><th>Confidence</th><th>Method</th></tr></thead>
+            <tbody>
+              <tr><td><div class="tn">Vertex Solutions LLC</div><div class="ts">Mar 13 · 08:14</div></td><td class="mono fw7 tg">$12,500.00</td><td class="mono tg">INV-2024-0891</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:97%"></div></div><span class="cn">97%</span></div></td><td><span class="badge bp2">🤖 AI · Remittance email</span></td></tr>
+              <tr><td><div class="tn">Pinnacle Tech Inc</div><div class="ts">Mar 13 · 06:58</div></td><td class="mono fw7 tg">$22,400.00</td><td class="mono tg">INV-2024-0882</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:99%"></div></div><span class="cn">99%</span></div></td><td><span class="badge bb">⚡ Rule · Exact ref</span></td></tr>
+              <tr><td><div class="tn">Meridian Group</div><div class="ts">Mar 13 · 07:52</div></td><td class="mono fw7 tg">$8,750.00</td><td class="mono tg">INV-2024-0887</td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:91%"></div></div><span class="cn">91%</span></div></td><td><span class="badge bp2">🤖 AI · Name + amount</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- AP BILLS -->
+      <div class="scr" id="s-apinbox">
+        <div class="ph"><h2>AP Bills Inbox</h2><p>Vendor invoices captured automatically from your Gmail inbox — ready to push to QuickBooks.</p></div>
+        <div class="g3">
+          <div class="kpi kb" style="margin-bottom:0;"><div class="kpi-top"><span class="kpi-lbl">Captured Today</span><div class="kpi-ic ki-b">📧</div></div><div class="kpi-v tb2">8</div><div class="kpi-ch">From Gmail inbox</div></div>
+          <div class="kpi ka" style="margin-bottom:0;"><div class="kpi-top"><span class="kpi-lbl">Awaiting Approval</span><div class="kpi-ic ki-a">⏳</div></div><div class="kpi-v ta">3</div><div class="kpi-ch">Your review needed</div></div>
+          <div class="kpi kg" style="margin-bottom:0;"><div class="kpi-top"><span class="kpi-lbl">Pushed to QBO</span><div class="kpi-ic ki-g">✓</div></div><div class="kpi-v tg">5</div><div class="kpi-ch">High confidence · auto-sent</div></div>
+        </div>
+        <div style="height:14px;"></div>
+        <div class="card mb14">
+          <div class="ch"><div class="ct"><div class="ct-ic">📧</div>Invoices from Email</div><span class="cm">AI parsed · Ready to push to QuickBooks</span></div>
+          <table class="tbl">
+            <thead><tr><th>Received</th><th>Vendor</th><th>Invoice #</th><th>Amount</th><th>Due</th><th>Parser</th><th>Confidence</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td class="mono t3c fs11">Today 09:12</td><td><div class="tn">AWS Cloud Services</div><div class="ts">billing@aws.amazon.com</div></td><td class="mono t2c fs12">AWS-2026-03-0441</td><td class="mono fw7">$3,847.22</td><td class="mono ta fs12">Mar 28</td><td><span class="badge bb">Mindee</span></td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:98%"></div></div><span class="cn">98%</span></div></td><td><button class="btn bp bsm" onclick="pushQBO(this)">Push to QBO</button></td></tr>
+              <tr><td class="mono t3c fs11">Today 08:45</td><td><div class="tn">Salesforce Inc</div><div class="ts">invoices@salesforce.com</div></td><td class="mono t2c fs12">SF-INV-89234</td><td class="mono fw7">$12,400.00</td><td class="mono tr2 fs12">Mar 20 ⚠</td><td><span class="badge bp2">Veryfi</span></td><td><div class="conf ch2"><div class="ct2"><div class="cf" style="width:96%"></div></div><span class="cn">96%</span></div></td><td><button class="btn bp bsm" onclick="pushQBO(this)">Push to QBO</button></td></tr>
+              <tr style="background:#fff5f5;"><td class="mono t3c fs11">Today 07:30</td><td><div class="tn">Scanned invoice</div><div class="ts">vendor@supplier.co</div></td><td class="mono tr2 fs12">— needs review</td><td class="mono fw7 ta">$1,240?</td><td class="mono t3c fs12">Mar 30</td><td><span class="badge bx">GPT-4o</span></td><td><div class="conf cl"><div class="ct2"><div class="cf" style="width:58%"></div></div><span class="cn">58%</span></div></td><td><button class="btn bo bsm">Review →</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="ch">
+            <div class="ct"><div class="ct-ic">⚡</div>Live Email Parse <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--green);margin-left:8px;"><span class="pulse" style="width:7px;height:7px;background:var(--green);border-radius:50%;display:inline-block;"></span>Processing now</span></div>
+          </div>
+          <div class="g2" style="gap:13px;">
+            <div><div class="slbl">Raw email received</div><div class="pbox"><div><span class="pk">From: </span>billing@adobe.com</div><div><span class="pk">Subject: </span>Invoice — Creative Cloud Mar 2026</div><div><span class="pk">Date: </span>Mar 13, 2026 · 09:47 AM</div><div><span class="pk">Attachment: </span>invoice_CC_march2026.pdf</div><br><div style="color:var(--t3);">Dear Fincline Corp,<br>Please find your invoice attached...</div></div></div>
+            <div><div class="slbl">Fincline extracted fields</div><div class="pbox"><div><span class="pk">vendor:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="pv">Adobe Inc.</span></div><div><span class="pk">invoice_no:&nbsp;&nbsp;</span><span class="pv">ADB-2026-03-9812</span></div><div><span class="pk">amount:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="pv">$1,188.00</span></div><div><span class="pk">due_date:&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="pva">2026-04-01</span></div><div><span class="pk">line_items:&nbsp;&nbsp;</span><span class="pv">CC Team × 12 users</span></div><div><span class="pk">confidence:&nbsp;&nbsp;</span><span class="pv">97% ✓</span></div><div><span class="pk">qbo_ready:&nbsp;&nbsp;&nbsp;</span><span class="pv">TRUE — pushed</span></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AR INVOICES -->
+      <div class="scr" id="s-arinvoices">
+        <div class="ph"><h2>AR Invoice Tracker</h2><p>Track every invoice you've sent — who's opened it, who hasn't paid, and what's overdue.</p></div>
+        <div class="g2">
+          <div class="card"><div class="ch"><div class="ct"><div class="ct-ic">📊</div>Aging Summary</div><span class="cm">Outstanding: <strong class="ta">$68,250</strong></span></div>
+            <div style="margin-top:4px;">
+              <div class="ag-r"><span class="ag-l">Current</span><div class="ag-t"><div class="ag-f" style="width:58%;background:var(--green);"></div></div><span class="ag-v tg">$39,500</span></div>
+              <div class="ag-r"><span class="ag-l">1–30 days</span><div class="ag-t"><div class="ag-f" style="width:20%;background:var(--amber);"></div></div><span class="ag-v ta">$13,750</span></div>
+              <div class="ag-r"><span class="ag-l">31–60 days</span><div class="ag-t"><div class="ag-f" style="width:15%;background:#f87171;"></div></div><span class="ag-v tr2">$10,200</span></div>
+              <div class="ag-r"><span class="ag-l">60+ days</span><div class="ag-t"><div class="ag-f" style="width:7%;background:var(--red);"></div></div><span class="ag-v tr2">$4,800</span></div>
+            </div>
+          </div>
+          <div class="card"><div class="ch"><div class="ct"><div class="ct-ic">📧</div>Email Delivery</div><span class="cm">24 invoices sent · last 30 days</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span class="t2c fs12">Delivered &amp; opened</span><span class="badge bg">18 invoices</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span class="t2c fs12">Delivered, not opened</span><span class="badge ba">4 invoices</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span class="t2c fs12">Follow-up auto-sent</span><span class="badge bb">3 invoices</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span class="t2c fs12">Remittance pre-matched</span><span class="badge bp2">2 invoices</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct"><div class="ct-ic">📤</div>Outstanding Invoices</div><span class="cm">Auto follow-up enabled</span></div>
+          <table class="tbl">
+            <thead><tr><th>Invoice</th><th>Customer</th><th>Amount</th><th>Due Date</th><th>Email Status</th><th>Pre-match</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td class="mono tg fw6 fs12">INV-2024-0891</td><td><div class="tn">Vertex Solutions LLC</div></td><td class="mono fw7 tg">$12,500.00</td><td class="mono fs12">Mar 15</td><td><span class="badge bg">✓ Opened</span></td><td><span class="badge bp2">Remittance rcvd</span></td><td><button class="btn bo bsm">View</button></td></tr>
+              <tr style="background:#fffbeb;"><td class="mono tg fw6 fs12">INV-2024-0889</td><td><div class="tn">Horizon Digital</div></td><td class="mono fw7 ta">$18,750.00</td><td class="mono ta fs12">Mar 10 ⚠</td><td><span class="badge ba">Opened, unpaid</span></td><td><span class="badge bx">—</span></td><td><button class="btn bp bsm">Send reminder</button></td></tr>
+              <tr style="background:#fff5f5;"><td class="mono tg fw6 fs12">INV-2024-0884</td><td><div class="tn">Cascade Systems</div></td><td class="mono fw7 tr2">$10,000.00</td><td class="mono tr2 fs12">Feb 28 🔴</td><td><span class="badge br">2nd reminder sent</span></td><td><span class="badge bx">—</span></td><td><button class="btn bd bsm">Escalate</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ALERTS -->
+      <div class="scr" id="s-alerts">
+        <div class="ph"><h2>Anomaly Alerts</h2><p>Fincline monitors every transaction for patterns that don't look right.</p></div>
+        <div class="g2">
+          <div>
+            <div class="slbl">Active — needs your attention</div>
+            <div class="ac ac-r"><div class="a-ic">⚠️</div><div><div class="a-t">Duplicate Payment Detected</div><div class="a-d">Two ACH payments of $4,200.00 from Cascade Systems within 48 hours, both referencing INV-2024-0879. Likely a duplicate — hold the second payment before it clears.</div><div class="a-tm">Mar 13 · 07:31 AM · Rule DUPE-001</div><div style="margin-top:9px;display:flex;gap:6px;"><button class="btn bo bsm">Hold payment</button><button class="btn bp bsm">Investigate</button></div></div></div>
+            <div class="ac ac-a"><div class="a-ic">👤</div><div><div class="a-t">Unknown Payer — $6,800.00</div><div class="a-d">Wire from "THL Consulting Group" — not in QuickBooks. Amount doesn't match any open invoice. Possible misdirected payment.</div><div class="a-tm">Mar 13 · 06:22 AM · Rule UNKN-002</div><div style="margin-top:9px;"><button class="btn bo bsm">Look up sender</button></div></div></div>
+          </div>
+          <div>
+            <div class="slbl">Resolved this week</div>
+            <div class="ac ac-g"><div class="a-ic">✅</div><div><div class="a-t">Partial Payment Resolved</div><div class="a-d">Horizon Digital paid $15,000 against $18,750 invoice. Remaining $3,750 flagged. Follow-up scheduled for Mar 18.</div><div class="a-tm">Resolved: Mar 11 · 2:14 PM</div></div></div>
+            <div class="ac ac-b"><div class="a-ic">📅</div><div><div class="a-t">Stale Match Cleared</div><div class="a-d">INV-2024-0861 (90 days) matched to late ACH from Nordstrom Partners. QuickBooks updated. Invoice closed.</div><div class="a-tm">Resolved: Mar 10 · 11:08 AM</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTIONS -->
+      <div class="scr" id="s-connections">
+        <div class="ph"><h2>Connections</h2><p>Connect your bank, accounting software and email. Takes under 8 minutes.</p></div>
+        <div class="obs">
+          <div class="os done"><div class="oc">✓</div><div class="ol">Sign up</div></div>
+          <div class="os done"><div class="oc">✓</div><div class="ol">Company</div></div>
+          <div class="os done"><div class="oc">✓</div><div class="ol">Bank</div></div>
+          <div class="os done"><div class="oc">✓</div><div class="ol">Accounting</div></div>
+          <div class="os done"><div class="oc">✓</div><div class="ol">Email</div></div>
+          <div class="os cur"><div class="oc">⊞</div><div class="ol">Live!</div></div>
+        </div>
+        <div class="slbl">Your Integrations</div>
+        <div class="cc con"><div class="cc-ic" style="background:var(--blue-l);">🏦</div><div><div class="cc-n">Chase Business Checking</div><div class="cc-s">Connected via Plaid · Read-only · Last sync 2 min ago · 847 transactions loaded</div></div><span class="badge bg">● Connected</span></div>
+        <div class="cc con"><div class="cc-ic" style="background:var(--green-l);">📊</div><div><div class="cc-n">QuickBooks Online</div><div class="cc-s">Connected · 142 invoices synced · 38 customers imported</div></div><span class="badge bg">● Connected</span></div>
+        <div class="cc con"><div class="cc-ic" style="background:var(--red-l);">✉️</div><div><div class="cc-n">Gmail · sarah@fincline.com</div><div class="cc-s">Connected · Read-only OAuth · 8 AP invoices captured today</div></div><span class="badge bg">● Connected</span></div>
+        <div class="cc"><div class="cc-ic" style="background:var(--blue-l);">📧</div><div><div class="cc-n">Microsoft Outlook</div><div class="cc-s">Optional second inbox — connect to capture more vendor bills</div></div><button class="btn bp bsm">Connect</button></div>
+        <div class="cc"><div class="cc-ic" style="background:#e0f2fe;">🔵</div><div><div class="cc-n">Xero</div><div class="cc-s">Alternative to QuickBooks — switch any time</div></div><button class="btn bo bsm">Connect</button></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="scr" id="s-settings">
+        <div class="ph"><h2>Settings</h2><p>Control how Fincline matches, alerts and syncs for your business.</p></div>
+        <div class="g2">
+          <div class="card"><div class="ch"><div class="ct"><div class="ct-ic">⇄</div>Matching Rules</div></div>
+            <div class="sr"><div><div class="sl">Auto-apply matches above 90%</div><div class="ss">Push to QuickBooks immediately, no review needed</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Hold 70–90% for one-click review</div><div class="ss">Show in matching inbox before applying</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Fuzzy vendor name matching</div><div class="ss">Match "Vertex Sol." to "Vertex Solutions LLC"</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Partial payment detection</div><div class="ss">Flag payments that don't match the invoice total exactly</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+          </div>
+          <div class="card"><div class="ch"><div class="ct"><div class="ct-ic">🔔</div>Alert Preferences</div></div>
+            <div class="sr"><div><div class="sl">Duplicate payment alerts</div><div class="ss">Email + dashboard notification immediately</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Unknown payer alerts</div><div class="ss">Flag any unrecognised sender straight away</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Overdue invoice reminders</div><div class="ss">Auto follow-up emails at 7, 14, and 30 days</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Daily morning digest</div><div class="ss">Email summary at 8:00 AM every weekday</div></div><button class="tog" onclick="this.classList.toggle('on')"></button></div>
+          </div>
+          <div class="card"><div class="ch"><div class="ct"><div class="ct-ic">📧</div>Email Ingestion</div></div>
+            <div class="sr"><div><div class="sl">AP bill auto-capture</div><div class="ss">Detect and parse vendor invoices from inbox</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Remittance pre-matching</div><div class="ss">Match remittance emails before the ACH clears</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <div class="sr"><div><div class="sl">Store email body content</div><div class="ss">Keep raw email text (default: metadata only)</div></div><button class="tog" onclick="this.classList.toggle('on')"></button></div>
+          </div>
+          <div class="card"><div class="ch"><div class="ct"><div class="ct-ic">🔄</div>Sync Schedule</div></div>
+            <div class="sr"><div><div class="sl">Bank sync</div><div class="ss">Chase via Plaid webhooks</div></div><span class="badge bg">Real-time</span></div>
+            <div class="sr"><div><div class="sl">QuickBooks sync</div><div class="ss">Bidirectional · invoices, customers, payments</div></div><span class="badge bb">Every 15 min</span></div>
+            <div class="sr"><div><div class="sl">Email scan</div><div class="ss">Gmail inbox via webhook</div></div><span class="badge bg">Every 5 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRICING -->
+      <div class="scr" id="s-pricing">
+        <div class="ph" style="text-align:center;max-width:480px;margin:0 auto 24px;"><h2>One plan. Everything included.</h2><p>No tiers, no per-user fees, no surprises.</p></div>
+        <div class="pgrid">
+          <div class="pc"><div class="pn">Monthly</div><div class="pam">$29<span>/month</span></div><div class="ps">Cancel any time · No commitment</div>
+            <ul class="pf"><li>1 bank account (via Plaid)</li><li>QuickBooks or Xero sync</li><li>Gmail or Outlook inbox</li><li>AI payment matching</li><li>AP bill capture &amp; parsing</li><li>AR invoice tracking</li><li>Anomaly &amp; fraud alerts</li><li>Full audit trail</li></ul>
+            <button class="btn bo" style="width:100%;justify-content:center;padding:10px;">Start free trial</button>
+          </div>
+          <div class="pc feat"><div class="pb">BEST VALUE</div><div class="pn">Annual</div><div class="pam">$249<span>/year</span></div><div class="ps sav">$20.75/month · Save $99 vs monthly</div>
+            <ul class="pf"><li>Everything in Monthly</li><li>Priority email support</li><li>90-day transaction history</li><li>CSV export any time</li><li>Early access to new features</li><li>One billing decision a year</li></ul>
+            <button class="btn bp" style="width:100%;justify-content:center;padding:10px;">Start 60-day free trial</button>
+          </div>
+        </div>
+        <div class="roi"><p>If reconciliation takes your bookkeeper <strong>12 hours a week</strong> at <strong>$25/hour</strong>, that's <strong>$1,200/month</strong> in labour.<br>Fincline costs <span class="roi-hi">$20.75/month</span>. You're ahead from day one.</p></div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- TOUR -->
+<div class="tour-wrap" id="twrap" style="display:none;">
+  <div class="tour-box">
+    <div class="tm"><span class="tsl" id="t-sl">Step 1 of 8</span><button class="tcl" onclick="endTour()">✕ Exit tour</button></div>
+    <div class="tt" id="t-tt"></div>
+    <div class="td" id="t-td"></div>
+    <div class="tf"><div class="tdots" id="t-dots"></div><div class="tbtns"><button class="btn bo bsm" id="t-back" onclick="tourGo(-1)">← Back</button><button class="btn bp bsm" id="t-next" onclick="tourGo(1)">Next →</button></div></div>
+  </div>
+</div>
+
+<script>
+const steps=[
+  {s:'dashboard',t:"👋 Meet Sarah's morning",d:"Sarah is the bookkeeper at Fincline Corp. Before Fincline, her mornings started with 2–3 hours of manually matching bank transactions to invoices. Now she opens this dashboard and she's done in 10 minutes. Let's walk through exactly what changed."},
+  {s:'dashboard',t:"⚡ Overnight, Fincline worked",d:"$84,320 in payments have already been matched automatically while Sarah slept. The AI processed ACH transfers, wires, and remittance emails — 94% accuracy. She has just 4 transactions flagged for her review. That is her entire reconciliation task for the morning."},
+  {s:'matching',t:"🎯 One click to confirm a match",d:"An ACH for $4,200 arrived with no memo. Without Fincline, Sarah would spend 20 minutes hunting through invoices. Fincline found the best candidate and scored it at 62% confidence. She reviews and confirms in one click — it pushes to QuickBooks automatically. Try clicking Confirm on any row."},
+  {s:'apinbox',t:"📧 Vendor invoices captured from email",d:"8 vendor invoices arrived as PDF attachments this morning. Fincline parsed every one — extracting vendor name, invoice number, amount and due date automatically. AWS and Salesforce are ready to push to QuickBooks with a single click. Zero manual data entry."},
+  {s:'apinbox',t:"🤖 Watch the AI parse in real time",d:"An Adobe invoice just arrived. Left: the raw email. Right: every field Fincline extracted in under 2 seconds at 97% confidence — pushed straight to QuickBooks draft bills. If confidence drops below 70%, Fincline flags it for human review instead of guessing."},
+  {s:'arinvoices',t:"📤 Know exactly who owes you",d:"Horizon Digital opened their invoice 3 days ago and still hasn't paid. Fincline can send an automated follow-up on Sarah's behalf. Cascade Systems is 13 days overdue — one click to escalate. No more manually tracking who has paid and who hasn't."},
+  {s:'alerts',t:"🚨 Fincline caught a duplicate payment",d:"This morning Fincline spotted two ACH payments of $4,200 from the same sender, referencing the same invoice, 48 hours apart. Classic duplicate. Sarah gets an alert before the second payment clears. Without Fincline this would likely be paid twice and take weeks to recover."},
+  {s:'pricing',t:"💳 $249 a year. Less than a business lunch a month.",d:"One plan. Everything included. At $20.75 per month, Fincline pays for itself the moment it catches one duplicate payment or saves two hours of reconciliation time. Start with 60 days completely free — no card required."}
+];
+let step=0;
+function startDemo(){document.getElementById('intro').style.display='none';document.getElementById('app').style.display='flex';setTimeout(()=>{document.getElementById('twrap').style.display='block';renderTour();},300);}
+function renderTour(){const s=steps[step];document.getElementById('t-tt').textContent=s.t;document.getElementById('t-td').textContent=s.d;document.getElementById('t-sl').textContent=`Step ${step+1} of ${steps.length}`;nav(s.s,null);const dots=document.getElementById('t-dots');dots.innerHTML='';steps.forEach((_,i)=>{const d=document.createElement('div');d.className='tdot'+(i===step?' act':i<step?' dn':'');dots.appendChild(d);});document.getElementById('t-back').style.visibility=step===0?'hidden':'visible';document.getElementById('t-next').textContent=step===steps.length-1?'🚀 Explore freely':'Next →';}
+function tourGo(dir){step+=dir;if(step>=steps.length){endTour();return;}if(step<0)step=0;renderTour();}
+function endTour(){document.getElementById('twrap').style.display='none';}
+function nav(name,el){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));const sc=document.getElementById('s-'+name);if(sc)sc.classList.add('on');if(el){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));el.classList.add('on');}const map={dashboard:['Dashboard','Good morning, Sarah · March 13, 2026'],matching:['Payment Matching','147 transactions · 4 pending review'],apinbox:['AP Bills Inbox','8 invoices captured from email today'],arinvoices:['AR Invoice Tracker','$68,250 outstanding · 3 overdue'],alerts:['Anomaly Alerts','2 active · 2 resolved this week'],connections:['Connections','3 of 5 integrations active'],settings:['Settings','Fincline Corp · sarah@fincline.com'],pricing:['Plans & Pricing','60-day free trial · No card required']};if(map[name]){document.getElementById('tb-t').textContent=map[name][0];document.getElementById('tb-s').textContent=map[name][1];}}
+function confirmRow(btn){const row=btn.closest('tr');row.cells[5].innerHTML='<span class="badge bg">✓ Confirmed</span>';row.style.background='';btn.textContent='✓ Done';btn.disabled=true;btn.style.opacity='.5';}
+function restartDemo(){
+  document.getElementById("twrap").style.display="none";
+  document.getElementById("app").style.display="none";
+  document.getElementById("intro").style.display="flex";
+  step=0;
+}
+function goHome(){ window.location.href="index.html"; }
+function openPanel(){
+  document.getElementById("panel").classList.add("open");
+  document.getElementById("panel-overlay").classList.add("open");
+}
+function closePanel(){
+  document.getElementById("panel").classList.remove("open");
+  document.getElementById("panel-overlay").classList.remove("open");
+}
+function submitPanel(){
+  const first=document.getElementById("p-first").value.trim();
+  const email=document.getElementById("p-email").value.trim();
+  const company=document.getElementById("p-company").value.trim();
+  if(!first||!email||!company){alert("Please fill in your name, email and company.");return;}
+  if(!email.includes("@")){alert("Please enter a valid email address.");return;}
+  document.getElementById("panel-form").style.display="none";
+  document.getElementById("panel-success").style.display="block";
+}
+function pushQBO(btn){btn.textContent='✓ Pushed to QBO';btn.style.background='var(--green-l)';btn.style.color='var(--green-d)';btn.style.border='1px solid var(--green-m)';btn.disabled=true;}
+// Auto-launch tour when coming from website (no splash)
+window.addEventListener('DOMContentLoaded', function() {
+  // If app is already visible (no splash), launch tour immediately
+  const app = document.getElementById('app');
+  if(app && app.style.display !== 'none') {
+    setTimeout(function() {
+      document.getElementById('twrap').style.display = 'block';
+      renderTour();
+    }, 400);
+  }
+});
+</script>
+</body>
+</html>

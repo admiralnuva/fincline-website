@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fincline — Reconciliation that runs itself</title>
+<meta name="description" content="Fincline connects your bank, QuickBooks and inbox to match payments to invoices automatically. Save 12 hours a week on reconciliation.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#2AAE60;--green-d:#1e8a4a;--green-l:#e8f7ee;--green-m:#c2ebd4;
+  --white:#fff;--bg:#f7f9f7;--bg2:#f0f4f0;
+  --text:#1a2332;--t2:#4a5568;--t3:#94a3b8;
+  --border:#e2e8f0;--border-d:#cbd5e1;
+  --red:#e53e3e;--amber:#d97706;
+  --sh0:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh1:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  --sh2:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);
+  --r:12px;--rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',-apple-system,sans-serif;color:var(--text);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:#0f2440;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);padding:0 5%;}
+.nav-inner{max-width:1100px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-logo-pill{background:var(--green);color:white;padding:6px 14px;border-radius:8px;font-size:17px;font-weight:700;letter-spacing:-.3px;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:14px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;transition:color .15s;}
+.nav-links a:hover{color:#2AAE60;}
+.nav-cta{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:var(--rs);font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s;text-decoration:none;}
+.btn-primary{background:var(--green);color:white;box-shadow:0 2px 8px rgba(42,174,96,.25);}
+.btn-primary:hover{background:var(--green-d);transform:translateY(-1px);box-shadow:0 4px 16px rgba(42,174,96,.35);}
+.btn-outline{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.2);}
+.btn-outline:hover{border-color:#2AAE60;color:#2AAE60;background:rgba(42,174,96,.08);}
+.btn-lg{padding:14px 32px;font-size:16px;border-radius:var(--r);}
+.btn-xl{padding:16px 40px;font-size:17px;border-radius:var(--r);}
+
+/* HERO */
+.hero{padding:96px 5% 80px;text-align:center;background:linear-gradient(160deg,#0f2440 0%,#0d1f38 100%);}
+.hero-inner{max-width:760px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(42,174,96,.15);color:#4ade80;border:1px solid rgba(42,174,96,.3);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:28px;}
+.hero-badge-dot{width:6px;height:6px;background:#4ade80;border-radius:50%;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:56px;line-height:1.1;letter-spacing:-.5px;color:white;margin-bottom:22px;}
+.hero h1 em{color:#4ade80;font-style:italic;}
+.hero-sub{font-size:19px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:36px;max-width:580px;margin-left:auto;margin-right:auto;}
+.hero-actions{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:48px;}
+.hero-note{font-size:13px;color:rgba(255,255,255,.45);}
+.hero-note span{color:#4ade80;font-weight:600;}
+
+/* HERO STATS */
+.hero-stats{display:flex;gap:0;justify-content:center;max-width:560px;margin:0 auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);overflow:hidden;}
+.hs{flex:1;padding:20px 24px;text-align:center;border-right:1px solid rgba(255,255,255,.08);}
+.hs:last-child{border-right:none;}
+.hs-v{font-size:28px;font-weight:700;color:#4ade80;letter-spacing:-.5px;}
+.hs-l{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px;font-weight:500;}
+
+/* LOGOS */
+.logos{padding:48px 5%;text-align:center;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid var(--border);background:#0d1f38;}
+.logos p{font-size:13px;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;}
+.logos-row{display:flex;gap:40px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.logo-badge{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--rs);font-size:14px;font-weight:600;color:rgba(255,255,255,.75);}
+
+/* PROBLEM */
+.problem{padding:88px 5%;background:var(--white);}
+.problem-inner{max-width:1000px;margin:0 auto;}
+.section-label{font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;}
+.section-h{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.2;color:var(--text);margin-bottom:16px;letter-spacing:-.3px;}
+.section-sub{font-size:17px;color:var(--t2);line-height:1.6;max-width:560px;margin-bottom:48px;}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.prob-card{border-radius:var(--r);padding:28px;position:relative;overflow:hidden;}
+
+.prob-icon{font-size:28px;margin-bottom:14px;}
+.prob-h{font-size:16px;font-weight:700;margin-bottom:8px;}
+.prob-d{font-size:14px;color:var(--t2);line-height:1.6;}
+.prob-time{display:inline-block;margin-top:12px;font-size:13px;font-weight:700;color:var(--red);background:#fff5f5;padding:3px 10px;border-radius:20px;border:1px solid #fed7d7;}
+
+/* HOW IT WORKS PREVIEW */
+.how-preview{padding:88px 5%;background:var(--bg);}
+.how-preview-inner{max-width:1000px;margin:0 auto;}
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;position:relative;}
+.steps-row::before{content:'';position:absolute;top:32px;left:calc(16.6% + 16px);right:calc(16.6% + 16px);height:2px;background:linear-gradient(90deg,var(--green-m),var(--green),var(--green-m));z-index:0;}
+.step{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px;text-align:center;position:relative;z-index:1;box-shadow:var(--sh0);}
+.step-num{width:48px;height:48px;background:var(--green);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 16px;box-shadow:0 4px 12px rgba(42,174,96,.3);}
+.step h3{font-size:17px;font-weight:700;margin-bottom:8px;}
+.step p{font-size:14px;color:var(--t2);line-height:1.6;}
+.step-badge{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--green-l);color:var(--green-d);border:1px solid var(--green-m);}
+.how-cta{text-align:center;margin-top:40px;}
+
+/* FEATURES */
+.features{padding:88px 5%;background:var(--white);}
+.features-inner{max-width:1000px;margin:0 auto;}
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:48px;}
+.feat{display:flex;gap:16px;padding:24px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);}
+.feat-ic{width:40px;height:40px;background:var(--green-l);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-top:2px;}
+.feat h3{font-size:15px;font-weight:700;margin-bottom:5px;}
+.feat p{font-size:13px;color:var(--t2);line-height:1.6;}
+
+/* SOCIAL PROOF */
+.proof{padding:88px 5%;background:var(--bg);}
+.proof-inner{max-width:900px;margin:0 auto;text-align:center;}
+.quote-big{font-family:'DM Serif Display',serif;font-size:28px;line-height:1.4;color:var(--text);margin:36px auto;max-width:680px;font-style:italic;}
+.quote-attr{font-size:14px;color:var(--t3);font-weight:500;}
+.quote-attr strong{color:var(--t2);}
+.proof-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:40px;}
+.proof-chip{padding:8px 16px;background:var(--white);border:1px solid var(--border);border-radius:20px;font-size:13px;font-weight:500;color:var(--t2);box-shadow:var(--sh0);}
+.proof-chip span{color:var(--green);font-weight:700;}
+
+/* PRICING TEASER */
+.pricing-teaser{padding:88px 5%;background:var(--white);}
+.pricing-teaser-inner{max-width:700px;margin:0 auto;text-align:center;}
+.price-pill{display:inline-block;font-size:48px;font-weight:800;color:var(--text);letter-spacing:-2px;margin:20px 0 8px;}
+.price-pill span{font-size:20px;color:var(--t3);font-weight:400;}
+.price-sub{font-size:15px;color:var(--t2);margin-bottom:32px;}
+.price-sub strong{color:var(--green);}
+.price-features{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px;}
+.pf-item{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--t2);}
+.pf-item::before{content:'✓';color:var(--green);font-weight:700;}
+
+/* CTA BAND */
+.cta-band{padding:80px 5%;background:#0f2440;text-align:center;border-top:4px solid var(--green);}
+.cta-band h2{font-family:'DM Serif Display',serif;font-size:38px;color:white;margin-bottom:14px;letter-spacing:-.3px;}
+.cta-band p{font-size:17px;color:rgba(255,255,255,.7);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;}
+.btn-white{background:var(--green);color:white;font-weight:700;box-shadow:0 4px 16px rgba(42,174,96,.4);}
+.btn-white:hover{background:var(--green-d);transform:translateY(-1px);}
+.cta-note{font-size:13px;color:rgba(255,255,255,.45);margin-top:14px;}
+
+/* FOOTER */
+footer{background:#070f1a;padding:48px 5% 32px;color:rgba(255,255,255,.6);}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;flex-wrap:wrap;gap:32px;}
+.footer-brand .nav-logo-pill{font-size:15px;padding:5px 12px;}
+.footer-brand p{font-size:13px;margin-top:10px;max-width:240px;line-height:1.6;}
+.footer-links h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-bottom:12px;}
+.footer-links a{display:block;font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:8px;transition:color .15s;}
+.footer-links a:hover{color:white;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-wrap:wrap;gap:12px;}
+.footer-bottom a{color:rgba(255,255,255,.4);text-decoration:none;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{font-size:36px;}
+  .hero-sub{font-size:16px;}
+  .problem-grid,.steps-row,.features-grid{grid-template-columns:1fr;}
+  .steps-row::before{display:none;}
+  .hero-stats{flex-direction:column;}
+  .hs{border-right:none;border-bottom:1px solid var(--border);}
+  .hs:last-child{border-bottom:none;}
+  .nav-links{display:none;}
+  .footer-top{flex-direction:column;}
+}
+
+/* BOUNCE ARROW */
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* SECTION PILL NAV */
+.section-dots {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 500;
+  opacity: 0;
+  transition: opacity .4s;
+}
+.pill-nav {
+  background: rgba(10,26,46,0.92);
+  backdrop-filter: blur(16px);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 8px 0;
+  box-shadow: 0 4px 24px rgba(0,0,0,.25);
+  min-width: 170px;
+}
+.pill-handle { display: none; }
+.sdot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px 9px 14px;
+  cursor: pointer;
+  transition: background .15s;
+  border-left: 3px solid transparent;
+}
+.sdot:hover { background: rgba(255,255,255,.07); }
+.sdot.active { border-left-color: #2AAE60; background: rgba(42,174,96,.1); }
+.sdot-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,.55);
+  white-space: nowrap;
+  font-family: "DM Sans", sans-serif;
+  transition: color .15s;
+}
+.sdot:hover .sdot-label { color: rgba(255,255,255,.9); }
+.sdot.active .sdot-label { color: white; font-weight: 700; }
+.sdot-pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  flex-shrink: 0;
+  transition: all .15s;
+}
+.sdot:hover .sdot-pip { background: rgba(255,255,255,.6); }
+.sdot.active .sdot-pip { background: #2AAE60; }
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp .5s ease both;}
+.hero-badge{animation-delay:.1s;}
+.hero h1{animation-delay:.2s;}
+.hero-sub{animation-delay:.3s;}
+.hero-actions{animation-delay:.4s;}
+.hero-note{animation-delay:.45s;}
+.hero-stats{animation-delay:.5s;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-pill">Fincline</div></a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="demo.html">Demo</a>
+      <a href="early-access.html">Early Access</a>
+    </div>
+    <div class="nav-cta">
+      <a href="demo.html" class="btn btn-outline">See Demo</a>
+      <a href="early-access.html" class="btn btn-primary">Get Early Access</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Now accepting early access applications</div>
+    <h1>Stop spending Mondays<br>on <em>reconciliation</em></h1>
+    <p class="hero-sub">Fincline connects your bank, QuickBooks and inbox — and matches payments to invoices automatically. Your bookkeeper gets their mornings back.</p>
+    <div class="hero-actions">
+      <a href="#problem" class="btn btn-outline btn-lg" onclick="document.getElementById('problem').scrollIntoView({behavior:'smooth'});return false;" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.25);font-size:16px;padding:14px 32px;border-radius:12px;">See how it works &nbsp;↓</a>
+    </div>
+    <p class="hero-note">Connects with QuickBooks · Xero · Gmail · Outlook · Your Bank</p>
+    <div style="height:40px;"></div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-v">12 hrs</div><div class="hs-l">Saved per week</div></div>
+      <div class="hs"><div class="hs-v">94%</div><div class="hs-l">Auto-match accuracy</div></div>
+      <div class="hs"><div class="hs-v">10 min</div><div class="hs-l">Morning review</div></div>
+      <div class="hs"><div class="hs-v">&lt;8 min</div><div class="hs-l">Setup time</div></div>
+    </div>
+    <div style="margin-top:36px;display:flex;justify-content:center;">
+      <button onclick="document.getElementById('problem').scrollIntoView({behavior:'smooth'})" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.7;transition:opacity .2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7">
+        <span style="font-size:11px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.8px;text-transform:uppercase;font-family:'DM Sans',sans-serif;">See how it works</span>
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="animation:bounceDown 1.8s ease infinite;">
+          <circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+          <path d="M9 12l5 5 5-5" stroke="#2AAE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos">
+  <p>Works seamlessly with the tools you already use</p>
+  <div class="logos-row">
+    <div class="logo-badge">📊 QuickBooks Online</div>
+    <div class="logo-badge">🔵 Xero</div>
+    <div class="logo-badge">🏦 Your Bank via Plaid</div>
+    <div class="logo-badge">✉️ Gmail</div>
+    <div class="logo-badge">📧 Outlook</div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem" data-section="1">
+  <div class="problem-inner">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-h">Reconciliation is stealing<br>hours your team can't afford</h2>
+    <p class="section-sub">Every week, bookkeepers at small businesses spend hours on work that should be automatic. Here's what that looks like.</p>
+    <div class="problem-grid">
+      <div class="prob-card" style="background:white;border:2px solid #fca5a5;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:20px;right:20px;height:3px;background:#fca5a5;border-radius:0 0 4px 4px;"></div>
+        <div class="prob-icon">🏦</div>
+        <div class="prob-h">ACH payments with no memo</div>
+        <p class="prob-d">A payment arrives in your bank with no reference number. You spend 20 minutes hunting through invoices trying to figure out who paid and what for.</p>
+        <span class="prob-time" style="background:#fff5f5;color:#b91c1c;border:1.5px solid #fca5a5;">~3 hrs/week lost</span>
+      </div>
+      <div class="prob-card" style="background:white;border:2px solid #fcd34d;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:20px;right:20px;height:3px;background:#fcd34d;border-radius:0 0 4px 4px;"></div>
+        <div class="prob-icon">📧</div>
+        <div class="prob-h">Re-keying vendor invoices</div>
+        <p class="prob-d">A PDF invoice arrives in your inbox. Someone opens it, reads it, and manually types every field into QuickBooks. Every. Single. Invoice.</p>
+        <span class="prob-time" style="background:#fffbeb;color:#92400e;border:1.5px solid #fcd34d;">~4 hrs/week lost</span>
+      </div>
+      <div class="prob-card" style="background:white;border:2px solid #93c5fd;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:20px;right:20px;height:3px;background:#93c5fd;border-radius:0 0 4px 4px;"></div>
+        <div class="prob-icon">📋</div>
+        <div class="prob-h">Chasing overdue payments</div>
+        <p class="prob-d">You're not sure who has seen their invoice, who hasn't, and who owes you money that's now 30 days overdue. The follow-up is all manual.</p>
+        <span class="prob-time" style="background:#eff6ff;color:#1d4ed8;border:1.5px solid #93c5fd;">~5 hrs/week lost</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS PREVIEW -->
+<section class="how-preview" id="how-it-works" data-section="2">
+  <div class="how-preview-inner">
+    <div class="section-label">How Fincline Works</div>
+    <h2 class="section-h">Connect once.<br>Fincline does the rest.</h2>
+    <p class="section-sub">Three simple steps. Set up in under 8 minutes. Works quietly in the background from day one.</p>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Connect your accounts</h3>
+        <p>Link your bank via Plaid, connect QuickBooks or Xero, and give Fincline read-only access to your Gmail or Outlook inbox.</p>
+        <span class="step-badge">Under 8 minutes</span>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Fincline matches everything</h3>
+        <p>AI reads your bank feed, your invoices, and your email — matching payments to invoices automatically with a confidence score.</p>
+        <span class="step-badge">94% auto-match rate</span>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>You review in 10 minutes</h3>
+        <p>High confidence matches go straight to QuickBooks. You only see the edge cases that need a human eye. One click to confirm.</p>
+        <span class="step-badge">Your morning, back</span>
+      </div>
+    </div>
+    <div class="how-cta">
+      <a href="how-it-works.html" class="btn btn-outline btn-lg" style="color:var(--t2);border-color:var(--border-d);">See detailed walkthrough →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features" data-section="3">
+  <div class="features-inner">
+    <div class="section-label">What's Included</div>
+    <h2 class="section-h">Everything your bookkeeper<br>needs. Nothing they don't.</h2>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-ic">⇄</div>
+        <div>
+          <h3>AI Payment Matching</h3>
+          <p>Fuzzy matching connects ACH payments, wires, and checks to the right invoice — even when references are missing or vendor names don't match exactly.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-ic">📧</div>
+        <div>
+          <h3>AP Bill Capture from Email</h3>
+          <p>Vendor invoices that arrive as PDF attachments are automatically parsed and pushed to QuickBooks as draft bills. No manual data entry.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-ic">📤</div>
+        <div>
+          <h3>AR Invoice Tracking</h3>
+          <p>Know exactly which invoices have been opened, which haven't, and which are overdue. Auto follow-up emails go out at 7, 14, and 30 days.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-ic">⚑</div>
+        <div>
+          <h3>Duplicate & Fraud Alerts</h3>
+          <p>Fincline automatically flags duplicate payments, unknown senders, and suspicious patterns before they become costly problems to unwind.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-ic">📊</div>
+        <div>
+          <h3>QuickBooks & Xero Sync</h3>
+          <p>Two-way sync keeps your accounting software up to date automatically. Confirmed matches apply instantly. No double handling.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-ic">🔒</div>
+        <div>
+          <h3>Read-Only & Secure</h3>
+          <p>Fincline never moves money. Bank access is read-only via Plaid. Email access is read-only OAuth. Your data stays yours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="demo-cta-section" id="demo-cta" data-section="4">
+</section>
+<!-- DEMO CTA — after features -->
+<section id="demo-cta" data-section="4" style="padding:56px 5%;background:linear-gradient(135deg,#0f2440 0%,#0d1f38 100%);text-align:center;">
+  <div style="max-width:640px;margin:0 auto;">
+    <p style="font-size:13px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;">See It In Action</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:34px;color:white;margin-bottom:12px;letter-spacing:-.3px;">Watch Fincline work through<br>a real bookkeeper's morning</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px;line-height:1.6;">Sarah's dashboard. Real transactions. Guided tour — 7 screens, 5 minutes.</p>
+    <a href="demo.html" class="btn btn-primary btn-xl" style="font-size:17px;padding:16px 40px;border-radius:12px;box-shadow:0 4px 24px rgba(42,174,96,.4);background:#2AAE60;color:white;border:none;">▶ &nbsp;Watch the Demo</a>
+    <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:12px;">No sign-up · Takes 5 minutes · Works on any device</p>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof" id="proof" data-section="5">
+  <div class="proof-inner">
+    <div class="section-label">Early Feedback</div>
+    <blockquote class="quote-big">"If I am a busy person and want to save time, I would love to use Fincline."</blockquote>
+    <p class="quote-attr"><strong>Early demo reviewer</strong> · Small business owner</p>
+    <div class="proof-chips">
+      <div class="proof-chip"><span>12 hrs</span> saved per week on average</div>
+      <div class="proof-chip">Works with <span>QuickBooks</span> and <span>Xero</span></div>
+      <div class="proof-chip">Setup in <span>under 8 minutes</span></div>
+      <div class="proof-chip"><span>60-day</span> free trial</div>
+    </div>
+  </div>
+</section>
+
+<section id="get-access" data-section="6"></section>
+<!-- GET EARLY ACCESS CTA — after social proof -->
+<section style="padding:64px 5%;background:var(--white);text-align:center;border-top:1px solid var(--border);">
+  <div style="max-width:560px;margin:0 auto;">
+    <h2 style="font-family:'DM Serif Display',serif;font-size:32px;letter-spacing:-.3px;margin-bottom:12px;color:var(--text);">Ready to get your mornings back?</h2>
+    <p style="font-size:16px;color:var(--t2);margin-bottom:28px;line-height:1.6;">Join the waitlist. First 50 customers get 60 days free and a direct line to the founding team.</p>
+    <a href="early-access.html" class="btn btn-primary btn-xl" style="font-size:17px;padding:16px 40px;border-radius:12px;box-shadow:0 4px 20px rgba(42,174,96,.35);">Get Early Access — It's Free</a>
+    <p style="font-size:13px;color:var(--t3);margin-top:12px;">No credit card · No commitment · Cancel any time</p>
+  </div>
+</section>
+
+<!-- PRICING TEASER -->
+<section class="pricing-teaser">
+  <div class="pricing-teaser-inner">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-h">About the cost of a coffee a day.<br>Worth far more.</h2>
+    <p style="font-size:17px;color:var(--t2);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">One flat monthly fee. No tiers, no per-user charges, no surprises. Everything included from day one.</p>
+    <div class="price-features" style="margin-bottom:32px;">
+      <div class="pf-item">1 bank account</div>
+      <div class="pf-item">QuickBooks or Xero</div>
+      <div class="pf-item">Gmail or Outlook</div>
+      <div class="pf-item">AI payment matching</div>
+      <div class="pf-item">AP bill capture</div>
+      <div class="pf-item">AR invoice tracking</div>
+      <div class="pf-item">Anomaly alerts</div>
+      <div class="pf-item">Full audit trail</div>
+    </div>
+    <p style="font-size:13px;color:var(--t3);margin-top:4px;">Pricing shared during your onboarding call. &nbsp;<a href="early-access.html" style="color:var(--green);font-weight:600;text-decoration:none;">Join waitlist →</a></p>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2>Your mornings are worth more<br>than manual reconciliation.</h2>
+  <p>Join the waitlist for early access. First 50 customers get 60 days free and a direct line to the founding team.</p>
+  <a href="early-access.html" class="btn btn-white btn-xl">Get Early Access →</a>
+  <p class="cta-note">No credit card · No commitment · Cancel any time</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo-pill" style="display:inline-block;">Fincline</div>
+        <p>AI-powered reconciliation for small businesses. Connect your bank, accounting software and inbox — and let Fincline handle the rest.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="demo.html">Live Demo</a>
+        <a href="early-access.html">Pricing</a>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <a href="early-access.html">Early Access</a>
+        <a href="mailto:hello@fincline.com">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Fincline. All rights reserved.</span>
+      <div style="display:flex;gap:20px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- SECTION PILL NAV -->
+<nav class="section-dots" id="section-dots">
+  <div class="pill-handle"></div>
+  <div class="pill-nav">
+    <div class="sdot active" data-target="problem"><div class="sdot-pip"></div><span class="sdot-label">The Problem</span></div>
+    <div class="sdot" data-target="how-it-works"><div class="sdot-pip"></div><span class="sdot-label">How It Works</span></div>
+    <div class="sdot" data-target="features"><div class="sdot-pip"></div><span class="sdot-label">What's Included</span></div>
+    <div class="sdot" data-target="demo-cta"><div class="sdot-pip"></div><span class="sdot-label">Watch the Demo</span></div>
+    <div class="sdot" data-target="proof"><div class="sdot-pip"></div><span class="sdot-label">Early Feedback</span></div>
+  </div>
+</nav>
+
+<script>
+// Override browser scrollTo for dot nav
+window.scrollTo = (function(orig) {
+  return function(id, behavior) {
+    if (typeof id === 'string') {
+      const el = document.getElementById(id);
+      if (el) { el.scrollIntoView({ behavior: behavior || 'smooth' }); return; }
+    }
+    orig.apply(window, arguments);
+  };
+})(window.scrollTo);
+
+// Dot highlight on scroll
+const sections = ['problem','how-it-works','features','demo-cta','proof'];
+const dots = document.querySelectorAll('.sdot');
+
+// Hide dots on hero (above first section), show when scrolled in
+const dotsNav = document.getElementById('section-dots');
+
+function updateDots() {
+  const scrollY = window.scrollY + window.innerHeight * 0.4;
+  let active = -1;
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= scrollY) active = i;
+  });
+  dots.forEach((d, i) => d.classList.toggle('active', i === active));
+  // Show dots only after hero
+  const hero = document.querySelector('.hero');
+  const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 400;
+  dotsNav.style.opacity = window.scrollY > heroBottom - 200 ? '1' : '0';
+  dotsNav.style.transition = 'opacity .3s';
+}
+
+window.addEventListener('scroll', updateDots, { passive: true });
+updateDots();
+</script>
+</body>
+</html>
