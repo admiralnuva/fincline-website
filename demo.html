@@ -222,18 +222,8 @@
       box-shadow:var(--sh1);
     }
 
-    .btn-ghost {
-      background:transparent;
-      color:var(--primary);
-      border:1.5px solid var(--primary-soft);
-    }
-
-    .btn-ghost:hover {
-      background:var(--primary-light);
-    }
-
-    .btn-lg { padding:15px 28px; font-size:16px; border-radius:var(--r); }
     .btn-xl { padding:16px 34px; font-size:17px; border-radius:var(--r); }
+    .btn-lg { padding:15px 28px; font-size:16px; border-radius:var(--r); }
 
     .hero {
       padding:88px 5% 76px;
@@ -503,7 +493,6 @@
     }
 
     .scenario-grid,
-    .screens-grid,
     .support-grid,
     .footer-top {
       display:grid;
@@ -517,7 +506,6 @@
     }
 
     .card,
-    .screen-card,
     .support-card {
       position:relative;
       overflow:hidden;
@@ -529,7 +517,6 @@
     }
 
     .card:hover,
-    .screen-card:hover,
     .support-card:hover {
       box-shadow:var(--sh1);
       transform:translateY(-2px);
@@ -627,87 +614,6 @@
       font-size:13px;
       color:var(--t2);
       line-height:1.5;
-    }
-
-    .screen-card {
-      padding:18px;
-    }
-
-    .screen-card.featured {
-      background:linear-gradient(180deg, #ffffff 0%, #f4fbfd 100%);
-      border-color:rgba(47,164,192,.16);
-    }
-
-    .screen-card.featured:before {
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      right:0;
-      height:4px;
-      background:linear-gradient(90deg, var(--primary) 0%, #7fd7ea 100%);
-    }
-
-    .screen-head {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:14px;
-    }
-
-    .screen-head h3 {
-      font-size:18px;
-      line-height:1.3;
-    }
-
-    .screen-tag {
-      font-size:12px;
-      font-weight:700;
-      padding:6px 10px;
-      border-radius:999px;
-      background:var(--primary-light);
-      color:var(--primary-dark);
-      white-space:nowrap;
-    }
-
-    .screen-frame {
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#f8fafc;
-      overflow:hidden;
-      margin-bottom:14px;
-      min-height:230px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .screen-placeholder {
-      width:100%;
-      height:100%;
-      min-height:230px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.92), rgba(243,251,253,.92)),
-        linear-gradient(90deg, rgba(47,164,192,.10), transparent 28%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      text-align:center;
-      color:var(--t2);
-      font-size:14px;
-      line-height:1.6;
-    }
-
-    .screen-body p {
-      font-size:14px;
-      color:var(--t2);
-      line-height:1.6;
-    }
-
-    .screen-body strong {
-      color:var(--text);
     }
 
     .support-card {
@@ -836,7 +742,6 @@
     @media(max-width:1024px) {
       .mini-proof,
       .scenario-grid,
-      .screens-grid,
       .support-grid,
       .footer-top {
         grid-template-columns:1fr 1fr;
@@ -878,7 +783,6 @@
 
       .mini-proof,
       .scenario-grid,
-      .screens-grid,
       .support-grid,
       .footer-top {
         grid-template-columns:1fr;
@@ -1117,63 +1021,6 @@
                 <span>Confirm quickly if strong, or investigate with context if not.</span>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-label">Product Preview</div>
-      <h2 class="section-h">See the reconciliation workflow in product form</h2>
-      <p class="section-sub">
-        These screens show how Fincline helps teams review payment activity, understand exceptions, and move reconciliation forward with more confidence.
-      </p>
-
-      <div class="screens-grid">
-        <div class="screen-card featured">
-          <div class="screen-head">
-            <h3>Work Queue / Payment Matching</h3>
-            <span class="screen-tag">Core workflow</span>
-          </div>
-          <div class="screen-frame">
-            <div class="screen-placeholder">
-              Reconciliation work queue preview
-            </div>
-          </div>
-          <div class="screen-body">
-            <p>This view shows how Fincline helps teams review transactions, evaluate suggested matches, and resolve exceptions more efficiently.</p>
-          </div>
-        </div>
-
-        <div class="screen-card">
-          <div class="screen-head">
-            <h3>Exception Detail / Reasoning</h3>
-            <span class="screen-tag">Explanation</span>
-          </div>
-          <div class="screen-frame">
-            <div class="screen-placeholder">
-              Exception detail and reasoning preview
-            </div>
-          </div>
-          <div class="screen-body">
-            <p>This view highlights the reasoning behind a recommendation so users can understand the suggested next step before confirming it.</p>
-          </div>
-        </div>
-
-        <div class="screen-card">
-          <div class="screen-head">
-            <h3>Operational Dashboard</h3>
-            <span class="screen-tag">Operations</span>
-          </div>
-          <div class="screen-frame">
-            <div class="screen-placeholder">
-              Operational dashboard preview
-            </div>
-          </div>
-          <div class="screen-body">
-            <p>This view provides supporting operational visibility around the reconciliation workflow.</p>
           </div>
         </div>
       </div>
