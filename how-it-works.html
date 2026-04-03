@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How It Works — Fincline</title>
-  <meta name="description" content="See how Fincline connects your bank, accounting system, and inbox to rebuild payment context and make reconciliation faster, clearer, and more explainable.">
+  <title>How Fincline Works — Faster close, less manual reconciliation</title>
+  <meta name="description" content="See how Fincline helps bookkeeping firms and finance teams close faster by connecting bank feeds, inboxes, payments, and accounting systems into one explainable reconciliation workflow.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -32,9 +32,6 @@
       --border:#e2e8f0;
       --border-d:#cbd5e1;
 
-      --red:#e05353;
-      --amber:#d48806;
-
       --sh0:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
       --sh1:0 6px 20px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
       --sh2:0 16px 44px rgba(0,0,0,.12),0 6px 16px rgba(0,0,0,.08);
@@ -57,8 +54,8 @@
       -webkit-font-smoothing:antialiased;
     }
 
-    a { text-decoration:none; color:inherit; }
     img { max-width:100%; display:block; }
+    a { text-decoration:none; color:inherit; }
 
     .container { max-width:var(--max); margin:0 auto; }
     .section { padding:88px 5%; }
@@ -84,7 +81,7 @@
     }
 
     .section-sub {
-      max-width:740px;
+      max-width:760px;
       font-size:18px;
       color:var(--t2);
     }
@@ -145,10 +142,7 @@
       transition:color .15s ease;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      color:#8fe7fb;
-    }
+    .nav-links a:hover { color:#fff; }
 
     .nav-cta {
       display:flex;
@@ -217,27 +211,26 @@
     .btn-lg { padding:15px 28px; font-size:16px; border-radius:var(--r); }
     .btn-xl { padding:16px 34px; font-size:17px; border-radius:var(--r); }
 
-    .page-hero {
-      padding:88px 5% 78px;
+    .hero {
+      padding:96px 5% 84px;
       background:linear-gradient(160deg, #123554 0%, #0d2740 100%);
       color:#fff;
       text-align:center;
-      position:relative;
       overflow:hidden;
+      position:relative;
     }
 
-    .page-hero:before {
+    .hero:before {
       content:"";
       position:absolute;
-      left:-120px;
-      bottom:-120px;
-      width:320px;
-      height:320px;
-      background:radial-gradient(circle, rgba(47,164,192,.18), transparent 68%);
+      inset:auto auto -120px -120px;
+      width:300px;
+      height:300px;
+      background:radial-gradient(circle, rgba(47,164,192,.18), transparent 65%);
       pointer-events:none;
     }
 
-    .page-hero:after {
+    .hero:after {
       content:"";
       position:absolute;
       top:-120px;
@@ -248,519 +241,292 @@
       pointer-events:none;
     }
 
-    .page-hero-inner {
-      max-width:800px;
+    .hero-inner {
+      max-width:900px;
       margin:0 auto;
       position:relative;
       z-index:1;
     }
 
-    .setup-badge {
+    .hero-badge {
       display:inline-flex;
       align-items:center;
       gap:8px;
       background:rgba(47,164,192,.14);
       color:#8fe7fb;
       border:1px solid rgba(47,164,192,.28);
-      padding:7px 16px;
+      padding:7px 14px;
       border-radius:999px;
       font-size:13px;
       font-weight:700;
-      margin-bottom:24px;
+      margin-bottom:28px;
     }
 
-    .page-hero h1 {
+    .hero-badge-dot {
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#8fe7fb;
+      box-shadow:0 0 0 6px rgba(143,231,251,.12);
+    }
+
+    .hero h1 {
       font-family:'DM Serif Display',serif;
-      font-size:52px;
+      font-size:58px;
       line-height:1.08;
-      letter-spacing:-.5px;
-      margin-bottom:18px;
+      letter-spacing:-.6px;
+      margin-bottom:22px;
       color:#fff;
     }
 
-    .page-hero h1 em {
+    .hero h1 em {
       color:#8fe7fb;
       font-style:italic;
     }
 
-    .page-hero p {
-      font-size:19px;
-      color:rgba(255,255,255,.75);
-      max-width:720px;
+    .hero-sub {
+      max-width:780px;
+      margin:0 auto 34px;
+      font-size:20px;
+      color:rgba(255,255,255,.78);
+    }
+
+    .hero-actions {
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+
+    .hero-note {
+      color:rgba(255,255,255,.52);
+      font-size:13px;
+      margin-bottom:42px;
+    }
+
+    .hero-note strong {
+      color:#fff;
+      font-weight:700;
+    }
+
+    .hero-stats {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      max-width:920px;
       margin:0 auto;
     }
 
-    .quick-points {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:16px;
-      max-width:960px;
-      margin:38px auto 0;
-    }
-
-    .quick-point {
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:14px;
-      padding:18px 16px;
+    .stat-card {
+      background:linear-gradient(180deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.05) 100%);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--r);
+      padding:22px 18px;
       text-align:left;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
     }
 
-    .quick-point h3 {
-      font-size:15px;
+    .stat-card h3 {
       color:#fff;
+      font-size:16px;
+      font-weight:700;
       margin-bottom:4px;
     }
 
-    .quick-point p {
+    .stat-card p {
+      color:rgba(255,255,255,.58);
       font-size:13px;
       line-height:1.5;
-      color:rgba(255,255,255,.58);
-      margin:0;
     }
 
-    .timeline {
-      padding:88px 5%;
+    .trust-strip {
+      padding:26px 5%;
       background:#fff;
-    }
-
-    .timeline-inner {
-      max-width:960px;
-      margin:0 auto;
-    }
-
-    .tl-section {
-      margin-bottom:72px;
-    }
-
-    .tl-section:last-child {
-      margin-bottom:0;
-    }
-
-    .tl-header {
-      display:flex;
-      align-items:flex-start;
-      gap:18px;
-      margin-bottom:30px;
-      padding-bottom:20px;
       border-bottom:1px solid var(--border);
     }
 
-    .tl-num {
-      width:54px;
-      height:54px;
-      background:var(--primary);
-      color:white;
-      border-radius:50%;
+    .trust-inner {
+      max-width:var(--max);
+      margin:0 auto;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:22px;
-      font-weight:700;
-      flex-shrink:0;
-      box-shadow:0 6px 18px rgba(47,164,192,.22);
-    }
-
-    .tl-head-text h2 {
-      font-size:28px;
-      line-height:1.2;
-      margin-bottom:6px;
-    }
-
-    .tl-head-text p {
+      gap:12px;
+      text-align:center;
+      color:var(--t2);
       font-size:15px;
-      color:var(--t3);
+      font-weight:500;
     }
 
-    .tl-content {
+    .trust-dot {
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--primary);
+      flex:0 0 auto;
+    }
+
+    .steps-row,
+    .cards-3,
+    .benefit-grid,
+    .footer-top {
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+      margin-top:34px;
+    }
+
+    .timeline {
+      margin-top:34px;
+      display:grid;
       gap:20px;
     }
 
-    .tl-card,
-    .conf-card,
-    .flow-box,
-    .sec-card,
-    .value-card {
+    .step,
+    .card,
+    .benefit-card,
+    .proof-box,
+    .timeline-row {
       position:relative;
       overflow:hidden;
       transition:all .22s ease;
     }
 
-    .tl-card {
+    .step,
+    .card,
+    .benefit-card,
+    .proof-box {
       background:#fff;
       border:1px solid var(--border);
       border-radius:var(--r2);
-      padding:24px;
+      padding:28px 24px;
       box-shadow:var(--sh0);
     }
 
-    .tl-card:hover {
+    .step:hover,
+    .card:hover,
+    .benefit-card:hover,
+    .proof-box:hover,
+    .timeline-row:hover {
       box-shadow:var(--sh1);
       transform:translateY(-2px);
       border-color:rgba(47,164,192,.24);
     }
 
-    .tl-card.tinted {
-      background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-2) 100%);
-      border-color:rgba(47,164,192,.16);
+    .step.step-tint,
+    .card.card-tint,
+    .benefit-card.benefit-tint,
+    .proof-box.proof-tint,
+    .timeline-row.timeline-tint {
+      background:linear-gradient(180deg, #ffffff 0%, #f4fbfd 100%);
+      border-color:rgba(47,164,192,.18);
     }
 
-    .tl-card.tinted:before,
-    .conf-card.tinted:before,
-    .value-card.tinted:before,
-    .flow-box.result:before,
-    .sec-card.tinted:before {
+    .step.step-tint:before,
+    .card.card-tint:before,
+    .benefit-card.benefit-tint:before,
+    .proof-box.proof-tint:before,
+    .timeline-row.timeline-tint:before {
       content:"";
       position:absolute;
+      top:0;
       left:0;
       right:0;
-      top:0;
       height:4px;
       background:linear-gradient(90deg, var(--primary) 0%, #7fd7ea 100%);
     }
 
-    .tl-card-icon {
-      width:46px;
-      height:46px;
+    .step-num,
+    .card-icon {
+      width:40px;
+      height:40px;
       border-radius:12px;
       background:var(--primary-light);
       color:var(--primary);
       display:flex;
       align-items:center;
       justify-content:center;
+      font-size:18px;
+      margin-bottom:18px;
+      font-weight:700;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+    }
+
+    .step h3,
+    .card h3,
+    .benefit-card h3,
+    .proof-box h3 {
       font-size:21px;
-      margin-bottom:16px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.75);
-    }
-
-    .tl-card h3 {
-      font-size:18px;
-      margin-bottom:8px;
-      line-height:1.3;
-    }
-
-    .tl-card p {
-      font-size:15px;
-      color:var(--t2);
-      line-height:1.65;
-    }
-
-    .tl-note {
-      margin-top:18px;
-      padding:16px 18px;
-      background:linear-gradient(180deg, #ffffff 0%, #f6fbfd 100%);
-      border:1px solid rgba(47,164,192,.16);
-      border-radius:14px;
-      font-size:14px;
-      color:var(--t2);
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      box-shadow:var(--sh0);
-    }
-
-    .tl-note-ic {
-      font-size:16px;
-      flex-shrink:0;
-      margin-top:1px;
-    }
-
-    .confidence {
-      padding:88px 5%;
-      background:linear-gradient(180deg, #f8fbfc 0%, #f2f9fb 100%);
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-    }
-
-    .confidence-inner {
-      max-width:960px;
-      margin:0 auto;
-    }
-
-    .conf-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:38px;
-    }
-
-    .conf-card {
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--r2);
-      padding:26px 22px;
-      text-align:center;
-      box-shadow:var(--sh0);
-    }
-
-    .conf-card:hover {
-      box-shadow:var(--sh1);
-      transform:translateY(-2px);
-      border-color:rgba(47,164,192,.22);
-    }
-
-    .conf-card.tinted {
-      background:linear-gradient(180deg, #ffffff 0%, #f3fbfd 100%);
-      border-color:rgba(47,164,192,.16);
-    }
-
-    .conf-ring {
-      width:82px;
-      height:82px;
-      margin:0 auto 16px;
-      position:relative;
-    }
-
-    .conf-ring svg {
-      transform:rotate(-90deg);
-    }
-
-    .conf-pct {
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:16px;
-      font-weight:700;
-    }
-
-    .conf-h {
-      font-size:17px;
-      font-weight:700;
-      margin-bottom:6px;
-    }
-
-    .conf-d {
-      font-size:14px;
-      color:var(--t2);
-      line-height:1.55;
-    }
-
-    .conf-action {
-      display:inline-block;
-      margin-top:12px;
-      font-size:12px;
-      font-weight:700;
-      padding:5px 12px;
-      border-radius:999px;
-    }
-
-    .ca-g { background:var(--primary-light); color:var(--primary-dark); }
-    .ca-a { background:#fff8e8; color:var(--amber); }
-    .ca-r { background:#fff4f4; color:var(--red); }
-
-    .value-strip {
-      padding:88px 5%;
-      background:#fff;
-    }
-
-    .value-inner {
-      max-width:960px;
-      margin:0 auto;
-    }
-
-    .value-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:20px;
-      margin-top:36px;
-    }
-
-    .value-card {
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--r2);
-      padding:24px;
-      box-shadow:var(--sh0);
-    }
-
-    .value-card:hover {
-      box-shadow:var(--sh1);
-      transform:translateY(-2px);
-      border-color:rgba(47,164,192,.24);
-    }
-
-    .value-card.tinted {
-      background:linear-gradient(180deg, #ffffff 0%, #f4fbfd 100%);
-      border-color:rgba(47,164,192,.16);
-    }
-
-    .value-card h3 {
-      font-size:19px;
-      margin-bottom:8px;
-      line-height:1.3;
-    }
-
-    .value-card p {
-      font-size:15px;
-      color:var(--t2);
-      line-height:1.65;
-    }
-
-    .ap-flow {
-      padding:88px 5%;
-      background:linear-gradient(180deg, #f8fbfc 0%, #edf7f9 100%);
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .ap-flow:before {
-      content:"";
-      position:absolute;
-      right:-120px;
-      top:-80px;
-      width:280px;
-      height:280px;
-      background:radial-gradient(circle, rgba(47,164,192,.12), transparent 68%);
-      pointer-events:none;
-    }
-
-    .ap-flow-inner {
-      max-width:960px;
-      margin:0 auto;
-      position:relative;
-      z-index:1;
-    }
-
-    .flow-row {
-      display:grid;
-      grid-template-columns:1fr auto 1fr;
-      gap:0;
-      align-items:center;
-      margin-top:38px;
-    }
-
-    .flow-box {
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--r2);
-      padding:22px;
-      box-shadow:var(--sh0);
-    }
-
-    .flow-box h3 {
-      font-size:14px;
-      font-weight:700;
-      margin-bottom:12px;
-      color:var(--t2);
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-
-    .flow-box.result {
-      background:linear-gradient(180deg, #ffffff 0%, #f4fbfd 100%);
-      border-color:rgba(47,164,192,.16);
-    }
-
-    .flow-box.result h3 {
-      color:var(--primary-dark);
-    }
-
-    .flow-item {
-      display:flex;
-      align-items:flex-start;
-      gap:8px;
-      font-size:14px;
-      color:var(--t2);
+      line-height:1.25;
       margin-bottom:10px;
-      line-height:1.5;
+      color:var(--text);
     }
 
-    .flow-item:last-child {
-      margin-bottom:0;
+    .step p,
+    .card p,
+    .benefit-card p,
+    .proof-box p {
+      color:var(--t2);
+      font-size:15px;
     }
 
-    .flow-dot {
-      width:7px;
-      height:7px;
-      border-radius:50%;
-      background:var(--t3);
-      flex-shrink:0;
-      margin-top:7px;
-    }
-
-    .flow-dot.g { background:var(--primary); }
-
-    .flow-arrow {
-      text-align:center;
-      padding:0 22px;
-      font-size:26px;
-      color:var(--primary);
-      font-weight:700;
-    }
-
-    .flow-arrow p {
-      font-size:12px;
-      color:var(--t3);
-      margin-top:4px;
-      font-weight:700;
-      line-height:1.4;
-    }
-
-    .security {
-      padding:88px 5%;
-      background:#fff;
-    }
-
-    .security-inner {
-      max-width:960px;
-      margin:0 auto;
-    }
-
-    .sec-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:34px;
-    }
-
-    .sec-card {
+    .timeline-row {
       background:#fff;
       border:1px solid var(--border);
       border-radius:var(--r2);
-      padding:24px;
+      padding:28px 24px;
       box-shadow:var(--sh0);
+      display:grid;
+      grid-template-columns:120px 1fr;
+      gap:22px;
+      align-items:start;
     }
 
-    .sec-card:hover {
-      box-shadow:var(--sh1);
-      transform:translateY(-2px);
-      border-color:rgba(47,164,192,.22);
-    }
-
-    .sec-card.tinted {
-      background:linear-gradient(180deg, #ffffff 0%, #f4fbfd 100%);
-      border-color:rgba(47,164,192,.16);
-    }
-
-    .sec-ic {
-      width:42px;
-      height:42px;
-      background:var(--primary-light);
-      border-radius:12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:18px;
+    .timeline-label {
+      font-size:13px;
+      font-weight:700;
       color:var(--primary);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      padding-top:4px;
+    }
+
+    .timeline-content h3 {
+      font-size:22px;
+      line-height:1.25;
+      margin-bottom:8px;
+      color:var(--text);
+    }
+
+    .timeline-content p {
+      color:var(--t2);
+      font-size:15px;
       margin-bottom:14px;
     }
 
-    .sec-card h4 {
-      font-size:17px;
-      margin-bottom:8px;
-      line-height:1.3;
+    .bullet-list {
+      list-style:none;
+      display:grid;
+      gap:8px;
+      color:var(--t2);
+      font-size:15px;
     }
 
-    .sec-card p {
-      font-size:14px;
-      color:var(--t2);
-      line-height:1.6;
+    .bullet-list li {
+      position:relative;
+      padding-left:18px;
+    }
+
+    .bullet-list li:before {
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--primary);
+      position:absolute;
+      left:0;
+      top:10px;
     }
 
     .cta-band {
@@ -785,9 +551,9 @@
 
     .cta-band h2 {
       font-family:'DM Serif Display',serif;
-      font-size:44px;
+      font-size:48px;
       line-height:1.12;
-      margin-bottom:14px;
+      margin-bottom:16px;
       position:relative;
       z-index:1;
     }
@@ -808,9 +574,9 @@
     }
 
     .cta-note {
+      margin-top:16px;
       font-size:13px;
       color:rgba(255,255,255,.48);
-      margin-top:16px;
     }
 
     footer {
@@ -825,10 +591,9 @@
     }
 
     .footer-top {
-      display:grid;
       grid-template-columns:1.4fr .8fr .8fr;
-      gap:22px;
       align-items:start;
+      margin-top:0;
       margin-bottom:32px;
     }
 
@@ -874,22 +639,18 @@
     }
 
     @media(max-width:1024px) {
-      .quick-points,
-      .conf-grid,
-      .value-grid,
-      .sec-grid,
+      .hero h1 { font-size:50px; }
+      .hero-stats,
+      .steps-row,
+      .cards-3,
+      .benefit-grid,
       .footer-top {
         grid-template-columns:1fr 1fr;
       }
 
-      .flow-row {
+      .timeline-row {
         grid-template-columns:1fr;
-        gap:14px;
-      }
-
-      .flow-arrow {
-        transform:rotate(90deg);
-        padding:8px 0;
+        gap:12px;
       }
     }
 
@@ -900,46 +661,49 @@
       .nav-cta .btn-outline { display:none; }
 
       .section,
-      .timeline,
-      .confidence,
-      .value-strip,
-      .ap-flow,
-      .security,
       .cta-band,
-      .page-hero {
+      .hero {
         padding-left:4%;
         padding-right:4%;
       }
 
-      .page-hero {
-        padding-top:80px;
-        padding-bottom:66px;
+      .section {
+        padding-top:72px;
+        padding-bottom:72px;
       }
 
-      .page-hero h1 { font-size:38px; }
-      .page-hero p { font-size:17px; }
+      .hero {
+        padding-top:82px;
+        padding-bottom:68px;
+      }
+
+      .hero h1 { font-size:40px; }
+      .hero-sub { font-size:17px; }
 
       .section-h,
       .cta-band h2 { font-size:34px; }
 
-      .section-sub { font-size:17px; }
+      .section-sub,
+      .cta-band p { font-size:17px; }
 
-      .quick-points,
-      .tl-content,
-      .conf-grid,
-      .value-grid,
-      .sec-grid,
+      .hero-stats,
+      .steps-row,
+      .cards-3,
+      .benefit-grid,
       .footer-top {
         grid-template-columns:1fr;
       }
 
-      .tl-header {
+      .hero-actions {
         flex-direction:column;
-        gap:14px;
+        align-items:stretch;
       }
 
-      .footer-top {
-        margin-bottom:24px;
+      .hero-actions .btn { width:100%; }
+
+      .trust-inner {
+        font-size:14px;
+        line-height:1.5;
       }
     }
   </style>
@@ -950,324 +714,269 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Fincline home">
         <span class="nav-logo-pill">Fincline</span>
-        <span class="nav-logo-text">Payments-aware reconciliation</span>
+        <span class="nav-logo-text">Faster close. Less manual reconciliation.</span>
       </a>
       <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="how-it-works.html" class="active">How It Works</a>
-        <a href="early-access.html">Early Access</a>
+        <a href="#overview">Overview</a>
+        <a href="#flow">The workflow</a>
+        <a href="#why">Why it matters</a>
+        <a href="#close">Get started</a>
       </div>
       <div class="nav-cta">
         <a href="early-access.html" class="btn btn-outline">Contact</a>
-        <a href="early-access.html" class="btn btn-primary">Get early access</a>
+        <a href="early-access.html" class="btn btn-primary">Join early access</a>
       </div>
     </div>
   </nav>
 
-  <section class="page-hero">
-    <div class="page-hero-inner">
-      <div class="setup-badge">Payments-aware workflow, not generic automation</div>
-      <h1>How Fincline <em>rebuilds payment context</em> before your team has to chase it</h1>
-      <p>
-        Fincline connects your bank, accounting system, and inbox so reconciliation starts with the full picture, not just a bank line item with missing details.
+  <header class="hero" id="overview">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        How Fincline works
+      </div>
+      <h1>From raw bank activity to a <em>faster, cleaner close</em></h1>
+      <p class="hero-sub">
+        Fincline connects your bank, payments, inbox, and accounting system to reconstruct the context missing from bank feeds, explain likely matches, and route exceptions before they delay close.
       </p>
+      <div class="hero-actions">
+        <a href="early-access.html" class="btn btn-primary btn-xl">Join early access</a>
+        <a href="#flow" class="btn btn-outline btn-xl">See the workflow</a>
+      </div>
+      <div class="hero-note">Built to help bookkeeping firms and finance teams move faster without losing review control.</div>
 
-      <div class="quick-points">
-        <div class="quick-point">
-          <h3>Connect once</h3>
-          <p>Read-only connections bring together the systems your team already uses.</p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <h3>Ingest</h3>
+          <p>Bank feeds, accounting data, and inbox signals come together in one workflow.</p>
         </div>
-        <div class="quick-point">
-          <h3>Reconstruct context</h3>
-          <p>Payments, invoices, remittance signals, and history are evaluated together.</p>
+        <div class="stat-card">
+          <h3>Explain</h3>
+          <p>Every suggested match includes reasoning, confidence, and applied rule logic.</p>
         </div>
-        <div class="quick-point">
-          <h3>Review only exceptions</h3>
-          <p>Your team spends less time on detective work and more time on decisions.</p>
+        <div class="stat-card">
+          <h3>Route</h3>
+          <p>Routine work moves forward. Uncertain items are separated into review queues.</p>
+        </div>
+        <div class="stat-card">
+          <h3>Control</h3>
+          <p>Read-only until confirmation, with audit-friendly human review before write-back.</p>
         </div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="timeline">
-    <div class="timeline-inner">
-
-      <div class="tl-section">
-        <div class="section-label">Step 1</div>
-        <div class="tl-header">
-          <div class="tl-num">1</div>
-          <div class="tl-head-text">
-            <h2>Connect the systems that already hold the clues</h2>
-            <p>Fincline is useful because it sits across the fragmented sources your team currently checks one by one.</p>
-          </div>
-        </div>
-
-        <div class="tl-content">
-          <div class="tl-card tinted">
-            <div class="tl-card-icon">🏦</div>
-            <h3>Bank connection</h3>
-            <p>Fincline connects to your business bank account with read-only access so it can ingest cleared transactions and settlement activity without touching funds.</p>
-          </div>
-
-          <div class="tl-card">
-            <div class="tl-card-icon">📘</div>
-            <h3>QuickBooks or Xero</h3>
-            <p>Open invoices, customer records, vendor data, and accounting context are pulled in so the matching process starts from what is expected, not from scratch.</p>
-          </div>
-
-          <div class="tl-card">
-            <div class="tl-card-icon">✉️</div>
-            <h3>Email inbox</h3>
-            <p>Fincline reads invoice attachments and remittance emails so it can use real payment references and supporting evidence that usually live outside the ledger.</p>
-          </div>
-
-          <div class="tl-card tinted">
-            <div class="tl-card-icon">🔗</div>
-            <h3>One connected workflow</h3>
-            <p>Once these sources are connected, Fincline can evaluate transactions in context instead of forcing your team to jump between bank feeds, accounting records, and email.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-section">
-        <div class="section-label">Step 2</div>
-        <div class="tl-header">
-          <div class="tl-num">2</div>
-          <div class="tl-head-text">
-            <h2>Fincline reconstructs what actually happened</h2>
-            <p>This is where the product becomes payments-aware instead of just rule-based.</p>
-          </div>
-        </div>
-
-        <div class="tl-content">
-          <div class="tl-card">
-            <div class="tl-card-icon">⚡</div>
-            <h3>Transaction arrives</h3>
-            <p>A cleared ACH, wire, card settlement, or other inbound payment is ingested from the bank connection and normalized into a consistent transaction record.</p>
-          </div>
-
-          <div class="tl-card tinted">
-            <div class="tl-card-icon">🧠</div>
-            <h3>Context is assembled</h3>
-            <p>Fincline compares amount, payer clues, invoice data, remittance references, timing, and historical patterns to determine what the payment most likely represents.</p>
-          </div>
-
-          <div class="tl-card tinted">
-            <div class="tl-card-icon">📉</div>
-            <h3>Net-of-fees and partials are handled correctly</h3>
-            <p>Instead of treating all differences as mismatches, Fincline recognizes settlement deductions, partial payments, split payments, and installment patterns as first-class cases.</p>
-          </div>
-
-          <div class="tl-card">
-            <div class="tl-card-icon">📬</div>
-            <h3>Remittance data strengthens the match</h3>
-            <p>If a remittance email arrives before the cash clears, Fincline can use that evidence to narrow candidates and make the final bank-side match more explainable.</p>
-          </div>
-        </div>
-
-        <div class="tl-note">
-          <span class="tl-note-ic">🔎</span>
-          <span>Fincline is designed to explain why a match is suggested. It is not meant to feel like a black box making unexplained bookkeeping decisions.</span>
-        </div>
-      </div>
-
-      <div class="tl-section">
-        <div class="section-label">Step 3</div>
-        <div class="tl-header">
-          <div class="tl-num">3</div>
-          <div class="tl-head-text">
-            <h2>The right action is routed based on confidence</h2>
-            <p>Routine items should move quickly. Edge cases should surface with context.</p>
-          </div>
-        </div>
-
-        <div class="tl-content">
-          <div class="tl-card tinted">
-            <div class="tl-card-icon">✅</div>
-            <h3>High-confidence items move forward</h3>
-            <p>When the context is strong enough, the transaction can be treated as routine and moved through the workflow with a clear audit trail.</p>
-          </div>
-
-          <div class="tl-card">
-            <div class="tl-card-icon">👆</div>
-            <h3>Mid-confidence items go to quick review</h3>
-            <p>Users see the suggested match, the reasoning behind it, and the likely alternatives so they can confirm or reassign without hunting for clues manually.</p>
-          </div>
-
-          <div class="tl-card">
-            <div class="tl-card-icon">🚩</div>
-            <h3>Low-confidence items are surfaced, not forced</h3>
-            <p>If Fincline is not confident, it does not pretend otherwise. The item is sent to review with the most useful context available for investigation.</p>
-          </div>
-
-          <div class="tl-card tinted">
-            <div class="tl-card-icon">🧾</div>
-            <h3>Every decision stays explainable</h3>
-            <p>Recommended matches, confirmations, overrides, and exceptions all remain visible in an audit-friendly workflow designed for operational trust.</p>
-          </div>
-        </div>
-      </div>
-
+  <section class="trust-strip">
+    <div class="trust-inner">
+      <span class="trust-dot"></span>
+      Fincline does not replace your accounting system. It removes the manual reconciliation work between systems.
+      <span class="trust-dot"></span>
     </div>
   </section>
 
-  <section class="confidence">
-    <div class="confidence-inner">
-      <div class="section-label">Confidence Routing</div>
-      <h2 class="section-h">Confidence scoring, not guesswork</h2>
+  <section class="section">
+    <div class="container">
+      <div class="section-label">What Fincline Connects</div>
+      <h2 class="section-h">The full picture, not just a bank line item</h2>
       <p class="section-sub">
-        Every match gets a score. That score determines whether the item can move forward, needs one-click review, or should be investigated more carefully.
+        Most reconciliation tools start too late. Fincline starts with the full operating context so your team does not have to piece it together manually.
       </p>
 
-      <div class="conf-grid">
-        <div class="conf-card tinted">
-          <div class="conf-ring">
-            <svg width="82" height="82" viewBox="0 0 82 82">
-              <circle cx="41" cy="41" r="32" fill="none" stroke="#e2e8f0" stroke-width="10"/>
-              <circle cx="41" cy="41" r="32" fill="none" stroke="#2FA4C0" stroke-width="10" stroke-dasharray="181 201"/>
-            </svg>
-            <div class="conf-pct" style="color:var(--primary);">90%+</div>
-          </div>
-          <div class="conf-h">Auto-confirm path</div>
-          <p class="conf-d">High-confidence items can move forward with a full audit trail and without wasting human attention on routine work.</p>
-          <span class="conf-action ca-g">Routine flow</span>
+      <div class="cards-3">
+        <div class="card card-tint">
+          <div class="card-icon">B</div>
+          <h3>Bank activity</h3>
+          <p>Incoming deposits, ACH, wires, card payouts, grouped settlements, checks, and other transaction signals are captured as they arrive.</p>
         </div>
-
-        <div class="conf-card">
-          <div class="conf-ring">
-            <svg width="82" height="82" viewBox="0 0 82 82">
-              <circle cx="41" cy="41" r="32" fill="none" stroke="#e2e8f0" stroke-width="10"/>
-              <circle cx="41" cy="41" r="32" fill="none" stroke="#d48806" stroke-width="10" stroke-dasharray="140 201"/>
-            </svg>
-            <div class="conf-pct" style="color:var(--amber);">70–90%</div>
-          </div>
-          <div class="conf-h">Quick review path</div>
-          <p class="conf-d">The user sees the match suggestion, its reasoning, and the most relevant alternatives before confirming the next step.</p>
-          <span class="conf-action ca-a">Human confirmation</span>
+        <div class="card">
+          <div class="card-icon">I</div>
+          <h3>Invoice and accounting data</h3>
+          <p>Outstanding invoices, customer records, due amounts, open balances, and prior activity are pulled in from your accounting system.</p>
         </div>
-
-        <div class="conf-card tinted">
-          <div class="conf-ring">
-            <svg width="82" height="82" viewBox="0 0 82 82">
-              <circle cx="41" cy="41" r="32" fill="none" stroke="#e2e8f0" stroke-width="10"/>
-              <circle cx="41" cy="41" r="32" fill="none" stroke="#e05353" stroke-width="10" stroke-dasharray="80 201"/>
-            </svg>
-            <div class="conf-pct" style="color:var(--red);">&lt;70%</div>
-          </div>
-          <div class="conf-h">Investigation path</div>
-          <p class="conf-d">Low-confidence items are surfaced as exceptions so your team can investigate with context rather than accept a weak recommendation.</p>
-          <span class="conf-action ca-r">Needs investigation</span>
+        <div class="card card-tint">
+          <div class="card-icon">E</div>
+          <h3>Email and remittance context</h3>
+          <p>Inbox signals, remittance detail, payment references, and supporting clues help Fincline understand what the payment actually means.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="value-strip">
-    <div class="value-inner">
-      <div class="section-label">Why This Matters</div>
-      <h2 class="section-h">Fincline reduces manual context recovery</h2>
+  <section class="section section-alt" id="flow">
+    <div class="container">
+      <div class="section-label">The Workflow</div>
+      <h2 class="section-h">How Fincline works step by step</h2>
       <p class="section-sub">
-        The biggest time sink in reconciliation is usually not clicking confirm. It is reconstructing what happened across multiple systems before anyone can decide.
+        Fincline follows the same path your team already uses, but with more context, better prioritization, and less manual investigation.
       </p>
 
-      <div class="value-grid">
-        <div class="value-card tinted">
-          <h3>Fewer unknown payers</h3>
-          <p>Transactions arrive with better supporting context, reducing the time spent asking who sent this and what it belongs to.</p>
+      <div class="timeline">
+        <div class="timeline-row timeline-tint">
+          <div class="timeline-label">Step 1</div>
+          <div class="timeline-content">
+            <h3>Connect your systems with read-only access</h3>
+            <p>Start by connecting the bank, accounting system, and inbox. Fincline uses read-only connections to analyze transactions and supporting context before any action is taken.</p>
+            <ul class="bullet-list">
+              <li>Bank activity is synced into one view</li>
+              <li>Invoice and customer data are available for matching</li>
+              <li>Email and remittance signals add missing context</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="value-card">
-          <h3>Faster morning review</h3>
-          <p>Instead of reviewing everything, your team reviews the smaller set of items that genuinely need judgment.</p>
+        <div class="timeline-row">
+          <div class="timeline-label">Step 2</div>
+          <div class="timeline-content">
+            <h3>Classify payment behavior before matching</h3>
+            <p>Fincline identifies whether a payment looks exact, partial, split, grouped, net-of-fees, or otherwise unusual before recommending how it should be handled.</p>
+            <ul class="bullet-list">
+              <li>Separates routine items from edge cases early</li>
+              <li>Recognizes real-world payment patterns that break simple rules</li>
+              <li>Reduces time wasted on false mismatches</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="value-card tinted">
-          <h3>More trust in the workflow</h3>
-          <p>Because Fincline shows reasoning and alternatives, users can act with more confidence than they would with unexplained automation.</p>
+        <div class="timeline-row timeline-tint">
+          <div class="timeline-label">Step 3</div>
+          <div class="timeline-content">
+            <h3>Suggest likely matches with reasoning</h3>
+            <p>Instead of showing only a mismatch, Fincline explains what it thinks happened, how confident it is, and what rule or pattern influenced the recommendation.</p>
+            <ul class="bullet-list">
+              <li>Confidence scores help teams prioritize quickly</li>
+              <li>Reasoning shows why the match was suggested</li>
+              <li>Custom rules reflect how your business actually operates</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-label">Step 4</div>
+          <div class="timeline-content">
+            <h3>Route work into the right review state</h3>
+            <p>High-confidence items move into ready-to-confirm workflows, while uncertain matches are separated into needs-review, exception, or investigation queues.</p>
+            <ul class="bullet-list">
+              <li>Routine work moves faster</li>
+              <li>Uncertain items are easier to investigate</li>
+              <li>Teams stop treating every transaction as equally urgent</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-row timeline-tint">
+          <div class="timeline-label">Step 5</div>
+          <div class="timeline-content">
+            <h3>Confirm only when your team is ready</h3>
+            <p>Fincline is designed for control. Analysis comes first. Write-back happens only after explicit user confirmation, with the decision captured for auditability.</p>
+            <ul class="bullet-list">
+              <li>Read-only until review is complete</li>
+              <li>Matches can be explained before action</li>
+              <li>Audit trails preserve trust and accountability</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-label">Step 6</div>
+          <div class="timeline-content">
+            <h3>Keep backlog from turning into month-end pain</h3>
+            <p>Queued work that was not reviewed right away does not disappear. Fincline keeps it organized by status, age, and period so teams can clear backlog without losing context.</p>
+            <ul class="bullet-list">
+              <li>Pending items stay visible and structured</li>
+              <li>Older work can be prioritized safely</li>
+              <li>Month-end surprises are reduced</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="ap-flow">
-    <div class="ap-flow-inner">
-      <div class="section-label">AP Bill Capture</div>
-      <h2 class="section-h">Email is part of the workflow too</h2>
+  <section class="section" id="why">
+    <div class="container">
+      <div class="section-label">Why This Workflow Matters</div>
+      <h2 class="section-h">The result is less manual work and a faster path to close</h2>
       <p class="section-sub">
-        Fincline also turns invoice attachments and supporting email context into structured input for finance workflows, so reconciliation and document intake do not stay siloed.
+        Fincline is built to shorten the time between payment arrival and confident reconciliation, while keeping humans in control of final action.
       </p>
 
-      <div class="flow-row">
-        <div class="flow-box">
-          <h3>Raw email arrives</h3>
-          <div class="flow-item"><div class="flow-dot"></div>PDF attachment</div>
-          <div class="flow-item"><div class="flow-dot"></div>Vendor sender</div>
-          <div class="flow-item"><div class="flow-dot"></div>Unstructured subject line</div>
-          <div class="flow-item"><div class="flow-dot"></div>Little or no structured data</div>
+      <div class="benefit-grid">
+        <div class="benefit-card benefit-tint">
+          <h3>Less detective work</h3>
+          <p>Your team starts with the likely explanation instead of starting from a raw bank line and working backward.</p>
         </div>
-
-        <div class="flow-arrow">
-          →
-          <p>Extraction + validation</p>
+        <div class="benefit-card">
+          <h3>Earlier exception visibility</h3>
+          <p>Issues are surfaced during the cycle instead of becoming close blockers at the end of the month.</p>
         </div>
-
-        <div class="flow-box result">
-          <h3>Structured finance input</h3>
-          <div class="flow-item"><div class="flow-dot g"></div>Vendor identified</div>
-          <div class="flow-item"><div class="flow-dot g"></div>Invoice number extracted</div>
-          <div class="flow-item"><div class="flow-dot g"></div>Amount captured</div>
-          <div class="flow-item"><div class="flow-dot g"></div>Due date surfaced</div>
-          <div class="flow-item"><div class="flow-dot g"></div>Ready for review or push</div>
+        <div class="benefit-card benefit-tint">
+          <h3>More confidence before write-back</h3>
+          <p>Matches, rules, and explanations are visible before anything is confirmed in the accounting system.</p>
         </div>
-      </div>
-
-      <div class="tl-note" style="margin-top:20px;">
-        <span class="tl-note-ic">📎</span>
-        <span>Fincline is designed to combine email-derived information with accounting and bank-side context, which is one reason it can do more than a simple bank-rule matcher.</span>
       </div>
     </div>
   </section>
 
-  <section class="security">
-    <div class="security-inner">
-      <div class="section-label">Security & Privacy</div>
-      <h2 class="section-h">Built for trust from day one</h2>
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-label">What Fincline Supports</div>
+      <h2 class="section-h">Built for the realities finance teams deal with every day</h2>
       <p class="section-sub">
-        Finance workflows depend on trust. The system should make users feel safe before it ever tries to make them feel fast.
+        Fincline is not limited to clean one-to-one matches. It is built for the payment behavior that makes reconciliation slow in the real world.
       </p>
 
-      <div class="sec-grid">
-        <div class="sec-card tinted">
-          <div class="sec-ic">🔒</div>
-          <h4>Read-only financial access</h4>
-          <p>Bank and inbox connections should be limited to the access required for ingestion and context, not for taking action without permission.</p>
+      <div class="cards-3">
+        <div class="card card-tint">
+          <div class="card-icon">A</div>
+          <h3>ACH, wires, and weak references</h3>
+          <p>When memo fields are vague or missing, Fincline uses surrounding context instead of forcing the user to investigate from scratch.</p>
         </div>
-
-        <div class="sec-card">
-          <div class="sec-ic">🧾</div>
-          <h4>Explainable workflow decisions</h4>
-          <p>Users should be able to see how and why a recommendation was made instead of relying on opaque automation in a sensitive workflow.</p>
+        <div class="card">
+          <div class="card-icon">P</div>
+          <h3>Partials, splits, and grouped payments</h3>
+          <p>One invoice paid over time or one payment covering multiple invoices should not automatically become manual work.</p>
         </div>
-
-        <div class="sec-card tinted">
-          <div class="sec-ic">🛡️</div>
-          <h4>Audit-friendly controls</h4>
-          <p>Decisions, overrides, and exception handling belong in a workflow that supports traceability and operational accountability.</p>
+        <div class="card card-tint">
+          <div class="card-icon">F</div>
+          <h3>Net-of-fees and payout complexity</h3>
+          <p>Processor deductions, BNPL settlements, and fee-driven differences are treated as explainable patterns, not mystery exceptions.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta-band">
-    <h2>Start with the workflow.</h2>
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Designed For Trust</div>
+      <h2 class="section-h">A workflow finance teams can actually rely on</h2>
+      <p class="section-sub">
+        Faster close only matters if the team trusts how the work is being done. Fincline is designed to make automation understandable, reviewable, and controlled.
+      </p>
+
+      <div class="cards-3">
+        <div class="proof-box proof-tint">
+          <h3>Explainable recommendations</h3>
+          <p>Users can see why a match was suggested instead of being forced to accept a black-box answer.</p>
+        </div>
+        <div class="proof-box">
+          <h3>Human review where it matters</h3>
+          <p>Teams do not review everything. They review the uncertain cases and move through routine work faster.</p>
+        </div>
+        <div class="proof-box proof-tint">
+          <h3>Explicit confirmation before action</h3>
+          <p>Read-only analysis first, deliberate user action second, with a clear audit trail behind the workflow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band" id="close">
+    <h2>See how Fincline can shorten your path to close</h2>
     <p>
-      Join early access or reach out to learn how Fincline helps reconciliation teams move faster with better context, clearer decisions, and fewer unresolved exceptions.
+      Join early access and explore a workflow built to reduce manual reconciliation work, surface exceptions sooner, and help your team close faster with more confidence.
     </p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="early-access.html" class="btn btn-light btn-lg">Get early access</a>
-      <a href="mailto:hello@fincline.com" class="btn btn-outline btn-lg" style="background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.22);">Contact</a>
-    </div>
-    <div class="cta-note">Built for bookkeeping firms, solo bookkeepers, and SMB finance teams.</div>
+    <a href="early-access.html" class="btn btn-light btn-xl">Get early access</a>
+    <div class="cta-note">Early access is limited while Fincline onboards initial design partners.</div>
   </section>
 
   <footer>
@@ -1276,17 +985,15 @@
         <div class="footer-brand">
           <div class="nav-logo-pill" style="display:inline-block;">Fincline</div>
           <p>
-            Payments-aware reconciliation for bookkeeping firms and SMB finance teams. Fincline rebuilds the missing context between bank feeds, payments, email, and accounting systems.
+            Fincline helps bookkeeping firms and finance teams close faster by automating payment matching across bank feeds, payments, email, and accounting systems.
           </p>
         </div>
-
         <div class="footer-links">
           <h4>Product</h4>
           <a href="index.html">Home</a>
-          <a href="how-it-works.html">How it works</a>
-          <a href="early-access.html">Early access</a>
+          <a href="#flow">The workflow</a>
+          <a href="#why">Why it matters</a>
         </div>
-
         <div class="footer-links">
           <h4>Company</h4>
           <a href="early-access.html">Early access</a>
