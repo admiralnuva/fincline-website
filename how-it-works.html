@@ -40,6 +40,7 @@
       --r2:18px;
       --rs:8px;
       --max:1120px;
+      --card-max:360px;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -280,7 +281,7 @@
     }
 
     .hero h1 em {
-      color:#8fe7fb;
+      color:#fff;
       font-style:italic;
     }
 
@@ -294,6 +295,7 @@
     .hero-actions {
       display:flex;
       justify-content:center;
+      align-items:center;
       gap:12px;
       flex-wrap:wrap;
       margin-bottom:20px;
@@ -340,6 +342,12 @@
       line-height:1.5;
     }
 
+    .stat-card.fincline-accent {
+      background:rgba(47,164,192,.18);
+      border:1px solid rgba(47,164,192,.45);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
     .trust-strip {
       padding:26px 5%;
       background:#fff;
@@ -367,23 +375,33 @@
       flex:0 0 auto;
     }
 
-    .steps-row,
-    .cards-3,
-    .benefit-grid,
-    .footer-top {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:22px;
-      margin-top:34px;
-    }
-
     .timeline {
       margin-top:34px;
       display:grid;
       gap:20px;
     }
 
-    .step,
+    .cards-3,
+    .benefit-grid,
+    .footer-top {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:22px;
+      margin-top:34px;
+    }
+
+    .cards-3.standard-grid,
+    .benefit-grid.standard-grid {
+      align-items:stretch;
+    }
+
+    .cards-3.standard-grid > *,
+    .benefit-grid.standard-grid > * {
+      width:100%;
+      max-width:var(--card-max);
+      justify-self:center;
+    }
+
     .card,
     .benefit-card,
     .proof-box,
@@ -393,7 +411,6 @@
       transition:all .22s ease;
     }
 
-    .step,
     .card,
     .benefit-card,
     .proof-box {
@@ -404,7 +421,6 @@
       box-shadow:var(--sh0);
     }
 
-    .step:hover,
     .card:hover,
     .benefit-card:hover,
     .proof-box:hover,
@@ -414,7 +430,6 @@
       border-color:rgba(47,164,192,.24);
     }
 
-    .step.step-tint,
     .card.card-tint,
     .benefit-card.benefit-tint,
     .proof-box.proof-tint,
@@ -423,7 +438,6 @@
       border-color:rgba(47,164,192,.18);
     }
 
-    .step.step-tint:before,
     .card.card-tint:before,
     .benefit-card.benefit-tint:before,
     .proof-box.proof-tint:before,
@@ -437,7 +451,6 @@
       background:linear-gradient(90deg, var(--primary) 0%, #7fd7ea 100%);
     }
 
-    .step-num,
     .card-icon {
       width:40px;
       height:40px;
@@ -453,7 +466,6 @@
       box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
     }
 
-    .step h3,
     .card h3,
     .benefit-card h3,
     .proof-box h3 {
@@ -463,7 +475,6 @@
       color:var(--text);
     }
 
-    .step p,
     .card p,
     .benefit-card p,
     .proof-box p {
@@ -641,7 +652,6 @@
     @media(max-width:1024px) {
       .hero h1 { font-size:50px; }
       .hero-stats,
-      .steps-row,
       .cards-3,
       .benefit-grid,
       .footer-top {
@@ -687,19 +697,23 @@
       .cta-band p { font-size:17px; }
 
       .hero-stats,
-      .steps-row,
       .cards-3,
       .benefit-grid,
       .footer-top {
         grid-template-columns:1fr;
       }
 
-      .hero-actions {
-        flex-direction:column;
-        align-items:stretch;
+      .cards-3.standard-grid > *,
+      .benefit-grid.standard-grid > * {
+        max-width:none;
       }
 
-      .hero-actions .btn { width:100%; }
+      .hero-actions {
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-actions .btn { width:auto; min-width:220px; }
 
       .trust-inner {
         font-size:14px;
@@ -740,7 +754,6 @@
         Fincline connects your bank, payments, inbox, and accounting system to reconstruct the context missing from bank feeds, explain likely matches, and route exceptions before they delay close.
       </p>
       <div class="hero-actions">
-        <a href="early-access.html" class="btn btn-primary btn-xl">Join early access</a>
         <a href="#flow" class="btn btn-outline btn-xl">See the workflow</a>
       </div>
       <div class="hero-note">Built to help bookkeeping firms and finance teams move faster without losing review control.</div>
@@ -750,7 +763,7 @@
           <h3>Ingest</h3>
           <p>Bank feeds, accounting data, and inbox signals come together in one workflow.</p>
         </div>
-        <div class="stat-card">
+        <div class="stat-card fincline-accent">
           <h3>Explain</h3>
           <p>Every suggested match includes reasoning, confidence, and applied rule logic.</p>
         </div>
@@ -758,7 +771,7 @@
           <h3>Route</h3>
           <p>Routine work moves forward. Uncertain items are separated into review queues.</p>
         </div>
-        <div class="stat-card">
+        <div class="stat-card fincline-accent">
           <h3>Control</h3>
           <p>Read-only until confirmation, with audit-friendly human review before write-back.</p>
         </div>
@@ -782,7 +795,7 @@
         Most reconciliation tools start too late. Fincline starts with the full operating context so your team does not have to piece it together manually.
       </p>
 
-      <div class="cards-3">
+      <div class="cards-3 standard-grid">
         <div class="card card-tint">
           <div class="card-icon">B</div>
           <h3>Bank activity</h3>
@@ -900,7 +913,7 @@
         Fincline is built to shorten the time between payment arrival and confident reconciliation, while keeping humans in control of final action.
       </p>
 
-      <div class="benefit-grid">
+      <div class="benefit-grid standard-grid">
         <div class="benefit-card benefit-tint">
           <h3>Less detective work</h3>
           <p>Your team starts with the likely explanation instead of starting from a raw bank line and working backward.</p>
@@ -925,7 +938,7 @@
         Fincline is not limited to clean one-to-one matches. It is built for the payment behavior that makes reconciliation slow in the real world.
       </p>
 
-      <div class="cards-3">
+      <div class="cards-3 standard-grid">
         <div class="card card-tint">
           <div class="card-icon">A</div>
           <h3>ACH, wires, and weak references</h3>
@@ -953,7 +966,7 @@
         Faster close only matters if the team trusts how the work is being done. Fincline is designed to make automation understandable, reviewable, and controlled.
       </p>
 
-      <div class="cards-3">
+      <div class="cards-3 standard-grid">
         <div class="proof-box proof-tint">
           <h3>Explainable recommendations</h3>
           <p>Users can see why a match was suggested instead of being forced to accept a black-box answer.</p>
