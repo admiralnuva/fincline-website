@@ -15,6 +15,7 @@
       --primary-light:#E6F5F8;
       --primary-soft:#CDEAF1;
       --primary-soft-2:#F2FBFD;
+      --primary-soft-3:#EAF7FB;
       --primary-glow:rgba(47,164,192,.22);
 
       --navy:#0f2440;
@@ -23,18 +24,19 @@
 
       --white:#ffffff;
       --bg:#f7fafb;
-      --bg2:#eef6f8;
+      --bg2:#eef7fa;
+      --bg3:#e8f4f8;
 
       --text:#1a2332;
       --t2:#4a5568;
       --t3:#7b8794;
 
-      --border:#e2e8f0;
-      --border-d:#cbd5e1;
+      --border:#dbe7ee;
+      --border-d:#c7d8e2;
 
-      --sh0:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-      --sh1:0 6px 20px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
-      --sh2:0 16px 44px rgba(0,0,0,.12),0 6px 16px rgba(0,0,0,.08);
+      --sh0:0 2px 6px rgba(11,31,55,.05),0 1px 2px rgba(11,31,55,.03);
+      --sh1:0 10px 28px rgba(11,31,55,.10),0 4px 10px rgba(11,31,55,.05);
+      --sh2:0 18px 42px rgba(11,31,55,.14),0 8px 20px rgba(11,31,55,.07);
 
       --r:12px;
       --r2:18px;
@@ -58,8 +60,18 @@
     a { text-decoration:none; color:inherit; }
 
     .container { max-width:var(--max); margin:0 auto; }
-    .section { padding:88px 5%; }
-    .section-alt { background:linear-gradient(180deg, #f8fbfc 0%, #f2f9fb 100%); }
+    .section { padding:96px 5%; position:relative; }
+    .section-alt {
+      background:
+        radial-gradient(circle at top left, rgba(47,164,192,.08), transparent 28%),
+        linear-gradient(180deg, #f8fcfd 0%, #edf7fa 100%);
+    }
+    .section-highlight {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(47,164,192,.12), transparent 22%),
+        radial-gradient(circle at 10% 90%, rgba(30,127,152,.06), transparent 24%),
+        linear-gradient(180deg, #eef8fb 0%, #e4f3f8 100%);
+    }
 
     .section-label {
       display:inline-block;
@@ -203,7 +215,7 @@
     .btn-xl { padding:16px 34px; font-size:17px; border-radius:var(--r); }
 
     .hero {
-      padding:104px 5% 84px;
+      padding:104px 5% 86px;
       background:
         radial-gradient(circle at 20% 20%, rgba(47,164,192,.14), transparent 26%),
         radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 28%),
@@ -269,7 +281,7 @@
       font-size:68px;
       line-height:1.02;
       letter-spacing:-1.2px;
-      margin-bottom:18px;
+      margin-bottom:20px;
       color:#fff;
       max-width:920px;
       margin-left:auto;
@@ -277,9 +289,7 @@
       text-wrap:balance;
     }
 
-    .hero h1 em {
-      font-style:italic;
-    }
+    .hero h1 em { font-style:italic; }
 
     .hero h1 .hero-accent {
       display:inline-block;
@@ -288,18 +298,11 @@
     }
 
     .hero-sub {
-      max-width:780px;
-      margin:0 auto 10px;
+      max-width:820px;
+      margin:0 auto 16px;
       font-size:22px;
-      color:rgba(255,255,255,.92);
-      font-weight:600;
-    }
-
-    .hero-desc {
-      max-width:780px;
-      margin:0 auto 34px;
-      font-size:18px;
-      color:rgba(255,255,255,.72);
+      color:rgba(255,255,255,.88);
+      font-weight:500;
     }
 
     .hero-actions {
@@ -330,13 +333,13 @@
     }
 
     .stat-card {
-      background:linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.06) 100%);
-      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.07) 100%);
+      border:1px solid rgba(255,255,255,.14);
       border-radius:var(--r);
       padding:22px 18px;
       text-align:left;
       box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
-      min-height:168px;
+      min-height:172px;
     }
 
     .stat-card h3 {
@@ -348,7 +351,7 @@
     }
 
     .stat-card p {
-      color:rgba(255,255,255,.68);
+      color:rgba(255,255,255,.72);
       font-size:14px;
       line-height:1.55;
     }
@@ -382,9 +385,9 @@
     }
 
     .pain-strip {
-      padding:18px 5% 26px;
-      background:linear-gradient(180deg, #fbfdfe 0%, #f7fafb 100%);
-      border-bottom:1px solid #edf2f7;
+      padding:20px 5% 28px;
+      background:linear-gradient(180deg, #fbfdfe 0%, #f3fafc 100%);
+      border-bottom:1px solid #e5eff4;
     }
 
     .pain-strip-inner {
@@ -396,15 +399,15 @@
     }
 
     .pain-pill {
-      background:rgba(255,255,255,.92);
-      border:1px solid #dbe7ee;
+      background:rgba(255,255,255,.96);
+      border:1px solid #d7e6ee;
       border-radius:16px;
       padding:16px 18px;
       text-align:center;
       font-weight:600;
       color:#2a3444;
       font-size:15px;
-      box-shadow:0 1px 2px rgba(15,36,64,.03);
+      box-shadow:0 3px 10px rgba(15,36,64,.04);
     }
 
     .problem-grid,
@@ -416,8 +419,8 @@
     .before-after {
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:22px;
-      margin-top:34px;
+      gap:24px;
+      margin-top:36px;
     }
 
     .card,
@@ -432,7 +435,7 @@
       background:#fff;
       border:1px solid var(--border);
       border-radius:var(--r2);
-      padding:28px 24px;
+      padding:30px 24px;
       box-shadow:var(--sh0);
     }
 
@@ -442,9 +445,9 @@
     .proof-box:hover,
     .help-card:hover,
     .compare-box:hover {
-      box-shadow:var(--sh1);
-      transform:translateY(-2px);
-      border-color:rgba(47,164,192,.24);
+      box-shadow:var(--sh2);
+      transform:translateY(-3px);
+      border-color:rgba(47,164,192,.30);
     }
 
     .card-tint,
@@ -453,8 +456,8 @@
     .proof-tint,
     .help-tint,
     .compare-tint {
-      background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-2) 100%);
-      border-color:rgba(47,164,192,.18);
+      background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-3) 100%);
+      border-color:rgba(47,164,192,.24);
     }
 
     .card-tint:before,
@@ -473,18 +476,18 @@
     }
 
     .card-icon {
-      width:44px;
-      height:44px;
-      border-radius:12px;
-      background:var(--primary-light);
-      color:var(--primary);
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      background:#dff3f8;
+      color:var(--primary-dark);
       display:flex;
       align-items:center;
       justify-content:center;
       font-size:20px;
       margin-bottom:18px;
       font-weight:700;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
     }
 
     .card h3,
@@ -512,7 +515,7 @@
     .steps-row {
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:22px;
+      gap:24px;
       margin-top:38px;
     }
 
@@ -523,22 +526,34 @@
       padding:30px 24px;
       box-shadow:var(--sh0);
       transition:all .22s ease;
+      position:relative;
+      overflow:hidden;
     }
 
     .step:hover {
-      box-shadow:var(--sh1);
-      transform:translateY(-2px);
-      border-color:rgba(47,164,192,.24);
+      box-shadow:var(--sh2);
+      transform:translateY(-3px);
+      border-color:rgba(47,164,192,.30);
     }
 
     .step.step-tint {
-      background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-2) 100%);
-      border-color:rgba(47,164,192,.18);
+      background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-3) 100%);
+      border-color:rgba(47,164,192,.24);
+    }
+
+    .step.step-tint:before {
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:4px;
+      background:linear-gradient(90deg, var(--primary) 0%, #7fd7ea 100%);
     }
 
     .step-num {
-      width:34px;
-      height:34px;
+      width:36px;
+      height:36px;
       border-radius:999px;
       background:var(--primary);
       color:#fff;
@@ -548,6 +563,7 @@
       font-size:14px;
       font-weight:700;
       margin-bottom:18px;
+      box-shadow:0 8px 18px rgba(47,164,192,.18);
     }
 
     .step h3 {
@@ -584,8 +600,10 @@
     }
 
     .cta-band {
-      padding:92px 5%;
-      background:linear-gradient(160deg, #123554 0%, #0f2440 100%);
+      padding:96px 5%;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(47,164,192,.12), transparent 24%),
+        linear-gradient(160deg, #123554 0%, #0f2440 100%);
       color:#fff;
       text-align:center;
       position:relative;
@@ -615,7 +633,7 @@
     .cta-band p {
       max-width:700px;
       margin:0 auto 28px;
-      color:rgba(255,255,255,.72);
+      color:rgba(255,255,255,.74);
       font-size:18px;
       position:relative;
       z-index:1;
@@ -722,18 +740,17 @@
       }
 
       .section {
-        padding-top:72px;
-        padding-bottom:72px;
+        padding-top:76px;
+        padding-bottom:76px;
       }
 
       .hero {
-        padding-top:82px;
+        padding-top:84px;
         padding-bottom:68px;
       }
 
       .hero h1 { font-size:42px; }
       .hero-sub { font-size:19px; }
-      .hero-desc,
       .section-sub,
       .cta-band p { font-size:17px; }
       .section-h,
@@ -795,11 +812,7 @@
       </h1>
 
       <p class="hero-sub">
-        Close your books faster with automated payment matching.
-      </p>
-
-      <p class="hero-desc">
-        Fincline connects your bank, payments, inbox, and accounting system to reduce manual reconciliation work, surface exceptions earlier, and help your team close with more confidence.
+        Fincline suggests matches and explains why—so you can review and post faster.
       </p>
 
       <div class="hero-actions">
@@ -818,15 +831,15 @@
         </div>
         <div class="stat-card">
           <h3>Faster close</h3>
-          <p>Stop waiting until month-end to fix payment questions. Resolve more of the work as payments come in.</p>
+          <p>Resolve more payment questions before month-end instead of during the last-minute rush.</p>
         </div>
         <div class="stat-card">
           <h3>Fewer surprises</h3>
-          <p>Stop discovering exceptions during close. Catch unclear deposits, fee differences, and mismatches earlier.</p>
+          <p>Catch unclear deposits, fee differences, and mismatches earlier so they do not pile up during close.</p>
         </div>
         <div class="stat-card">
           <h3>More control</h3>
-          <p>Stop guessing. See suggested matches and reasoning first, then confirm only what you trust.</p>
+          <p>See suggested matches and explanations first, then review and post with confidence.</p>
         </div>
       </div>
     </div>
@@ -868,18 +881,18 @@
         <div class="card">
           <div class="card-icon">2</div>
           <h3>Teams have to play detective</h3>
-          <p>Bookkeepers jump between the bank, accounting system, inbox, and spreadsheets just to understand who paid and what was covered.</p>
+          <p>Bookkeepers bounce between the bank, accounting system, inbox, and spreadsheets just to understand who paid and what was covered.</p>
         </div>
         <div class="card card-tint">
           <div class="card-icon">3</div>
           <h3>The hard items pile up near close</h3>
-          <p>Partial payments, split payments, grouped deposits, and net-of-fee payouts get pushed aside until they become month-end problems.</p>
+          <p>Partial payments, split payments, grouped deposits, and net-of-fee payouts get pushed aside until they become close blockers.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt" id="before-after">
+  <section class="section section-highlight" id="before-after">
     <div class="container">
       <div class="section-label">Before and After</div>
       <h2 class="section-h">From messy payments to a clean, fast close</h2>
@@ -901,13 +914,13 @@
         </div>
         <div class="compare-box compare-tint">
           <span class="compare-tag">After</span>
-          <h3>A cleaner review workflow</h3>
+          <h3>A clearer review workflow</h3>
           <ul>
-            <li>Cleaner matches</li>
+            <li>Suggested matches</li>
+            <li>Clear explanations</li>
             <li>Fewer clicks</li>
             <li>Earlier exception visibility</li>
-            <li>Less manual reconciliation work</li>
-            <li>Faster, more confident close</li>
+            <li>Faster, more confident posting</li>
           </ul>
         </div>
       </div>
@@ -931,12 +944,12 @@
         <div class="step">
           <div class="step-num">2</div>
           <h3>Get suggested matches with context</h3>
-          <p>Fincline helps identify what a payment likely belongs to and shows the reasoning before anything is confirmed.</p>
+          <p>Fincline suggests likely matches and explains why a payment belongs to an invoice, a group of invoices, or a review queue.</p>
         </div>
         <div class="step step-tint">
           <div class="step-num">3</div>
-          <h3>Review faster and focus on exceptions</h3>
-          <p>Routine items move faster. The unusual ones go into a review queue so your team spends time where judgment is actually needed.</p>
+          <h3>Review faster and post with confidence</h3>
+          <p>Routine items move forward faster. The uncertain ones go into review so your team spends time where judgment is actually needed.</p>
         </div>
       </div>
     </div>
@@ -1022,7 +1035,7 @@
         <div class="footer-brand">
           <div class="nav-logo-pill" style="display:inline-block;">Fincline</div>
           <p>
-            Fincline helps bookkeepers and finance teams understand payments faster, reduce manual reconciliation work, and close the books with more confidence.
+            Fincline suggests matches, explains why they fit, and helps finance teams review and post faster with more confidence.
           </p>
         </div>
         <div class="footer-links">
@@ -1049,7 +1062,5 @@
     </div>
   </footer>
 
-</body>
-</html>
 </body>
 </html>
