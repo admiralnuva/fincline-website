@@ -203,8 +203,11 @@
     .btn-xl { padding:16px 34px; font-size:17px; border-radius:var(--r); }
 
     .hero {
-      padding:96px 5% 84px;
-      background:linear-gradient(160deg, #123554 0%, #0d2740 100%);
+      padding:104px 5% 84px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(47,164,192,.14), transparent 26%),
+        radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 28%),
+        linear-gradient(160deg, #123554 0%, #0d2740 100%);
       color:#fff;
       text-align:center;
       overflow:hidden;
@@ -233,7 +236,7 @@
     }
 
     .hero-inner {
-      max-width:900px;
+      max-width:960px;
       margin:0 auto;
       position:relative;
       z-index:1;
@@ -263,23 +266,28 @@
 
     .hero h1 {
       font-family:'DM Serif Display',serif;
-      font-size:58px;
-      line-height:1.08;
-      letter-spacing:-.6px;
+      font-size:68px;
+      line-height:1.02;
+      letter-spacing:-1.2px;
       margin-bottom:18px;
       color:#fff;
+      max-width:920px;
+      margin-left:auto;
+      margin-right:auto;
+      text-wrap:balance;
     }
 
-    .hero h1 em {
+    .hero h1 .hero-accent {
+      display:inline-block;
       color:#8fe7fb;
-      font-style:italic;
+      text-shadow:0 0 28px rgba(143,231,251,.08);
     }
 
     .hero-sub {
       max-width:780px;
       margin:0 auto 10px;
       font-size:22px;
-      color:rgba(255,255,255,.90);
+      color:rgba(255,255,255,.92);
       font-weight:600;
     }
 
@@ -681,7 +689,7 @@
     }
 
     @media (max-width:1024px) {
-      .hero h1 { font-size:50px; }
+      .hero h1 { font-size:56px; }
       .hero-stats,
       .pain-strip-inner,
       .problem-grid,
@@ -719,7 +727,7 @@
         padding-bottom:68px;
       }
 
-      .hero h1 { font-size:38px; }
+      .hero h1 { font-size:42px; }
       .hero-sub { font-size:19px; }
       .hero-desc,
       .section-sub,
@@ -777,7 +785,10 @@
         Now accepting early access applications
       </div>
 
-      <h1>Matching payments to invoices <em>should not take hours</em></h1>
+      <h1>
+        Match payments to invoices.
+        <span class="hero-accent">Faster. Cleaner.</span>
+      </h1>
 
       <p class="hero-sub">
         Close your books faster with automated payment matching.
