@@ -23,8 +23,6 @@
 
       --white:#ffffff;
       --bg:#f7fafb;
-      --bg2:#eef7fa;
-      --bg3:#e5f3f8;
 
       --text:#1a2332;
       --t2:#3f4f61;
@@ -61,6 +59,951 @@
     .container { max-width:var(--max); margin:0 auto; }
     .section { padding:96px 5%; position:relative; }
 
+    .section-alt {
+      background:
+        radial-gradient(circle at top left, rgba(47,164,192,.08), transparent 28%),
+        linear-gradient(180deg, #f8fcfd 0%, #edf7fa 100%);
+    }
+
+    .section-highlight {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(47,164,192,.12), transparent 22%),
+        radial-gradient(circle at 10% 90%, rgba(30,127,152,.06), transparent 24%),
+        linear-gradient(180deg, #eef8fb 0%, #e3f2f7 100%);
+    }
+
+    .section-label {
+      display:inline-block;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--primary);
+      margin-bottom:14px;
+    }
+
+    .section-h {
+      font-family:'DM Serif Display',serif;
+      font-size:42px;
+      line-height:1.15;
+      letter-spacing:-.3px;
+      margin-bottom:14px;
+      color:var(--text);
+    }
+
+    .section-sub {
+      max-width:760px;
+      font-size:18px;
+      color:var(--t2);
+    }
+
+    nav {
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(15,36,64,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:0 5%;
+    }
+
+    .nav-inner {
+      max-width:var(--max);
+      margin:0 auto;
+      height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .nav-logo {
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .nav-logo-pill {
+      background:var(--primary);
+      color:white;
+      padding:7px 14px;
+      border-radius:10px;
+      font-size:17px;
+      font-weight:700;
+      letter-spacing:-.2px;
+      box-shadow:0 6px 18px rgba(47,164,192,.22);
+    }
+
+    .nav-logo-text {
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+      font-weight:500;
+    }
+
+    .nav-links {
+      display:flex;
+      align-items:center;
+      gap:28px;
+    }
+
+    .nav-links a {
+      color:rgba(255,255,255,.74);
+      font-size:14px;
+      font-weight:500;
+      transition:color .15s ease;
+    }
+
+    .nav-links a:hover { color:#fff; }
+
+    .nav-cta {
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 20px;
+      border-radius:var(--rs);
+      font-size:14px;
+      font-weight:700;
+      border:none;
+      transition:all .18s ease;
+      cursor:pointer;
+      font-family:'DM Sans',sans-serif;
+      white-space:nowrap;
+    }
+
+    .btn-primary {
+      background:var(--primary);
+      color:#fff;
+      box-shadow:0 2px 10px rgba(47,164,192,.22);
+    }
+
+    .btn-primary:hover {
+      background:var(--primary-dark);
+      transform:translateY(-1px);
+      box-shadow:0 8px 22px rgba(47,164,192,.30);
+    }
+
+    .btn-light {
+      background:#fff;
+      color:var(--navy);
+      box-shadow:var(--sh0);
+    }
+
+    .btn-light:hover {
+      transform:translateY(-1px);
+      box-shadow:var(--sh1);
+    }
+
+    .btn-xl { padding:15px 32px; font-size:17px; border-radius:var(--r); }
+
+    .hero {
+      padding:64px 5% 48px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(47,164,192,.14), transparent 26%),
+        radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 28%),
+        linear-gradient(160deg, #123554 0%, #0d2740 100%);
+      color:#fff;
+      text-align:center;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero:before {
+      content:"";
+      position:absolute;
+      inset:auto auto -120px -120px;
+      width:300px;
+      height:300px;
+      background:radial-gradient(circle, rgba(47,164,192,.18), transparent 65%);
+      pointer-events:none;
+    }
+
+    .hero:after {
+      content:"";
+      position:absolute;
+      top:-120px;
+      right:-80px;
+      width:320px;
+      height:320px;
+      background:radial-gradient(circle, rgba(255,255,255,.08), transparent 70%);
+      pointer-events:none;
+    }
+
+    .hero-inner {
+      max-width:980px;
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero h1 {
+      font-family:'DM Serif Display',serif;
+      font-size:52px;
+      line-height:1.04;
+      letter-spacing:-.8px;
+      margin-bottom:12px;
+      color:#fff;
+      max-width:760px;
+      margin-left:auto;
+      margin-right:auto;
+      text-wrap:balance;
+    }
+
+    .hero h1 em {
+      font-style:italic;
+      font-weight:400;
+    }
+
+    .hero-accent {
+      display:inline-block;
+      color:#8fe7fb;
+      text-shadow:0 0 28px rgba(143,231,251,.08);
+    }
+
+    .hero-pain {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      max-width:980px;
+      margin:0 auto 16px;
+    }
+
+    .pain-pill {
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:15px;
+      padding:12px 14px;
+      text-align:center;
+      font-weight:600;
+      color:rgba(255,255,255,.92);
+      font-size:14px;
+      line-height:1.35;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .hero-sub {
+      max-width:780px;
+      margin:0 auto 18px;
+      font-size:20px;
+      color:rgba(255,255,255,.88);
+      font-weight:500;
+      line-height:1.45;
+    }
+
+    .hero-sub strong { color:#fff; }
+
+    .hero-stats {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      max-width:980px;
+      margin:0 auto 18px;
+    }
+
+    .stat-card {
+      background:linear-gradient(180deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.07) 100%);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:var(--r);
+      padding:18px 16px;
+      text-align:left;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+      min-height:148px;
+    }
+
+    .stat-card h3 {
+      color:#fff;
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:6px;
+      line-height:1.25;
+    }
+
+    .stat-card p {
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .hero-cta-lower {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin-top:4px;
+    }
+
+    .hero-note {
+      color:rgba(255,255,255,.62);
+      font-size:14px;
+      line-height:1.4;
+    }
+
+    .hero-note strong {
+      color:#fff;
+      font-weight:700;
+    }
+
+    .problem-grid,
+    .who-grid,
+    .help-grid,
+    .footer-top,
+    .before-after,
+    .trust-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+      margin-top:36px;
+    }
+
+    .card,
+    .who-card,
+    .help-card,
+    .compare-box,
+    .trust-card {
+      position:relative;
+      overflow:hidden;
+      transition:all .22s ease;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:30px 24px;
+      box-shadow:var(--sh0);
+    }
+
+    .card:hover,
+    .who-card:hover,
+    .help-card:hover,
+    .compare-box:hover,
+    .trust-card:hover {
+      box-shadow:var(--sh2);
+      transform:translateY(-3px);
+      border-color:rgba(47,164,192,.30);
+    }
+
+    .card-tint,
+    .who-tint,
+    .help-tint,
+    .compare-tint,
+    .trust-tint {
+      background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-3) 100%);
+      border-color:rgba(47,164,192,.24);
+    }
+
+    .card-tint:before,
+    .who-tint:before,
+    .help-tint:before,
+    .compare-tint:before,
+    .trust-tint:before {
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:4px;
+      background:linear-gradient(90deg, var(--primary) 0%, #7fd7ea 100%);
+    }
+
+    .card-icon {
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      background:#dff3f8;
+      color:var(--primary-dark);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      margin-bottom:18px;
+      font-weight:700;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+    }
+
+    .trust-icon {
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      background:#dff3f8;
+      color:var(--primary-dark);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      margin-bottom:16px;
+      font-weight:700;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+    }
+
+    .card h3,
+    .who-card h3,
+    .help-card h3,
+    .compare-box h3,
+    .trust-card h3 {
+      font-size:20px;
+      line-height:1.25;
+      margin-bottom:10px;
+      color:var(--text);
+    }
+
+    .card p,
+    .who-card p,
+    .help-card p,
+    .compare-box p,
+    .trust-card p {
+      color:var(--t2);
+      font-size:15px;
+    }
+
+    .steps-row {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+      margin-top:38px;
+    }
+
+    .step {
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:30px 24px;
+      box-shadow:var(--sh0);
+      transition:all .22s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .step:hover {
+      box-shadow:var(--sh2);
+      transform:translateY(-3px);
+      border-color:rgba(47,164,192,.30);
+    }
+
+    .step.step-tint {
+      background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-3) 100%);
+      border-color:rgba(47,164,192,.24);
+    }
+
+    .step.step-tint:before {
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:4px;
+      background:linear-gradient(90deg, var(--primary) 0%, #7fd7ea 100%);
+    }
+
+    .step-num {
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      background:var(--primary);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:18px;
+      box-shadow:0 8px 18px rgba(47,164,192,.18);
+    }
+
+    .step h3 {
+      font-size:21px;
+      margin-bottom:10px;
+      line-height:1.25;
+    }
+
+    .step p {
+      color:var(--t2);
+      font-size:15px;
+    }
+
+    .compare-box ul,
+    .who-card ul {
+      padding-left:18px;
+      margin-top:14px;
+      color:var(--t2);
+    }
+
+    .compare-box li,
+    .who-card li {
+      margin-bottom:8px;
+    }
+
+    .compare-tag {
+      display:inline-block;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+      color:var(--primary-dark);
+    }
+
+    .cta-band {
+      padding:96px 5%;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(47,164,192,.12), transparent 24%),
+        linear-gradient(160deg, #123554 0%, #0f2440 100%);
+      color:#fff;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .cta-band:before {
+      content:"";
+      position:absolute;
+      left:-100px;
+      bottom:-120px;
+      width:260px;
+      height:260px;
+      background:radial-gradient(circle, rgba(47,164,192,.18), transparent 68%);
+      pointer-events:none;
+    }
+
+    .cta-band h2 {
+      font-family:'DM Serif Display',serif;
+      font-size:48px;
+      line-height:1.12;
+      margin-bottom:16px;
+      position:relative;
+      z-index:1;
+    }
+
+    .cta-band p {
+      max-width:700px;
+      margin:0 auto 28px;
+      color:rgba(255,255,255,.74);
+      font-size:18px;
+      position:relative;
+      z-index:1;
+    }
+
+    .cta-band .btn {
+      position:relative;
+      z-index:1;
+    }
+
+    footer {
+      background:#081426;
+      color:#fff;
+      padding:60px 5% 30px;
+    }
+
+    .footer-inner {
+      max-width:var(--max);
+      margin:0 auto;
+    }
+
+    .footer-top {
+      grid-template-columns:1.4fr .8fr .8fr;
+      align-items:start;
+      margin-top:0;
+      margin-bottom:32px;
+    }
+
+    .footer-brand p {
+      max-width:460px;
+      margin-top:16px;
+      color:rgba(255,255,255,.62);
+      font-size:15px;
+    }
+
+    .footer-links h4 {
+      font-size:15px;
+      margin-bottom:12px;
+      color:#fff;
+    }
+
+    .footer-links a {
+      display:block;
+      color:rgba(255,255,255,.6);
+      margin-bottom:9px;
+      font-size:14px;
+      transition:color .15s ease;
+    }
+
+    .footer-links a:hover { color:#fff; }
+
+    .footer-bottom {
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,.45);
+      font-size:13px;
+    }
+
+    .footer-bottom-links {
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:1024px) {
+      .hero h1 { font-size:46px; }
+      .hero-pain,
+      .hero-stats,
+      .problem-grid,
+      .who-grid,
+      .steps-row,
+      .help-grid,
+      .footer-top,
+      .before-after,
+      .trust-grid { grid-template-columns:1fr 1fr; }
+    }
+
+    @media (max-width:768px) {
+      nav { padding:0 4%; }
+      .nav-links,
+      .nav-logo-text { display:none; }
+
+      .section,
+      .cta-band,
+      .hero {
+        padding-left:4%;
+        padding-right:4%;
+      }
+
+      .section {
+        padding-top:76px;
+        padding-bottom:76px;
+      }
+
+      .hero {
+        padding-top:56px;
+        padding-bottom:44px;
+      }
+
+      .hero h1 { font-size:36px; }
+      .hero-sub { font-size:18px; }
+      .section-sub,
+      .cta-band p { font-size:17px; }
+      .section-h,
+      .cta-band h2 { font-size:34px; }
+
+      .hero-pain,
+      .hero-stats,
+      .problem-grid,
+      .who-grid,
+      .steps-row,
+      .help-grid,
+      .footer-top,
+      .before-after,
+      .trust-grid { grid-template-columns:1fr; }
+
+      .hero-cta-lower .btn { width:100%; }
+
+      .stat-card {
+        min-height:auto;
+        padding:18px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Fincline home">
+        <span class="nav-logo-pill">Fincline</span>
+        <span class="nav-logo-text">Payment reconciliation for a faster close</span>
+      </a>
+      <div class="nav-links">
+        <a href="#problem">Problem</a>
+        <a href="#before-after">Before / After</a>
+        <a href="#how">How it works</a>
+        <a href="#help">Outcomes</a>
+      </div>
+      <div class="nav-cta">
+        <a href="mailto:hello@fincline.com" class="btn btn-primary">Request a demo</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>
+        Reconcile Smarter.<br>
+        <span class="hero-accent"><em>Close Faster.</em></span>
+      </h1>
+
+      <div class="hero-pain">
+        <div class="pain-pill">Closing your books takes too long</div>
+        <div class="pain-pill">Payments don’t match invoices cleanly</div>
+        <div class="pain-pill">Manual reconciliation eats up time</div>
+      </div>
+
+      <p class="hero-sub">
+        Fincline <strong>connects invoices and payments</strong>, matches them <strong>automatically</strong>, and keeps everything <strong>in sync</strong>.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <h3>Continuous reconciliation</h3>
+          <p>Keep invoices, payments, and books aligned as activity happens instead of waiting until month-end.</p>
+        </div>
+        <div class="stat-card">
+          <h3>Faster close</h3>
+          <p>Resolve more transactions earlier so close becomes more controlled and less reactive.</p>
+        </div>
+        <div class="stat-card">
+          <h3>Fewer discrepancies</h3>
+          <p>Reduce mismatches across invoices, payments, and books with clearer context and earlier review.</p>
+        </div>
+        <div class="stat-card">
+          <h3>More control</h3>
+          <p>Review suggested matches with full visibility before any decision is made.</p>
+        </div>
+      </div>
+
+      <div class="hero-cta-lower">
+        <a href="mailto:hello@fincline.com" class="btn btn-primary btn-xl">Request a demo</a>
+        <div class="hero-note">
+          For <strong>accounting and finance teams</strong> that need a faster, cleaner close.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="problem">
+    <div class="container">
+      <div class="section-label">The Problem</div>
+      <h2 class="section-h">Why reconciliation still takes too long</h2>
+      <p class="section-sub">
+        Payments arrive without enough context. Teams are left to interpret, match, and validate across systems — and that is where time is lost.
+      </p>
+
+      <div class="problem-grid">
+        <div class="card card-tint">
+          <div class="card-icon">1</div>
+          <h3>Payments arrive without clarity</h3>
+          <p>ACH, wires, payouts, and settlements often show up with short memos, partial references, or no clean invoice mapping at all.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">2</div>
+          <h3>Teams piece together context</h3>
+          <p>Accounting and finance teams jump between the bank, accounting system, inbox, and spreadsheets just to understand what a payment covers.</p>
+        </div>
+        <div class="card card-tint">
+          <div class="card-icon">3</div>
+          <h3>Exceptions accumulate near close</h3>
+          <p>Partial payments, grouped deposits, fee differences, and edge cases get pushed aside until they become blockers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-highlight" id="before-after">
+    <div class="container">
+      <div class="section-label">Before and After</div>
+      <h2 class="section-h">From fragmented workflows to a controlled close</h2>
+      <p class="section-sub">
+        The difference becomes obvious when the review process is no longer driven by guesswork across disconnected systems.
+      </p>
+
+      <div class="before-after" style="grid-template-columns:repeat(2,1fr);">
+        <div class="compare-box">
+          <span class="compare-tag">Without Fincline</span>
+          <h3>Manual reconciliation</h3>
+          <ul>
+            <li>Multiple systems and spreadsheets</li>
+            <li>Guesswork across disconnected records</li>
+            <li>Late discovery of exceptions</li>
+            <li>Time lost near close</li>
+            <li>Unclear audit trail</li>
+          </ul>
+        </div>
+        <div class="compare-box compare-tint">
+          <span class="compare-tag">With Fincline</span>
+          <h3>Continuous reconciliation</h3>
+          <ul>
+            <li>Invoices and payments connected</li>
+            <li>Suggested matches with clear rationale</li>
+            <li>Exceptions surfaced earlier</li>
+            <li>Faster, cleaner review flow</li>
+            <li>Books stay closer to ready</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="how">
+    <div class="container">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-h">Fincline connects the signals</h2>
+      <p class="section-sub">
+        Instead of forcing your team to search across systems, Fincline brings invoices and payments into one place, evaluates context, and helps you resolve activity with confidence.
+      </p>
+
+      <div class="steps-row">
+        <div class="step step-tint">
+          <div class="step-num">1</div>
+          <h3>Ingest invoices and payments</h3>
+          <p>Bring bank activity, invoice records, and accounting data into one connected workflow.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Match with context</h3>
+          <p>Evaluate amounts, timing, references, and patterns — not just exact amount matches.</p>
+        </div>
+        <div class="step step-tint">
+          <div class="step-num">3</div>
+          <h3>Explain and resolve</h3>
+          <p>Every suggested match is explained so your team can review faster and act with confidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Built for Trust</div>
+      <h2 class="section-h">Control stays with your team</h2>
+      <p class="section-sub">
+        Fincline supports the review process without taking control away from accounting and finance teams.
+      </p>
+
+      <div class="trust-grid">
+        <div class="trust-card trust-tint">
+          <div class="trust-icon">✓</div>
+          <h3>Read-only access</h3>
+          <p>Bring in the data your team needs for review without changing source records behind the scenes.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">👁</div>
+          <h3>No changes without review</h3>
+          <p>Suggested matches stay visible and reviewable so your team stays in control of decisions.</p>
+        </div>
+        <div class="trust-card trust-tint">
+          <div class="trust-icon">i</div>
+          <h3>Every match is explainable</h3>
+          <p>See the context behind each suggestion so it is easier to review, validate, and trust the outcome.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="help">
+    <div class="container">
+      <div class="section-label">Outcomes</div>
+      <h2 class="section-h">What this enables</h2>
+      <p class="section-sub">
+        The goal is simple: less manual work, better visibility, and a more reliable path to an accurate close.
+      </p>
+
+      <div class="help-grid">
+        <div class="help-card help-tint">
+          <h3>Faster close</h3>
+          <p>Resolve more reconciliation activity earlier instead of compressing everything into close week.</p>
+        </div>
+        <div class="help-card">
+          <h3>Fewer discrepancies</h3>
+          <p>Reduce mismatches across invoices, payments, and books before they turn into month-end issues.</p>
+        </div>
+        <div class="help-card help-tint">
+          <h3>Clear audit trail</h3>
+          <p>Every suggested decision is visible, explainable, and easier to review later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-label">Built For</div>
+      <h2 class="section-h">Built for accounting and finance teams</h2>
+      <p class="section-sub">
+        Fincline is not trying to replace your accounting system. It is built to reduce the manual reconciliation layer that slows your team down.
+      </p>
+
+      <div class="who-grid">
+        <div class="who-card who-tint">
+          <h3>Controllers and finance leads</h3>
+          <p>For teams that want earlier visibility into open items and fewer surprises as close approaches.</p>
+          <ul>
+            <li>Better mid-cycle visibility</li>
+            <li>Faster review flow</li>
+            <li>More control before action</li>
+          </ul>
+        </div>
+        <div class="who-card">
+          <h3>Accounting teams</h3>
+          <p>For teams spending too much time decoding incoming payments across banks, systems, and spreadsheets.</p>
+          <ul>
+            <li>Less manual work</li>
+            <li>Cleaner exception handling</li>
+            <li>Stronger day-to-day reconciliation</li>
+          </ul>
+        </div>
+        <div class="who-card who-tint">
+          <h3>Bookkeeping and outsourced finance teams</h3>
+          <p>For operators who need a cleaner way to review payment activity across multiple clients or entities.</p>
+          <ul>
+            <li>Less context switching</li>
+            <li>Clearer suggested matches</li>
+            <li>One place to review open items</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Built for teams that need a faster, cleaner close</h2>
+    <p>
+      If payment reconciliation is slowing your team down today, Fincline can help you bring more structure, visibility, and control to the process.
+    </p>
+    <a href="mailto:hello@fincline.com" class="btn btn-light btn-xl">Request a demo</a>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logo-pill" style="display:inline-block;">Fincline</div>
+          <p>
+            Fincline connects invoices and payments, explains suggested matches, and helps accounting and finance teams reconcile with more confidence.
+          </p>
+        </div>
+        <div class="footer-links">
+          <h4>Product</h4>
+          <a href="#how">How it works</a>
+          <a href="#before-after">Before / After</a>
+          <a href="#help">Outcomes</a>
+        </div>
+        <div class="footer-links">
+          <h4>Company</h4>
+          <a href="mailto:hello@fincline.com">Request a demo</a>
+          <a href="#">Privacy policy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Fincline. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
     .section-alt {
       background:
         radial-gradient(circle at top left, rgba(47,164,192,.08), transparent 28%),
