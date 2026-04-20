@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fincline — Payment reconciliation for a faster close</title>
-  <meta name="description" content="Fincline connects invoices and payments, matches them automatically, and keeps everything in sync so accounting and finance teams can close faster with more control.">
+  <title>Fincline — Continuous reconciliation for accounting teams</title>
+  <meta name="description" content="Fincline helps accounting and finance teams reconcile payments continuously, resolve exceptions faster, and close with more control.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -266,30 +266,9 @@
       text-shadow:0 0 28px rgba(143,231,251,.08);
     }
 
-    .hero-pain {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-      max-width:980px;
-      margin:0 auto 16px;
-    }
-
-    .pain-pill {
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:15px;
-      padding:12px 14px;
-      text-align:center;
-      font-weight:600;
-      color:rgba(255,255,255,.92);
-      font-size:14px;
-      line-height:1.35;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
-    }
-
     .hero-sub {
-      max-width:780px;
-      margin:0 auto 18px;
+      max-width:760px;
+      margin:0 auto 22px;
       font-size:20px;
       color:rgba(255,255,255,.88);
       font-weight:500;
@@ -336,7 +315,7 @@
       align-items:center;
       justify-content:center;
       gap:10px;
-      margin-top:4px;
+      margin-top:6px;
     }
 
     .hero-note {
@@ -350,23 +329,21 @@
       font-weight:700;
     }
 
-    .problem-grid,
-    .who-grid,
-    .help-grid,
+    .grid-4,
+    .grid-3,
     .footer-top,
-    .before-after,
-    .trust-grid {
+    .compare-grid {
       display:grid;
-      grid-template-columns:repeat(3,1fr);
       gap:24px;
       margin-top:36px;
     }
 
+    .grid-4 { grid-template-columns:repeat(4,1fr); }
+    .grid-3 { grid-template-columns:repeat(3,1fr); }
+    .compare-grid { grid-template-columns:repeat(2,1fr); }
+
     .card,
-    .who-card,
-    .help-card,
-    .compare-box,
-    .trust-card {
+    .compare-box {
       position:relative;
       overflow:hidden;
       transition:all .22s ease;
@@ -378,29 +355,20 @@
     }
 
     .card:hover,
-    .who-card:hover,
-    .help-card:hover,
-    .compare-box:hover,
-    .trust-card:hover {
+    .compare-box:hover {
       box-shadow:var(--sh2);
       transform:translateY(-3px);
       border-color:rgba(47,164,192,.30);
     }
 
     .card-tint,
-    .who-tint,
-    .help-tint,
-    .compare-tint,
-    .trust-tint {
+    .compare-tint {
       background:linear-gradient(180deg, #ffffff 0%, var(--primary-soft-3) 100%);
       border-color:rgba(47,164,192,.24);
     }
 
     .card-tint:before,
-    .who-tint:before,
-    .help-tint:before,
-    .compare-tint:before,
-    .trust-tint:before {
+    .compare-tint:before {
       content:"";
       position:absolute;
       top:0;
@@ -419,32 +387,14 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:20px;
+      font-size:18px;
       margin-bottom:18px;
       font-weight:700;
       box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
     }
 
-    .trust-icon {
-      width:44px;
-      height:44px;
-      border-radius:12px;
-      background:#dff3f8;
-      color:var(--primary-dark);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:18px;
-      margin-bottom:16px;
-      font-weight:700;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
-    }
-
     .card h3,
-    .who-card h3,
-    .help-card h3,
-    .compare-box h3,
-    .trust-card h3 {
+    .compare-box h3 {
       font-size:20px;
       line-height:1.25;
       margin-bottom:10px;
@@ -452,17 +402,14 @@
     }
 
     .card p,
-    .who-card p,
-    .help-card p,
-    .compare-box p,
-    .trust-card p {
+    .compare-box p {
       color:var(--t2);
       font-size:15px;
     }
 
     .steps-row {
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(4,1fr);
       gap:24px;
       margin-top:38px;
     }
@@ -525,18 +472,6 @@
       font-size:15px;
     }
 
-    .compare-box ul,
-    .who-card ul {
-      padding-left:18px;
-      margin-top:14px;
-      color:var(--t2);
-    }
-
-    .compare-box li,
-    .who-card li {
-      margin-bottom:8px;
-    }
-
     .compare-tag {
       display:inline-block;
       font-size:12px;
@@ -545,6 +480,16 @@
       text-transform:uppercase;
       margin-bottom:12px;
       color:var(--primary-dark);
+    }
+
+    .compare-box ul {
+      padding-left:18px;
+      margin-top:14px;
+      color:var(--t2);
+    }
+
+    .compare-box li {
+      margin-bottom:8px;
     }
 
     .cta-band {
@@ -653,15 +598,12 @@
 
     @media (max-width:1024px) {
       .hero h1 { font-size:46px; }
-      .hero-pain,
       .hero-stats,
-      .problem-grid,
-      .who-grid,
+      .grid-4,
+      .grid-3,
       .steps-row,
-      .help-grid,
       .footer-top,
-      .before-after,
-      .trust-grid { grid-template-columns:1fr 1fr; }
+      .compare-grid { grid-template-columns:1fr 1fr; }
     }
 
     @media (max-width:768px) {
@@ -693,15 +635,12 @@
       .section-h,
       .cta-band h2 { font-size:34px; }
 
-      .hero-pain,
       .hero-stats,
-      .problem-grid,
-      .who-grid,
+      .grid-4,
+      .grid-3,
       .steps-row,
-      .help-grid,
       .footer-top,
-      .before-after,
-      .trust-grid { grid-template-columns:1fr; }
+      .compare-grid { grid-template-columns:1fr; }
 
       .hero-cta-lower .btn { width:100%; }
 
@@ -718,13 +657,13 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Fincline home">
         <span class="nav-logo-pill">Fincline</span>
-        <span class="nav-logo-text">Payment reconciliation for a faster close</span>
+        <span class="nav-logo-text">Continuous reconciliation for accounting teams</span>
       </a>
       <div class="nav-links">
-        <a href="#problem">Problem</a>
-        <a href="#before-after">Before / After</a>
+        <a href="#what">What it does</a>
+        <a href="#why">Why it matters</a>
         <a href="#how">How it works</a>
-        <a href="#help">Outcomes</a>
+        <a href="#trust">Trust</a>
       </div>
       <div class="nav-cta">
         <a href="mailto:hello@fincline.com" class="btn btn-primary">Request a demo</a>
@@ -735,105 +674,102 @@
   <header class="hero">
     <div class="hero-inner">
       <h1>
-        Reconcile Smarter.<br>
-        <span class="hero-accent"><em>Close Faster.</em></span>
+        Continuous Reconciliation<br>
+        <span class="hero-accent"><em>for a Faster Close.</em></span>
       </h1>
 
-      <div class="hero-pain">
-        <div class="pain-pill">Payments don’t match invoices cleanly</div>
-        <div class="pain-pill">Manual reconciliation eats up time</div>
-        <div class="pain-pill">Closing your books takes too long</div>
-      </div>
-
       <p class="hero-sub">
-        Fincline <strong>connects invoices and payments</strong>, matches them <strong>automatically</strong>, and keeps everything <strong>in sync</strong>.
+        Fincline connects bank activity and invoice data, matches payments continuously, and helps accounting teams close with more control.
       </p>
 
       <div class="hero-stats">
         <div class="stat-card">
           <h3>Continuous reconciliation</h3>
-          <p>Keep invoices, payments, and books aligned as activity happens instead of waiting until month-end.</p>
+          <p>Keep payments and invoices aligned as activity happens instead of waiting for month-end cleanup.</p>
         </div>
         <div class="stat-card">
-          <h3>Faster close</h3>
-          <p>Resolve more transactions earlier so close becomes more controlled and less reactive.</p>
+          <h3>Smart payment matching</h3>
+          <p>Handle full, partial, split, and fee-adjusted payments with clearer context and less manual work.</p>
         </div>
         <div class="stat-card">
-          <h3>Fewer discrepancies</h3>
-          <p>Reduce mismatches across invoices, payments, and books with clearer context and earlier review.</p>
+          <h3>Earlier exception visibility</h3>
+          <p>Surface what needs review sooner so exceptions do not pile up near close.</p>
         </div>
         <div class="stat-card">
           <h3>More control</h3>
-          <p>Review suggested matches with full visibility before any decision is made.</p>
+          <p>Review suggested matches with a clear audit trail before your team makes a decision.</p>
         </div>
       </div>
 
       <div class="hero-cta-lower">
         <a href="mailto:hello@fincline.com" class="btn btn-primary btn-xl">Request a demo</a>
         <div class="hero-note">
-          For <strong>accounting and finance teams</strong> that need a faster, cleaner close.
+          Built for <strong>accounting and finance teams</strong> that need a faster, cleaner close.
         </div>
       </div>
     </div>
   </header>
 
-  <section class="section" id="problem">
+  <section class="section" id="what">
     <div class="container">
-      <div class="section-label">The Problem</div>
-      <h2 class="section-h">Why reconciliation still takes too long</h2>
+      <div class="section-label">What Fincline Does</div>
+      <h2 class="section-h">A clear reconciliation layer between payments and books</h2>
       <p class="section-sub">
-        Payments arrive without enough context. Teams are left to interpret, match, and validate across systems — and that is where time is lost.
+        Fincline helps teams understand incoming payments, match them faster, and keep reconciliation moving throughout the month.
       </p>
 
-      <div class="problem-grid">
+      <div class="grid-4">
         <div class="card card-tint">
           <div class="card-icon">1</div>
-          <h3>Payments arrive without clarity</h3>
-          <p>ACH, wires, payouts, and settlements often show up with short memos, partial references, or no clean invoice mapping at all.</p>
+          <h3>Connect activity</h3>
+          <p>Bring together bank activity, invoice records, and reconciliation context in one workflow.</p>
         </div>
         <div class="card">
           <div class="card-icon">2</div>
-          <h3>Teams piece together context</h3>
-          <p>Accounting and finance teams jump between the bank, accounting system, inbox, and spreadsheets just to understand what a payment covers.</p>
+          <h3>Match intelligently</h3>
+          <p>Go beyond exact matches by evaluating amounts, timing, references, and payment patterns.</p>
         </div>
         <div class="card card-tint">
           <div class="card-icon">3</div>
-          <h3>Exceptions accumulate near close</h3>
-          <p>Partial payments, grouped deposits, fee differences, and edge cases get pushed aside until they become blockers.</p>
+          <h3>Surface exceptions</h3>
+          <p>Separate straight-through matches from items that need review so teams can focus faster.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">4</div>
+          <h3>Support close</h3>
+          <p>Keep books closer to ready with a cleaner review process and better visibility into open items.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-highlight" id="before-after">
+  <section class="section section-highlight" id="why">
     <div class="container">
-      <div class="section-label">Before and After</div>
-      <h2 class="section-h">From fragmented workflows to a controlled close</h2>
+      <div class="section-label">Why It Matters</div>
+      <h2 class="section-h">Manual reconciliation slows down close</h2>
       <p class="section-sub">
-        The difference becomes obvious when the review process is no longer driven by guesswork across disconnected systems.
+        Payments rarely arrive with perfect context. Teams still spend time decoding remittances, checking systems, and resolving exceptions by hand.
       </p>
 
-      <div class="before-after" style="grid-template-columns:repeat(2,1fr);">
+      <div class="compare-grid">
         <div class="compare-box">
           <span class="compare-tag">Without Fincline</span>
-          <h3>Manual reconciliation</h3>
+          <h3>Manual review across systems</h3>
           <ul>
-            <li>Multiple systems and spreadsheets</li>
-            <li>Guesswork across disconnected records</li>
-            <li>Late discovery of exceptions</li>
-            <li>Time lost near close</li>
-            <li>Unclear audit trail</li>
+            <li>Teams jump between bank records, invoices, email, and spreadsheets</li>
+            <li>Partials, splits, and net deposits take longer to interpret</li>
+            <li>Exceptions accumulate closer to month-end</li>
+            <li>Close becomes reactive and time-compressed</li>
           </ul>
         </div>
         <div class="compare-box compare-tint">
           <span class="compare-tag">With Fincline</span>
-          <h3>Continuous reconciliation</h3>
+          <h3>Continuous review with clearer context</h3>
           <ul>
-            <li>Invoices and payments connected</li>
-            <li>Suggested matches with clear rationale</li>
-            <li>Exceptions surfaced earlier</li>
-            <li>Faster, cleaner review flow</li>
-            <li>Books stay closer to ready</li>
+            <li>Payments and invoices are reviewed in one workflow</li>
+            <li>Suggested matches come with rationale</li>
+            <li>Exceptions are surfaced earlier</li>
+            <li>Teams close with more speed and control</li>
           </ul>
         </div>
       </div>
@@ -843,128 +779,93 @@
   <section class="section section-alt" id="how">
     <div class="container">
       <div class="section-label">How It Works</div>
-      <h2 class="section-h">Fincline connects the signals</h2>
+      <h2 class="section-h">Simple flow. Better control.</h2>
       <p class="section-sub">
-        Instead of forcing your team to search across systems, Fincline brings invoices and payments into one place, evaluates context, and helps you resolve activity with confidence.
+        Fincline connects the signals, evaluates context, and helps your team move from incoming payment activity to a cleaner close.
       </p>
 
       <div class="steps-row">
         <div class="step step-tint">
           <div class="step-num">1</div>
-          <h3>Ingest invoices and payments</h3>
-          <p>Bring bank activity, invoice records, and accounting data into one connected workflow.</p>
+          <h3>Ingest</h3>
+          <p>Bring bank activity and invoice data into one connected workflow.</p>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <h3>Match with context</h3>
-          <p>Evaluate amounts, timing, references, and patterns — not just exact amount matches.</p>
+          <h3>Explain</h3>
+          <p>Show the context behind each payment so review starts with clarity.</p>
         </div>
         <div class="step step-tint">
           <div class="step-num">3</div>
-          <h3>Explain and resolve</h3>
-          <p>Every suggested match is explained so your team can review faster and act with confidence.</p>
+          <h3>Route</h3>
+          <p>Separate likely matches from exceptions that need attention.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Control</h3>
+          <p>Keep review and decision-making with your team before anything is finalized.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="trust">
     <div class="container">
       <div class="section-label">Built for Trust</div>
-      <h2 class="section-h">Control stays with your team</h2>
+      <h2 class="section-h">Visibility first. Control stays with your team.</h2>
       <p class="section-sub">
-        Fincline supports the review process without taking control away from accounting and finance teams.
+        Fincline is designed to support accounting teams, not take control away from them.
       </p>
 
-      <div class="trust-grid">
-        <div class="trust-card trust-tint">
-          <div class="trust-icon">✓</div>
+      <div class="grid-3">
+        <div class="card card-tint">
+          <div class="card-icon">✓</div>
           <h3>Read-only access</h3>
           <p>Bring in the data your team needs for review without changing source records behind the scenes.</p>
         </div>
-        <div class="trust-card">
-          <div class="trust-icon">👁</div>
-          <h3>No changes without review</h3>
-          <p>Suggested matches stay visible and reviewable so your team stays in control of decisions.</p>
+        <div class="card">
+          <div class="card-icon">👁</div>
+          <h3>Review before action</h3>
+          <p>Suggested matches stay visible and reviewable so your team stays in control.</p>
         </div>
-        <div class="trust-card trust-tint">
-          <div class="trust-icon">i</div>
-          <h3>Every match is explainable</h3>
-          <p>See the context behind each suggestion so it is easier to review, validate, and trust the outcome.</p>
+        <div class="card card-tint">
+          <div class="card-icon">i</div>
+          <h3>Explainable matching</h3>
+          <p>Every suggested match comes with context to support faster, more confident review.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="help">
+  <section class="section section-alt" id="outcomes">
     <div class="container">
       <div class="section-label">Outcomes</div>
-      <h2 class="section-h">What this enables</h2>
+      <h2 class="section-h">What accounting teams get</h2>
       <p class="section-sub">
-        The goal is simple: less manual work, better visibility, and a more reliable path to an accurate close.
+        The result is less manual reconciliation, earlier visibility, and a more reliable path to close.
       </p>
 
-      <div class="help-grid">
-        <div class="help-card help-tint">
+      <div class="grid-3">
+        <div class="card card-tint">
           <h3>Faster close</h3>
-          <p>Resolve more reconciliation activity earlier instead of compressing everything into close week.</p>
+          <p>Resolve more reconciliation work earlier instead of compressing it into close week.</p>
         </div>
-        <div class="help-card">
-          <h3>Fewer discrepancies</h3>
-          <p>Reduce mismatches across invoices, payments, and books before they turn into month-end issues.</p>
+        <div class="card">
+          <h3>Fewer surprises</h3>
+          <p>Catch mismatches and unresolved items before they become month-end blockers.</p>
         </div>
-        <div class="help-card help-tint">
-          <h3>Clear audit trail</h3>
-          <p>Every suggested decision is visible, explainable, and easier to review later.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-label">Built For</div>
-      <h2 class="section-h">Built for accounting and finance teams</h2>
-      <p class="section-sub">
-        Fincline is not trying to replace your accounting system. It is built to reduce the manual reconciliation layer that slows your team down.
-      </p>
-
-      <div class="who-grid">
-        <div class="who-card who-tint">
-          <h3>Controllers and finance leads</h3>
-          <p>For teams that want earlier visibility into open items and fewer surprises as close approaches.</p>
-          <ul>
-            <li>Better mid-cycle visibility</li>
-            <li>Faster review flow</li>
-            <li>More control before action</li>
-          </ul>
-        </div>
-        <div class="who-card">
-          <h3>Accounting teams</h3>
-          <p>For teams spending too much time decoding incoming payments across banks, systems, and spreadsheets.</p>
-          <ul>
-            <li>Less manual work</li>
-            <li>Cleaner exception handling</li>
-            <li>Stronger day-to-day reconciliation</li>
-          </ul>
-        </div>
-        <div class="who-card who-tint">
-          <h3>Bookkeeping and outsourced finance teams</h3>
-          <p>For operators who need a cleaner way to review payment activity across multiple clients or entities.</p>
-          <ul>
-            <li>Less context switching</li>
-            <li>Clearer suggested matches</li>
-            <li>One place to review open items</li>
-          </ul>
+        <div class="card card-tint">
+          <h3>Cleaner audit trail</h3>
+          <p>Keep decisions visible, explainable, and easier to review later.</p>
         </div>
       </div>
     </div>
   </section>
 
   <section class="cta-band">
-    <h2>Built for teams that need a faster, cleaner close</h2>
+    <h2>Continuous reconciliation for a faster, cleaner close</h2>
     <p>
-      If payment reconciliation is slowing your team down today, Fincline can help you bring more structure, visibility, and control to the process.
+      If payment matching is slowing down your accounting team, Fincline can help bring structure, visibility, and control to the process.
     </p>
     <a href="mailto:hello@fincline.com" class="btn btn-light btn-xl">Request a demo</a>
   </section>
@@ -975,14 +876,14 @@
         <div class="footer-brand">
           <div class="nav-logo-pill" style="display:inline-block;">Fincline</div>
           <p>
-            Fincline connects invoices and payments, explains suggested matches, and helps accounting and finance teams reconcile with more confidence.
+            Fincline helps accounting and finance teams reconcile payments continuously, resolve exceptions faster, and close with more control.
           </p>
         </div>
         <div class="footer-links">
           <h4>Product</h4>
+          <a href="#what">What it does</a>
           <a href="#how">How it works</a>
-          <a href="#before-after">Before / After</a>
-          <a href="#help">Outcomes</a>
+          <a href="#trust">Trust</a>
         </div>
         <div class="footer-links">
           <h4>Company</h4>
