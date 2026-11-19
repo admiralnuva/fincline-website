@@ -1,171 +1,105 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Fincline — Payment reconciliation for small business teams</title>
-<meta content="Fincline matches payments to invoices, explains every match, and puts exceptions in front of you for review." name="description"/>
-<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="styles.css" rel="stylesheet"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Fincline helps accounting firms and small businesses match payments to invoices using auditable rules, clear AI explanations, and accountant-led approval.">
+  <title>Fincline | Payment reconciliation with clarity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#132237;--navy:#0b1929;--navy2:#122a43;--blue:#286bdc;--blue2:#78b6fa;--mist:#f3f7fb;--white:#fff;--muted:#617084;--line:#dde6ee;--teal:#0a827c;--gold:#ae6e14;--radius:14px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased;background:#fff;line-height:1.6}a{text-decoration:none;color:inherit}button{font:inherit}::selection{background:#bfd9ff;color:#112b4b}
+    .container{width:min(1128px,calc(100% - 64px));margin:auto}.eyebrow{font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:800;color:#4276bd;margin:0 0 17px}.eyebrow.light{color:#a4ccff}
+    h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:Manrope,'DM Sans',sans-serif}h1{font-size:clamp(39px,4.4vw,65px);letter-spacing:-.055em;line-height:1.13;font-weight:800;margin-bottom:24px}h2{font-size:clamp(29px,3.3vw,43px);letter-spacing:-.045em;line-height:1.2;font-weight:800;margin-bottom:18px}h3{font-size:18px;line-height:1.35;letter-spacing:-.025em;margin:0 0 10px}p{color:var(--muted)}
+    .header{background:var(--navy);position:sticky;top:0;z-index:30;border-bottom:1px solid rgba(255,255,255,.11)}.nav{display:flex;align-items:center;justify-content:space-between;min-height:77px;gap:30px}.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}.brand-logo{display:block;width:155px;height:auto;image-rendering:auto}.nav-links{display:flex;align-items:center;gap:31px;color:#bfccdb;font-size:13px;font-weight:600}.nav-links a:hover{color:#fff}.nav-actions{display:flex;align-items:center;gap:13px}.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:7px;padding:13px 20px;font-size:13px;font-weight:700;border:1px solid transparent;white-space:nowrap;transition:transform .16s,background .16s,border-color .16s}.button:hover{transform:translateY(-1px)}.button-primary{background:#3477e4;color:#fff}.button-primary:hover{background:#2267d7}.button-outline{color:#eaf1fb;background:transparent;border-color:rgba(255,255,255,.3)}.button-outline:hover{border-color:#fff}.button-subtle{background:#fff;color:#1e4e8b;border-color:#cbd9e8}.mobile-menu{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+    .hero{background:linear-gradient(118deg,#0b1929 0%,#10263d 62%,#153454 100%);position:relative;overflow:hidden;color:#fff}.hero:before{content:"";position:absolute;inset:auto -200px -250px auto;width:650px;height:650px;border:1px solid rgba(140,193,255,.09);border-radius:100%;box-shadow:0 0 0 80px rgba(145,198,255,.025),0 0 0 160px rgba(145,198,255,.018);pointer-events:none}.hero-inner{display:grid;grid-template-columns:1.03fr .97fr;gap:64px;align-items:center;padding:88px 0 89px;position:relative}.hero-copy{max-width:570px}.hero h1{color:#fff}.hero .lead{font-size:17px;line-height:1.85;color:#c0cbd9;max-width:520px;margin-bottom:31px}.hero .highlight{color:#90c2ff}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.hero-note{font-size:12px;color:#9eafc4;margin:19px 0 0}.mini-rule{height:1px;background:rgba(255,255,255,.12);margin-top:42px}.hero-strip{display:flex;gap:23px;align-items:center;flex-wrap:wrap;margin-top:20px;color:#b7c9db;font-size:12px}.hero-strip span:before{content:"";display:inline-block;width:6px;height:6px;background:#77b8ff;border-radius:50%;vertical-align:2px;margin-right:9px}
+    .demo-shell{background:#f9fbfd;border-radius:13px;padding:20px;box-shadow:0 34px 85px rgba(2,12,24,.32);color:#162b42;border:1px solid rgba(197,217,236,.65);transform:translateY(4px)}.demo-top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e1e9f0;padding-bottom:15px;gap:10px}.demo-name{font-weight:800;font-size:13px}.tiny{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:800;color:#8494a3}.pill{font-size:11px;font-weight:800;color:#986115;background:#fff4df;padding:6px 10px;border-radius:5px;white-space:nowrap}.demo-sub{font-size:12px;color:#6b7a8a;margin:15px 0 18px}.amount-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.amount-box{background:#edf3f9;border:1px solid #e1eaf3;padding:12px 11px;border-radius:7px}.amount-box label{display:block;color:#667c94;font-size:10px;font-weight:700;margin-bottom:7px}.amount-box b{display:block;font-family:Manrope;font-size:19px;letter-spacing:-.045em;white-space:nowrap}.amount-box:nth-child(3) b{color:#99651a}.evidence{margin-top:16px;border:1px solid #dce7f0;background:#fff;border-radius:8px;padding:17px}.evidence-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.evidence-head strong{font-size:12px}.score{font-size:11px;color:#5b6f85}.evidence-row{display:flex;align-items:flex-start;gap:10px;margin-top:13px;font-size:12px;color:#3c536d}.tick{display:flex;align-items:center;justify-content:center;width:19px;height:19px;flex:0 0 19px;border-radius:50%;background:#e0f5ed;color:#117d59;font-weight:800;font-size:11px}.info-note{font-size:12px;line-height:1.6;color:#42566d;margin:13px 0 0}.demo-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;color:#6c7d90;font-size:11px}.demo-foot strong{color:#17365a}.demo-disclaimer{color:#d1ddea;font-size:10px;letter-spacing:.02em;text-align:center;margin:17px 0 0}
+    .trust-band{background:#fff;border-bottom:1px solid var(--line)}.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:29px 0;gap:32px}.trust-item{padding-left:16px;border-left:2px solid #94b9e5}.trust-item b{display:block;font-size:13px;letter-spacing:-.012em}.trust-item span{font-size:12px;color:#75869a}
+    section.content-section{padding:100px 0}.section-header{max-width:690px;margin-bottom:38px}.section-header p{font-size:16px;line-height:1.8}.section-head-split{display:flex;justify-content:space-between;gap:35px;align-items:flex-end;margin-bottom:36px}.section-head-split p{max-width:470px;margin-bottom:7px;font-size:15px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:box-shadow .16s,border-color .16s}.panel:hover{box-shadow:0 14px 30px rgba(23,55,90,.06);border-color:#c8dae9}.panel p{font-size:14px;line-height:1.75;margin-bottom:0}.index{font-family:Manrope;font-weight:800;font-size:12px;color:#4278c2;letter-spacing:.08em;margin-bottom:25px}.panel .tag{display:inline-block;border-radius:4px;background:#eef4fb;color:#386496;font-size:10px;letter-spacing:.08em;font-weight:800;padding:5px 8px;text-transform:uppercase;margin-bottom:17px}.muted-section{background:var(--mist)}
+    .split{display:grid;grid-template-columns:.75fr 1.25fr;gap:76px;align-items:start}.split .section-header{margin-bottom:0}.number-list{border-top:1px solid var(--line)}.number-item{display:grid;grid-template-columns:45px 1fr;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}.num{font-family:Manrope;font-size:13px;font-weight:800;color:#4479bb}.number-item h3{margin-bottom:6px}.number-item p{font-size:14px;margin-bottom:0;line-height:1.7}
+    .value-head{margin-bottom:42px}.value-cols{display:grid;grid-template-columns:1fr 1fr;gap:72px}.value-list{display:grid;gap:25px}.value-item{border-top:1px solid #dbe5ef;padding-top:19px}.value-item h3{margin-bottom:8px}.value-item p{font-size:14px;line-height:1.7;margin:0}.quote{background:#e8f1fc;border-left:3px solid #3477e4;padding:21px 24px;color:#264c78;font-family:Manrope;font-weight:700;letter-spacing:-.025em;line-height:1.65;border-radius:0 8px 8px 0;margin-top:31px}
+    .blue-panel{background:#102b49;color:#fff;border-radius:16px;padding:38px}.blue-panel h3{color:#fff;font-size:25px}.blue-panel p{color:#c3d1e0}.blue-panel .eyebrow{color:#9ec4f0}.blue-panel .inline-stat{display:flex;gap:15px;border-top:1px solid rgba(255,255,255,.16);padding:17px 0}.blue-panel .inline-stat b{color:#d7eaff;font-size:15px}.blue-panel .inline-stat span{font-size:13px;color:#c2d0df}
+    .audience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.audience-panel{padding:35px}.audience-panel h3{font-size:21px}.audience-panel p{margin-bottom:22px}.audience-panel ul{list-style:none;padding:0;margin:0}.audience-panel li{font-size:13px;color:#52667b;margin-top:12px;display:flex;gap:10px}.audience-panel li:before{content:"✓";color:#267f79;font-weight:800}
+    .cta-section{background:#0e2238;color:#fff;padding:86px 0}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:45px}.cta-inner h2{color:#fff;margin-bottom:12px}.cta-inner p{color:#b3c4d7;margin-bottom:0;max-width:630px;font-size:15px}.cta-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+    footer{background:#071522;color:#a2b1c2;padding:39px 0 33px}.footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:flex-start}.footer-logo{width:145px;height:auto;display:block}.footer-grid p{font-size:12px;color:#8ca0b5;max-width:620px;margin:13px 0 0}.footer-links{font-size:12px;display:flex;gap:23px;flex-wrap:wrap}.footer-links a:hover{color:#fff}.footer-bottom{display:flex;justify-content:space-between;gap:20px;padding-top:25px;margin-top:28px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:#7e90a3}
+    @media(max-width:1050px){.nav-links{gap:18px}.hero-inner{gap:32px}.split{gap:40px}.value-cols{gap:40px}.demo-shell{padding:15px}.amount-box b{font-size:16px}}
+    @media(max-width:820px){.container{width:min(100% - 36px,1128px)}.mobile-menu{display:block}.nav{min-height:68px}.brand-logo{width:135px}.nav-links{display:none;position:absolute;left:0;right:0;top:68px;background:#0b1929;padding:18px 22px 23px;flex-direction:column;align-items:flex-start;border-top:1px solid rgba(255,255,255,.12)}.nav-links.open{display:flex}.nav-actions>.button{display:none}.hero-inner{grid-template-columns:1fr;gap:44px;padding:63px 0 61px}.hero-copy{max-width:640px}.demo-shell{max-width:570px}.trust-grid{grid-template-columns:repeat(2,1fr)}.split,.value-cols{grid-template-columns:1fr;gap:36px}.grid-3{grid-template-columns:1fr}.section-head-split{display:block}.section-head-split p{max-width:650px}.cta-inner{display:block}.cta-actions{justify-content:flex-start;margin-top:23px}.footer-grid{display:block}.footer-links{margin-top:24px}}
+    @media(max-width:560px){h1{font-size:39px}h2{font-size:31px}.hero .lead{font-size:15px}.amount-box{padding:9px 7px}.amount-box b{font-size:15px}.amount-box label{font-size:9px}.trust-grid{gap:22px}.trust-item{padding-left:11px}.trust-item b{font-size:12px}section.content-section{padding:70px 0}.grid-2,.audience-grid{grid-template-columns:1fr}.panel{padding:23px}.audience-panel{padding:25px}.section-head-split{margin-bottom:26px}.blue-panel{padding:28px}.footer-bottom{display:block}.footer-bottom span{display:block;margin-top:8px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.panel,.button{transition:none}}
+
+    /* Pearl White hero and crisp white header — November 2026 refinement */
+    .header{background:#fff;border-bottom:1px solid #e2e9f1;box-shadow:0 2px 18px rgba(17,39,70,.035)}
+    .nav-links{color:#42546d}.nav-links a:hover{color:#2467d4}
+    .hero{background:linear-gradient(120deg,#f4f7fb 0%,#f8fbff 56%,#eef4fb 100%);color:#132237}
+    .hero:before{border-color:rgba(65,111,183,.09);box-shadow:0 0 0 80px rgba(62,119,207,.025),0 0 0 160px rgba(62,119,207,.016)}
+    .hero h1{color:#142741}.hero .lead{color:#586a7e}.hero .highlight{color:#286bdc}
+    .hero .eyebrow.light{color:#286bdc}.hero-note{color:#64778d}
+    .hero-strip{color:#485f79}.hero-strip span:before{background:#3779da}
+    .mini-rule{background:#dbe5f0}.demo-shell{box-shadow:0 24px 65px rgba(42,71,110,.12);border-color:#dce7f1}
+    .demo-disclaimer{color:#6d7e91}
+    .hero .button-outline{color:#1f4f8b;background:#fff;border-color:#c4d4e5}
+    .hero .button-outline:hover{border-color:#286bdc;background:#f6faff}
+    .mobile-menu{color:#142741}
+    /* Pearl White footer: let the transparent Fincline logo sit naturally on white. */
+    footer{background:#fff;color:#53657b;border-top:1px solid #e2e9f1}
+    .footer-logo{background:transparent;padding:0;border-radius:0;box-sizing:border-box}
+    .footer-grid p{color:#66778c}
+    .footer-links{color:#4d6177}
+    .footer-links a:hover{color:#2464d9}
+    .footer-bottom{color:#748399;border-top:1px solid #e2e9f1}
+    @media(max-width:820px){.nav-links{background:#fff;border-top:1px solid #e2e9f1;box-shadow:0 12px 22px rgba(19,40,70,.06)}}
+  </style>
 </head>
 <body>
-<nav>
-<div class="container nav-inner">
-<a href="#top"><img alt="Fincline" class="logo" src="assets/fincline-logo.png"/></a>
-<div class="nav-links">
-<a href="#who">Who it's for</a>
-<a href="#thinking">How Fincline thinks</a>
-<a href="#how">How it works</a>
-<a class="nav-cta" href="mailto:hello@fincline.com?subject=Demo request">Request a demo</a>
-</div>
-</div>
-</nav>
-<main id="top">
-<section class="hero">
-<div class="container">
-<div class="hero-grid">
-<div>
-<div class="eyebrow">Payment reconciliation</div>
-<h1>Turn <span class="accent">12–20 hrs/week</span> of reconciliation into a <span class="accent">10-minute review.</span></h1>
-<p class="lead">Fincline matches payments to invoices, explains every match, and puts exceptions in front of you for review — without forcing your team into an ERP.</p>
-<div class="actions">
-<a class="btn btn-primary" href="mailto:hello@fincline.com?subject=Demo request">Request a demo</a>
-<a class="btn btn-secondary" href="#how">See how it works</a>
-</div>
-<div class="micro">Rules-based matching · AI-assisted review · Human approval · QuickBooks</div>
-</div>
-<div class="hero-image">
-<img alt="Fincline reconciliation dashboard concept" src="assets/hero-reconciliation.jpg"/>
-</div>
-</div>
-<div class="trust-row">
-<div><strong>Rules engine</strong>Deterministic matching</div>
-<div><strong>AI reasoning</strong>Every match explained</div>
-<div><strong>Human approval</strong>Nothing posts automatically</div>
-<div><strong>Audit trail</strong>Every action traceable</div>
-</div>
-</div>
-</section>
-<section id="who">
-<div class="container">
-<div class="section-head">
-<div class="eyebrow">Who it's for</div>
-<h2>Built for teams still reconciling manually.</h2>
-<p>Fincline gives small businesses and accounting teams a faster way to match payments, review exceptions, and close the books without enterprise software overhead.</p>
-</div>
-<div class="duo">
-<article class="feature-card">
-
-
-<div class="card-copy">
-<div class="card-kicker">Small business</div>
-<h3>High invoice volume, without the ERP.</h3>
-<p>Match bank deposits to open invoices, handle partial payments and fees, and get to a clean review queue faster.</p>
-</div><img alt="Small business with a high volume of invoices" src="assets/small-business.webp"/></article>
-<article class="feature-card">
-
-
-<div class="card-copy">
-<div class="card-kicker">Accounting firms</div>
-<h3>One reconciliation workflow across every client.</h3>
-<p>Centralize close work across multiple businesses while keeping matching logic, explanations, and audit history consistent.</p>
-</div><img alt="Accounting firm managing multiple client businesses" src="assets/accounting-firms.webp"/></article>
-</div>
-</div>
-</section>
-<section class="tint" id="thinking">
-<div class="container">
-<div class="section-head">
-<div class="eyebrow">How Fincline thinks</div>
-<h2>Rules match. AI explains. You confirm.</h2>
-<p>Deterministic matching first, explainable assistance second, explicit approval before anything leaves the review queue.</p>
-</div>
-<div class="grid2">
-<article class="feature-card">
-
-
-<div class="card-copy"><div class="card-kicker">Rules engine</div><h3>Deterministic matching.</h3><p>Invoice and payment data move through auditable matching logic before a result is surfaced.</p></div><img alt="Rules engine matching payments and invoices" src="assets/rules-engine.webp"/></article>
-<article class="feature-card">
-
-
-<div class="card-copy"><div class="card-kicker">Fincline Agent</div><h3>AI-assisted reasoning.</h3><p>Amount, payer, history, timing, and ambiguity are explained so the reviewer knows why a match is being suggested.</p></div><img alt="Fincline Agent reviewing a payment and invoice match" src="assets/fincline-agent.webp"/></article>
-<article class="feature-card">
-
-
-<div class="card-copy"><div class="card-kicker">Human approval</div><h3>You stay in control.</h3><p>Review suggested matches, confirm the ones you trust, and keep exceptions separate for follow-up.</p></div><img alt="Human approval review screen" src="assets/human-approval.webp"/></article>
-<article class="feature-card">
-
-
-<div class="card-copy"><div class="card-kicker">Audit trail</div><h3>Every action is traceable.</h3><p>Matches, confirmations, changes, and exports remain visible with user and timestamp context.</p></div><img alt="Audit trail and activity history" src="assets/audit-trail.webp"/></article>
-</div>
-</div>
-</section>
-<section id="inputs">
-<div class="container">
-<div class="section-head">
-<div class="eyebrow">Bring your data in</div>
-<h2>Payments and invoices converge into one review workflow.</h2>
-<p>Fincline is designed to accept the payment and invoice data your team already works with, normalize it, and prepare it for reconciliation.</p>
-</div>
-<div class="duo">
-<article class="feature-card">
-
-
-<div class="card-copy">
-<div class="card-kicker">Payment import</div>
-<h3>Bank, card, ACH and uploaded files.</h3>
-<p>Bring transaction activity into one intake layer instead of reconciling across scattered statements and files.</p>
-</div><img alt="Bank, card, ACH, PDF and CSV payment import" src="assets/bank-payment-import.webp"/></article>
-<article class="feature-card">
-
-
-<div class="card-copy">
-<div class="card-kicker">Invoice &amp; accounting sync</div>
-<h3>Invoices in. Confirmed records out.</h3>
-<p>Import receivables, prepare matched records for review, and sync confirmed results into your accounting workflow.</p>
-</div><img alt="Invoice import and accounting ledger sync" src="assets/invoice-accounting-sync.webp"/></article>
-</div>
-</div>
-</section>
-<section class="tint" id="how">
-<div class="container">
-<div class="section-head">
-<div class="eyebrow">How it works</div>
-<h2>From raw transactions to a traceable close.</h2>
-<p>The complete Fincline flow keeps matching, AI review, human approval, and audit history connected in one process.</p>
-</div>
-<div class="workflow-visual">
-<img alt="Fincline end-to-end reconciliation workflow" src="assets/reconciliation-workflow.webp"/>
-</div>
-<div class="workflow">
-<div class="step"><div class="step-num">01 / IMPORT</div><h3>Payments &amp; invoices</h3><p>Bring both sides of the reconciliation into Fincline.</p></div>
-<div class="step"><div class="step-num">02 / MATCH</div><h3>Rules engine</h3><p>Deterministic rules identify likely matches and exceptions.</p></div>
-<div class="step"><div class="step-num">03 / REVIEW</div><h3>AI reasoning</h3><p>Fincline explains the match and highlights ambiguity.</p></div>
-<div class="step"><div class="step-num">04 / APPROVE</div><h3>Human validation</h3><p>A user explicitly confirms before anything moves forward.</p></div>
-<div class="step"><div class="step-num">05 / TRACE</div><h3>Audit &amp; export</h3><p>Confirmed work stays traceable and ready for accounting.</p></div>
-</div>
-</div>
-</section>
-<div class="container">
-<div class="cta">
-<div>
-<div class="eyebrow">Fincline</div>
-<h2>Stop spending hours matching transactions manually.</h2>
-<p>See what your reconciliation workflow could look like with Fincline.</p>
-</div>
-<a class="btn btn-primary" href="mailto:hello@fincline.com?subject=Demo request">Request a demo</a>
-</div>
-</div>
-</main>
-<footer>
-<div class="container footer-row">
-<img alt="Fincline" class="footer-logo" src="assets/fincline-logo.png"/>
-<div>Fincline · Payment reconciliation for small business teams</div>
-</div>
-</footer>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Fincline home"><img class="brand-logo" src="data:image/png;base64,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" alt="Fincline"></a>
+      <nav class="nav-links" id="navlinks" aria-label="Main navigation">
+        <a href="#why">Why Fincline</a><a href="#approach">Our approach</a><a href="#workflow">How it works</a><a href="#who">Who it's for</a><a href="#trust">Trust & control</a>
+      </nav>
+      <div class="nav-actions"><a class="button button-outline" href="mailto:hello@fincline.com?subject=Fincline%20demo%20request">Request a demo <span aria-hidden="true">↗</span></a><button class="mobile-menu" id="menu" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button></div>
+    </div>
+  </header>
+  <main id="top">
+    <div class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow light">PAYMENT RECONCILIATION, SIMPLIFIED</p>
+          <h1>Match payments to invoices <span class="highlight">with confidence.</span></h1>
+          <p class="lead">Fincline uses auditable rules to identify payment-to-invoice matches, then explains the evidence in plain English. Your accounting team reviews exceptions, confirms decisions, and stays in control — without an enterprise ERP.</p>
+          <div class="hero-actions"><a href="mailto:hello@fincline.com?subject=Fincline%20demo%20request" class="button button-primary">Request a demo <span aria-hidden="true">↗</span></a><a href="#workflow" class="button button-outline">Explore the workflow</a></div>
+          <p class="hero-note">Designed for small businesses and accounting firms · Beta inquiries welcome</p>
+          <div class="mini-rule"></div>
+          <div class="hero-strip"><span>Rule-based matching</span><span>Evidence-led AI explanations</span><span>Human approval</span></div>
+        </div>
+        <div>
+          <div class="demo-shell" role="img" aria-label="Illustrative match review: invoice $5,900, payment $6,000, $100 overpayment, invoice reference found, confidence score 40, needs review">
+            <div class="demo-top"><div><div class="tiny">FINCLINE / MATCH REVIEW</div><div class="demo-name" style="margin-top:4px">Payment reconciliation</div></div><span class="pill">Needs review</span></div>
+            <div class="demo-sub">Reference found in transaction description · INV-AR-1003</div>
+            <div class="amount-grid"><div class="amount-box"><label>Invoice amount</label><b>$5,900</b></div><div class="amount-box"><label>Payment amount</label><b>$6,000</b></div><div class="amount-box"><label>Variance</label><b>+$100</b></div></div>
+            <div class="evidence"><div class="evidence-head"><strong>Why this match was suggested</strong><span class="score">Score 40</span></div><div class="evidence-row"><span class="tick">✓</span><span><strong>Invoice reference found</strong><br>Payment description contains invoice number INV-AR-1003.</span></div><div class="info-note">The payment has invoice reference evidence, but exceeds the invoice amount. Review the variance before confirming.</div></div>
+            <div class="demo-foot"><span>Recommended action</span><strong>Review variance</strong></div>
+          </div>
+          <p class="demo-disclaimer">Illustrative example, not a live transaction. USD shown for demonstration.</p>
+        </div>
+      </div>
+    </div>
+    <div class="trust-band"><div class="container trust-grid"><div class="trust-item"><b>Deterministic rules</b><span>Matching logic you can inspect</span></div><div class="trust-item"><b>Clear explanations</b><span>Based only on match evidence</span></div><div class="trust-item"><b>Accountant-led review</b><span>No silent confirmations</span></div><div class="trust-item"><b>Traceable decisions</b><span>Audit-ready workflow records</span></div></div></div>
+    <section class="content-section" id="why"><div class="container"><div class="section-head-split"><div><p class="eyebrow">THE CHALLENGE</p><h2>Reconciliation should not depend on spreadsheets and guesswork.</h2></div><p>Bank transactions, invoice exports, and payment references often arrive in different formats. Tracking down partial payments, missing references, or unexpected amounts turns routine close work into manual investigation.</p></div><div class="grid-3"><div class="panel"><div class="index">01 / MANUAL COMPARISON</div><h3>Too many records to cross-check.</h3><p>Teams compare bank activity with open invoices, often across multiple spreadsheets and client systems.</p></div><div class="panel"><div class="index">02 / EXCEPTIONS</div><h3>Not every payment fits neatly.</h3><p>Overpayments, partial payments, fees, and unclear memos require extra research and judgment.</p></div><div class="panel"><div class="index">03 / REVIEW</div><h3>Context is hard to reconstruct.</h3><p>Without clear supporting evidence, reviewers spend more time understanding why a match was proposed.</p></div></div></div></section>
+    <section class="content-section muted-section" id="approach"><div class="container"><div class="section-header"><p class="eyebrow">THE FINCLINE APPROACH</p><h2>Rules match. AI explains.<br>You confirm.</h2><p>Technology should accelerate the review process without taking financial judgment away from the accountant.</p></div><div class="grid-3"><div class="panel"><span class="tag">01 · RULES ENGINE</span><h3>Deterministic matching</h3><p>Evaluates payments and invoices using defined matching signals, including invoice references and amount relationships. The rules engine calculates scores and variances.</p></div><div class="panel"><span class="tag">02 · FINCLINE AGENT</span><h3>Plain-English explanations</h3><p>Turns the rules engine's supplied evidence into a clear explanation of why a match was suggested — without inventing signals, scoring, or financial calculations.</p></div><div class="panel"><span class="tag">03 · YOUR ACCOUNTING TEAM</span><h3>Human review and approval</h3><p>Review suggested matches, investigate exceptions, and explicitly confirm each decision before moving results into the reconciliation workflow.</p></div></div><div class="quote">“Rules identify the match. Your team makes the decision.”</div></div></section>
+    <section class="content-section" id="workflow"><div class="container split"><div class="section-header"><p class="eyebrow">HOW IT WORKS</p><h2>From raw transactions to a traceable close.</h2><p>A straightforward workflow built around the records your accounting team already uses.</p></div><div class="number-list"><div class="number-item"><div class="num">01</div><div><h3>Import payments</h3><p>Bring in payment records from bank statements or supported transaction files.</p></div></div><div class="number-item"><div class="num">02</div><div><h3>Import invoices</h3><p>Bring in accounts receivable or payable invoice data, including supported QuickBooks workflows.</p></div></div><div class="number-item"><div class="num">03</div><div><h3>Review suggested matches</h3><p>Rule-driven matches and exception cases are presented with their supporting evidence and AI-written explanations.</p></div></div><div class="number-item"><div class="num">04</div><div><h3>Confirm, reconcile, and export</h3><p>Accountants confirm reviewed matches. Approved results become available for reconciliation and supported export workflows.</p></div></div></div></div></section>
+    <section class="content-section muted-section" id="who"><div class="container"><div class="section-header"><p class="eyebrow">WHO WE SERVE</p><h2>Built for accounting work<br>without ERP complexity.</h2><p>Fincline supports teams that manage meaningful invoice volume and need a more consistent way to reconcile incoming payments.</p></div><div class="audience-grid"><div class="panel audience-panel"><span class="tag">ACCOUNTING PRACTICES</span><h3>Accounting firms managing multiple clients</h3><p>Give staff a repeatable approach to payment matching, exception review, and documentation across separate client businesses.</p><ul><li>Consistent reconciliation workflow</li><li>Clear evidence for reviewer handoffs</li><li>Rule-driven matching with explicit approval</li></ul></div><div class="panel audience-panel"><span class="tag">SMALL & MID-SIZED BUSINESSES</span><h3>Teams with high invoice volume</h3><p>Reduce manual payment-to-invoice cross-checking while keeping your existing accounting process and staff in control.</p><ul><li>Less repetitive comparison work</li><li>Better visibility into mismatches</li><li>Structured, export-ready review results</li></ul></div></div></div></section>
+    <section class="content-section" id="trust"><div class="container"><div class="value-head"><p class="eyebrow">TRUST & CONTROL</p><h2>Clarity behind every decision.<br>Control at every step.</h2></div><div class="value-cols"><div class="value-list"><div class="value-item"><h3>Read-only until you confirm</h3><p>No match is silently approved. Users must review and explicitly confirm accounting decisions.</p></div><div class="value-item"><h3>Explainable evidence</h3><p>Explanations reflect the rule signals and amounts supplied by Fincline's matching engine — not unverified AI assumptions.</p></div><div class="value-item"><h3>Dedicated exception review</h3><p>Potential overpayments, partial payments, and ambiguous matches can be reviewed before being finalized.</p></div></div><div class="blue-panel"><p class="eyebrow">DESIGNED FOR ACCOUNTABILITY</p><h3>The evidence stays with the decision.</h3><p>Review what matched, what requires attention, and what was confirmed. A clear activity trail supports collaboration and later investigation.</p><div class="inline-stat"><b>01</b><span>Rule evidence shown with the suggested match</span></div><div class="inline-stat"><b>02</b><span>Human confirmation before results move forward</span></div><div class="inline-stat"><b>03</b><span>Confirmation and export actions remain traceable</span></div></div></div></div></section>
+    <section class="cta-section"><div class="container cta-inner"><div><p class="eyebrow light">JOIN THE FINCLINE BETA</p><h2>See how Fincline fits your workflow.</h2><p>We're speaking with accounting firms and businesses interested in evaluating payment reconciliation with realistic workflows. Start with a conversation and a tailored demonstration.</p></div><div class="cta-actions"><a href="mailto:hello@fincline.com?subject=Interested%20in%20Fincline%20beta" class="button button-primary">Join the beta <span aria-hidden="true">↗</span></a><a href="mailto:hello@fincline.com?subject=Fincline%20demo%20request" class="button button-outline">Request a demo</a></div></div></section>
+  </main>
+  <footer><div class="container"><div class="footer-grid"><div><a href="#top"><img src="data:image/png;base64,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" alt="Fincline" class="footer-logo"></a><p>Payment reconciliation for small businesses and accounting firms. A product of Neomite Labs LLC, California.</p></div><div class="footer-links"><a href="#why">Why Fincline</a><a href="#workflow">How it works</a><a href="mailto:hello@fincline.com">hello@fincline.com</a><a href="https://fincline.com">fincline.com</a></div></div><div class="footer-bottom"><span>© 2026 Neomite Labs LLC. All rights reserved.</span><span>Fincline supports accounting workflows. Review financial information before finalizing entries.</span></div></div></footer>
+  <script>
+    const menu=document.getElementById('menu');const links=document.getElementById('navlinks');
+    menu.addEventListener('click',()=>{const expanded=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!expanded));links.classList.toggle('open',!expanded)});
+    links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
+  </script>
 </body>
 </html>
